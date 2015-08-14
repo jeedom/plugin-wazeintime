@@ -19,22 +19,22 @@
 /* * ***************************Includes********************************* */
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
-class wazeduration extends eqLogic {
+class wazeintime extends eqLogic {
     /*     * *************************Attributs****************************** */
     
     public static function cron30($_eqlogic_id = null) {
 		if($_eqlogic_id !== null){
 			$eqLogics = array(eqLogic::byId($_eqlogic_id));
 		}else{
-			$eqLogics = eqLogic::byType('wazeduration');
+			$eqLogics = eqLogic::byType('wazeintime');
 		}
-        foreach ($eqLogics as $wazeduration) {
-			if ($wazeduration->getIsEnable() == 1) {
-				log::add('wazeduration', 'debug', 'Pull Cron pour Waze Duration');
-                $latdepart=$wazeduration->getConfiguration('latdepart');
-                $londepart=$wazeduration->getConfiguration('londepart');
-                $latarrive=$wazeduration->getConfiguration('latarrive');
-                $lonarrive=$wazeduration->getConfiguration('lonarrive');
+        foreach ($eqLogics as $wazeintime) {
+			if ($wazeintime->getIsEnable() == 1) {
+				log::add('wazeintime', 'debug', 'Pull Cron pour Waze Duration');
+                $latdepart=$wazeintime->getConfiguration('latdepart');
+                $londepart=$wazeintime->getConfiguration('londepart');
+                $latarrive=$wazeintime->getConfiguration('latarrive');
+                $lonarrive=$wazeintime->getConfiguration('lonarrive');
                 $wazeRouteurl = "https://www.waze.com/row-RoutingManager/routingRequest?from=x%3A$londepart+y%3A$latdepart&to=x%3A$lonarrive+y%3A$latarrive&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At";
 				$wazeRoutereturl = "https://www.waze.com/row-RoutingManager/routingRequest?from=x%3A$lonarrive+y%3A$latarrive&to=x%3A$londepart+y%3A$latdepart&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At";
 				$routeResponseText = file_get_contents($wazeRouteurl);
@@ -69,7 +69,7 @@ class wazeduration extends eqLogic {
                 }
                 $route1retTotalTimeMin = round($route1retTotalTimeSec/60);
                 $route2retTotalTimeMin = round($route2retTotalTimeSec/60);
-				foreach ($wazeduration->getCmd('info') as $cmd) {
+				foreach ($wazeintime->getCmd('info') as $cmd) {
 					switch ($cmd->getName()) {
 						case 'Durée 1':
 							$value=$route1TotalTimeMin;
@@ -92,10 +92,10 @@ class wazeduration extends eqLogic {
 					}
 					if ($value==0 ||$value != 'old'){
 						$cmd->event($value);
-						log::add('wazeduration','debug','set:'.$cmd->getName().' to '. $value);
+						log::add('wazeintime','debug','set:'.$cmd->getName().' to '. $value);
 					}
 				}
-                $wazeduration->refreshWidget();
+                $wazeintime->refreshWidget();
 			}
 		}
 	}
@@ -121,7 +121,7 @@ class wazeduration extends eqLogic {
         
         $routename1 = $this->getCmd(null, 'routename1');
 		if (!is_object($routename1)) {
-			$routename1 = new wazedurationCmd();
+			$routename1 = new wazeintimeCmd();
 			$routename1->setLogicalId('routename1');
 			$routename1->setIsVisible(1);
             $routename1->setOrder(3);
@@ -136,7 +136,7 @@ class wazeduration extends eqLogic {
         
         $time1 = $this->getCmd(null, 'time1');
 		if (!is_object($time1)) {
-			$time1 = new wazedurationCmd();
+			$time1 = new wazeintimeCmd();
 			$time1->setLogicalId('time1');
             $time1->setUnite('min');
 			$time1->setIsVisible(1);
@@ -152,7 +152,7 @@ class wazeduration extends eqLogic {
         
         $routename2 = $this->getCmd(null, 'routename2');
 		if (!is_object($routename2)) {
-			$routename2 = new wazedurationCmd();
+			$routename2 = new wazeintimeCmd();
 			$routename2->setLogicalId('routename2');
 			$routename2->setIsVisible(1);
             $routename2->setOrder(4);
@@ -167,7 +167,7 @@ class wazeduration extends eqLogic {
         
         $time2 = $this->getCmd(null, 'time2');
 		if (!is_object($time2)) {
-			$time2 = new wazedurationCmd();
+			$time2 = new wazeintimeCmd();
 			$time2->setLogicalId('time2');
 			$time2->setIsVisible(1);
             $time2->setOrder(2);
@@ -183,7 +183,7 @@ class wazeduration extends eqLogic {
         
         $routeretname1 = $this->getCmd(null, 'routeretname1');
 		if (!is_object($routeretname1)) {
-			$routeretname1 = new wazedurationCmd();
+			$routeretname1 = new wazeintimeCmd();
 			$routeretname1->setLogicalId('routeretname1');
 			$routeretname1->setIsVisible(1);
             $routeretname1->setOrder(7);
@@ -198,7 +198,7 @@ class wazeduration extends eqLogic {
         
         $timeret1 = $this->getCmd(null, 'timeret1');
 		if (!is_object($timeret1)) {
-			$timeret1 = new wazedurationCmd();
+			$timeret1 = new wazeintimeCmd();
 			$timeret1->setLogicalId('timeret1');
             $timeret1->setUnite('min');
 			$timeret1->setIsVisible(1);
@@ -214,7 +214,7 @@ class wazeduration extends eqLogic {
         
         $routeretname2 = $this->getCmd(null, 'routeretname2');
 		if (!is_object($routeretname2)) {
-			$routeretname2 = new wazedurationCmd();
+			$routeretname2 = new wazeintimeCmd();
 			$routeretname2->setLogicalId('routeretname2');
 			$routeretname2->setIsVisible(1);
             $routeretname2->setOrder(8);
@@ -229,7 +229,7 @@ class wazeduration extends eqLogic {
         
         $timeret2 = $this->getCmd(null, 'timeret2');
 		if (!is_object($timeret2)) {
-			$timeret2 = new wazedurationCmd();
+			$timeret2 = new wazeintimeCmd();
 			$timeret2->setLogicalId('timeret2');
 			$timeret2->setIsVisible(1);
             $timeret2->setOrder(6);
@@ -245,7 +245,7 @@ class wazeduration extends eqLogic {
         
         $refresh = $this->getCmd(null, 'refresh');
 		if (!is_object($refresh)) {
-			$refresh = new wazedurationCmd();
+			$refresh = new wazeintimeCmd();
 			$refresh->setLogicalId('refresh');
 			$refresh->setIsVisible(1);
             $refresh->setOrder(9);
@@ -298,12 +298,12 @@ class wazeduration extends eqLogic {
 			}
 		}
 
-		$html = template_replace($replace, getTemplate('core', $_version, 'eqlogic', 'wazeduration'));
+		$html = template_replace($replace, getTemplate('core', $_version, 'eqlogic', 'wazeintime'));
 		return $html;
 	}
 }
 
-class wazedurationCmd extends cmd {
+class wazeintimeCmd extends cmd {
     /*     * *************************Attributs****************************** */
 
 

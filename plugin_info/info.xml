@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <info>
-    <id>wazeduration</id>
-    <name>Waze Duration</name>
+    <id>wazeintime</id>
+    <name>Waze in Time</name>
     <description>Plugin pour avoir la durée de trajet entre deux points</description>
     <icon>icon transport-car95</icon>
     <licence>AGPL</licence>

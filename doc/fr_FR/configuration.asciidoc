@@ -12,7 +12,7 @@ image:../images/configuration1.jpg[width=380]
 
 Ensuite vous arriverez sur la page qui listera vos équipements (vous pouvez avoir plusieurs Trajets) et qui vous permettra d'en créer
 
-image:../images/wazeduration_screenshot2.jpg[width=380]
+image:../images/wazeintime_screenshot2.jpg[width=380]
 
 Cliquez sur le bouton Ajouter un Trajet ou sur le bouton + :
 
@@ -20,7 +20,7 @@ image:../images/config2.jpg[width=180]
 
 Vous arriverez ensuite sur la page de configuration de votre Trajet:
 
-image:../images/wazeduration_screenshot3.jpg[width=600]
+image:../images/wazeintime_screenshot3.jpg[width=600]
 
 Sur cette page vous trouverez trois sections :
 
@@ -57,7 +57,7 @@ Toutes ces commandes sont disponibles via scénarios et via le dashboard
 
 ==== Le widget :
 
-image:../images/wazeduration_screenshot1.jpg[width=256]
+image:../images/wazeintime_screenshot1.jpg[width=256]
 
 * Le bouton en haut à droite permet de rafraichir les infos.
 * Toutes les infos sont visibles (pour les trajets, si le trajet est long, il peut être tronquée mais la version complète est visible en laissant la souris dessus)

@@ -3,8 +3,8 @@ if (!isConnect('admin')) {
     throw new Exception('{{401 - Accès non autorisé}}');
 }
 
-sendVarToJS('eqType', 'wazeduration');
-$eqLogics = eqLogic::byType('wazeduration');
+sendVarToJS('eqType', 'wazeintime');
+$eqLogics = eqLogic::byType('wazeintime');
 ?>
 <div class="row row-overflow">
     <div class="col-lg-2">
@@ -34,7 +34,7 @@ $eqLogics = eqLogic::byType('wazeduration');
                 foreach ($eqLogics as $eqLogic) {
                     echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >';
                     echo "<center>";
-                    echo '<img src="plugins/wazeduration/doc/images/wazeduration_icon.png" height="105" width="95" />';
+                    echo '<img src="plugins/wazeintime/doc/images/wazeintime_icon.png" height="105" width="95" />';
                     echo "</center>";
                     echo '<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"><center>' . $eqLogic->getHumanName(true, true) . '</center></span>';
                     echo '</div>';
@@ -139,5 +139,5 @@ $eqLogics = eqLogic::byType('wazeduration');
     </div>
 </div>
 
-<?php include_file('desktop', 'wazeduration', 'js', 'wazeduration'); ?>
+<?php include_file('desktop', 'wazeintime', 'js', 'wazeintime'); ?>
 <?php include_file('core', 'plugin.template', 'js'); ?>
