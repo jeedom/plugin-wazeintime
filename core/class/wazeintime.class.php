@@ -40,9 +40,11 @@ class wazeintime extends eqLogic {
 				$routeResponseText = file_get_contents($wazeRouteurl);
                 $routeResponseJson = json_decode($routeResponseText,true);
                 $route1Name = $routeResponseJson['alternatives'][0]['response']['routeName'];  
-                $route2Name = $routeResponseJson['alternatives'][1]['response']['routeName'];
+                $route2Name = $routeResponseJson['alternatives'][1]['response']['routeName'];  
+                $route3Name = $routeResponseJson['alternatives'][2]['response']['routeName'];
                 $route1 = $routeResponseJson['alternatives'][0]['response']['results'];
                 $route2 = $routeResponseJson['alternatives'][1]['response']['results'];
+                $route3 = $routeResponseJson['alternatives'][2]['response']['results'];
                 $route1TotalTimeSec = 0;
                 foreach ($route1 as $street){
                     $route1TotalTimeSec += $street['crossTime'];
@@ -51,14 +53,21 @@ class wazeintime extends eqLogic {
                 foreach ($route2 as $street){
                     $route2TotalTimeSec += $street['crossTime'];
                 }
+                $route3TotalTimeSec = 0;
+                foreach ($route3 as $street){
+                    $route3TotalTimeSec += $street['crossTime'];
+                }
                 $route1TotalTimeMin = round($route1TotalTimeSec/60);
                 $route2TotalTimeMin = round($route2TotalTimeSec/60);
+                $route3TotalTimeMin = round($route3TotalTimeSec/60);
                 $routeretResponseText = file_get_contents($wazeRoutereturl);
                 $routeretResponseJson = json_decode($routeretResponseText,true);
                 $route1retName = $routeretResponseJson['alternatives'][0]['response']['routeName'];  
-                $route2retName = $routeretResponseJson['alternatives'][1]['response']['routeName'];
+                $route2retName = $routeretResponseJson['alternatives'][1]['response']['routeName'];  
+                $route3retName = $routeretResponseJson['alternatives'][2]['response']['routeName'];
                 $routeret1 = $routeretResponseJson['alternatives'][0]['response']['results'];
                 $routeret2 = $routeretResponseJson['alternatives'][1]['response']['results'];
+                $routeret3 = $routeretResponseJson['alternatives'][2]['response']['results'];
                 $route1retTotalTimeSec = 0;
                 foreach ($routeret1 as $street){
                     $route1retTotalTimeSec += $street['crossTime'];
@@ -67,8 +76,13 @@ class wazeintime extends eqLogic {
                 foreach ($routeret2 as $street){
                     $route2retTotalTimeSec += $street['crossTime'];
                 }
+                $route3retTotalTimeSec = 0;
+                foreach ($routeret3 as $street){
+                    $route3retTotalTimeSec += $street['crossTime'];
+                }
                 $route1retTotalTimeMin = round($route1retTotalTimeSec/60);
                 $route2retTotalTimeMin = round($route2retTotalTimeSec/60);
+                $route3retTotalTimeMin = round($route3retTotalTimeSec/60);
 				foreach ($wazeintime->getCmd('info') as $cmd) {
 					switch ($cmd->getName()) {
 						case 'Durée 1':
@@ -76,19 +90,27 @@ class wazeintime extends eqLogic {
 						break;
 						case 'Durée 2':
 							$value=$route2TotalTimeMin; break;
+						case 'Durée 3':
+							$value=$route3TotalTimeMin; break;
 						case 'Trajet 1':
 							$value=$route1Name; break;
 						case 'Trajet 2':
 							$value=$route2Name; break;
+						case 'Trajet 3':
+							$value=$route3Name; break;
                         case 'Durée retour 1':
 							$value=$route1retTotalTimeMin;
 						break;
 						case 'Durée retour 2':
 							$value=$route2retTotalTimeMin; break;
+						case 'Durée retour 3':
+							$value=$route3retTotalTimeMin; break;
 						case 'Trajet retour 1':
 							$value=$route1retName; break;
 						case 'Trajet retour 2':
 							$value=$route2retName; break;
+						case 'Trajet retour 3':
+							$value=$route3retName; break;
 					}
 					if ($value==0 ||$value != 'old'){
 						$cmd->event($value);
@@ -124,7 +146,6 @@ class wazeintime extends eqLogic {
 			$routename1 = new wazeintimeCmd();
 			$routename1->setLogicalId('routename1');
 			$routename1->setIsVisible(1);
-            $routename1->setOrder(3);
 			$routename1->setName(__('Trajet 1', __FILE__));
 		}
         $routename1->setType('info');
@@ -140,7 +161,6 @@ class wazeintime extends eqLogic {
 			$time1->setLogicalId('time1');
             $time1->setUnite('min');
 			$time1->setIsVisible(1);
-            $time1->setOrder(1);
 			$time1->setName(__('Durée 1', __FILE__));
 		}
         $time1->setType('info');
@@ -155,7 +175,6 @@ class wazeintime extends eqLogic {
 			$routename2 = new wazeintimeCmd();
 			$routename2->setLogicalId('routename2');
 			$routename2->setIsVisible(1);
-            $routename2->setOrder(4);
 			$routename2->setName(__('Trajet 2', __FILE__));
 		}
         $routename2->setType('info');
@@ -170,7 +189,6 @@ class wazeintime extends eqLogic {
 			$time2 = new wazeintimeCmd();
 			$time2->setLogicalId('time2');
 			$time2->setIsVisible(1);
-            $time2->setOrder(2);
 			$time2->setName(__('Durée 2', __FILE__));
 		}
         $time2->setType('info');
@@ -181,12 +199,40 @@ class wazeintime extends eqLogic {
 		$time2->setEqLogic_id($this->getId());
 		$time2->save();
         
+        $routename3 = $this->getCmd(null, 'routename3');
+		if (!is_object($routename3)) {
+			$routename3 = new wazeintimeCmd();
+			$routename3->setLogicalId('routename3');
+			$routename3->setIsVisible(1);
+			$routename3->setName(__('Trajet 3', __FILE__));
+		}
+        $routename3->setType('info');
+		$routename3->setSubType('string');
+		$routename3->setConfiguration('onlyChangeEvent',1);
+		$routename3->setEventOnly(1);
+		$routename3->setEqLogic_id($this->getId());
+		$routename3->save();
+        
+        $time3 = $this->getCmd(null, 'time3');
+		if (!is_object($time3)) {
+			$time3 = new wazeintimeCmd();
+			$time3->setLogicalId('time3');
+			$time3->setIsVisible(1);
+			$time3->setName(__('Durée 3', __FILE__));
+		}
+        $time3->setType('info');
+		$time3->setSubType('numeric');
+        $time3->setUnite('min');
+		$time3->setConfiguration('onlyChangeEvent',1);
+		$time3->setEventOnly(1);
+		$time3->setEqLogic_id($this->getId());
+		$time3->save();
+        
         $routeretname1 = $this->getCmd(null, 'routeretname1');
 		if (!is_object($routeretname1)) {
 			$routeretname1 = new wazeintimeCmd();
 			$routeretname1->setLogicalId('routeretname1');
 			$routeretname1->setIsVisible(1);
-            $routeretname1->setOrder(7);
 			$routeretname1->setName(__('Trajet retour 1', __FILE__));
 		}
         $routeretname1->setType('info');
@@ -202,7 +248,6 @@ class wazeintime extends eqLogic {
 			$timeret1->setLogicalId('timeret1');
             $timeret1->setUnite('min');
 			$timeret1->setIsVisible(1);
-            $timeret1->setOrder(5);
 			$timeret1->setName(__('Durée retour 1', __FILE__));
 		}
         $timeret1->setType('info');
@@ -217,7 +262,6 @@ class wazeintime extends eqLogic {
 			$routeretname2 = new wazeintimeCmd();
 			$routeretname2->setLogicalId('routeretname2');
 			$routeretname2->setIsVisible(1);
-            $routeretname2->setOrder(8);
 			$routeretname2->setName(__('Trajet retour 2', __FILE__));
 		}
         $routeretname2->setType('info');
@@ -232,7 +276,6 @@ class wazeintime extends eqLogic {
 			$timeret2 = new wazeintimeCmd();
 			$timeret2->setLogicalId('timeret2');
 			$timeret2->setIsVisible(1);
-            $timeret2->setOrder(6);
 			$timeret2->setName(__('Durée retour 2', __FILE__));
 		}
         $timeret2->setType('info');
@@ -243,12 +286,40 @@ class wazeintime extends eqLogic {
 		$timeret2->setEqLogic_id($this->getId());
 		$timeret2->save();
         
+        $routeretname3 = $this->getCmd(null, 'routeretname3');
+		if (!is_object($routeretname3)) {
+			$routeretname3 = new wazeintimeCmd();
+			$routeretname3->setLogicalId('routeretname3');
+			$routeretname3->setIsVisible(1);
+			$routeretname3->setName(__('Trajet retour 3', __FILE__));
+		}
+        $routeretname3->setType('info');
+		$routeretname3->setSubType('string');
+		$routeretname3->setConfiguration('onlyChangeEvent',1);
+		$routeretname3->setEventOnly(1);
+		$routeretname3->setEqLogic_id($this->getId());
+		$routeretname3->save();
+        
+        $timeret3 = $this->getCmd(null, 'timeret3');
+		if (!is_object($timeret3)) {
+			$timeret3 = new wazeintimeCmd();
+			$timeret3->setLogicalId(timeret3);
+			$timeret3->setIsVisible(1);
+			$timeret3->setName(__('Durée retour 3', __FILE__));
+		}
+        $timeret3->setType('info');
+		$timeret3->setSubType('numeric');
+        $timeret3->setUnite('min');
+		$timeret3->setConfiguration('onlyChangeEvent',1);
+		$timeret3->setEventOnly(1);
+		$timeret3->setEqLogic_id($this->getId());
+		$timeret3->save();
+        
         $refresh = $this->getCmd(null, 'refresh');
 		if (!is_object($refresh)) {
 			$refresh = new wazeintimeCmd();
 			$refresh->setLogicalId('refresh');
 			$refresh->setIsVisible(1);
-            $refresh->setOrder(9);
 			$refresh->setName(__('Rafraichir', __FILE__));
 		}
 		$refresh->setType('action');
@@ -270,13 +341,20 @@ class wazeintime extends eqLogic {
 		}
 		$_version = jeedom::versionAlias($_version);
 		$background=$this->getBackgroundColor($_version);
+        $hide1=$this->getConfiguration('hide1');
+        $hide2=$this->getConfiguration('hide2');
+        $hide3=$this->getConfiguration('hide3');
 		$replace = array(
 			'#name#' => $this->getName(),
 			'#id#' => $this->getId(),
 			'#background_color#' => $background,
 			'#eqLink#' => $this->getLinkToConfiguration(),
+            '#height#' => $this->getDisplay('height', 'auto'),
+            '#width#' => $this->getDisplay('width', 'auto'),
+            '#hide1#' => $hide1,
+            '#hide2#' => $hide2,
+            '#hide3#' => $hide3,
 		);
-
 		foreach ($this->getCmd('info') as $cmd) {
 			$replace['#' . $cmd->getLogicalId() . '_history#'] = '';
                 $replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();

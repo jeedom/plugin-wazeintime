@@ -92,26 +92,33 @@ $eqLogics = eqLogic::byType('wazeintime');
                 <div class="form-group">
                     <label class="col-lg-1 control-label"><i class="icon maison-house109"></i> {{Départ}}</label>
                     <label class="col-lg-1 control-label">{{Latitude}}</label>
-                    <div class="col-lg-1">
+                    <div class="col-lg-2">
                         <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="latdepart" placeholder="{{48.856614}}"/>
                     </div>
 					<label class="col-lg-1 control-label">{{Longitude}}</label>
-                    <div class="col-lg-1">
+                    <div class="col-lg-2">
                         <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="londepart" placeholder="{{2.3522219000000177}}"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-1 control-label"><i class="fa fa-location-arrow"></i> {{Arrivée}}</label>
                     <label class="col-lg-1 control-label">{{Latitude}}</label>
-                    <div class="col-lg-1">
+                    <div class="col-lg-2">
                         <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="latarrive" placeholder="{{48.856614}}"/>
                     </div>
 					<label class="col-lg-1 control-label">{{Longitude}}</label>
-                    <div class="col-lg-1">
+                    <div class="col-lg-2">
                         <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="lonarrive" placeholder="{{2.3522219000000177}}"/>
                     </div>
                 </div>
                <a class="col-lg-4 control-label" href="http://www.coordonnees-gps.fr/" target="_blank"><i class="icon nature-planet5"></i> Cliquez-ici pour retrouver vos coordonnées</a>
+            <legend><i class="fa fa-wrench"></i>  {{Affichage}}</legend>
+             <div class="form-group">
+               <label class="col-lg-2 control-label">{{Masquer trajet :}}</label>
+                 <input type="checkbox" class="eqLogicAttr bootstrapSwitch" data-label-text="{{1}}" data-l1key="configuration" data-l2key="hide1" checked/>
+                  <input type="checkbox" class="eqLogicAttr bootstrapSwitch" data-label-text="{{2}}" data-l1key="configuration" data-l2key="hide2" checked/>
+                  <input type="checkbox" class="eqLogicAttr bootstrapSwitch" data-label-text="{{3}}" data-l1key="configuration" data-l2key="hide3" checked/>
+                </div>
             </fieldset> 
             
         </form>
