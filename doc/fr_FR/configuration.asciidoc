@@ -1,106 +1,67 @@
-==== Configuration du plugin Jeedom :
+==== Configuration du plugin:
 
 .. Installation/Création
 
 Afin d'utiliser le plugin, vous devez le télécharger, l'installer et l'activer comme tout plugin Jeedom.
 
-Suite à cela il vous faudra créer votre équippement Kodi :
+Suite à cela il vous faudra créer votre ou vos trajets :
 
-Rendez vous dans le menu plugins/multimédia, vous y trouverez le plugin Kodi :
+Rendez vous dans le menu plugins/organisation, vous y trouverez le plugin Waze Duration :
 
 image:../images/configuration1.jpg[width=380]
 
-Ensuite vous arriverez sur la page qui listera vos équipements (vous pouvez avoir plusieurs Kodi) et qui vous permettra d'en créer
+Ensuite vous arriverez sur la page qui listera vos équipements (vous pouvez avoir plusieurs Trajets) et qui vous permettra d'en créer
 
-image:../images/kodi_screenshot4.jpg[width=380]
+image:../images/wazeduration_screenshot2.jpg[width=380]
 
-Cliquez sur le bouton Ajouter un Kodi :
+Cliquez sur le bouton Ajouter un Trajet ou sur le bouton + :
 
 image:../images/config2.jpg[width=180]
 
-Vous arriverez ensuite sur la page de configuration de votre Kodi:
+Vous arriverez ensuite sur la page de configuration de votre Trajet:
 
-image:../images/pageconfig1.jpg[width=600]
+image:../images/wazeduration_screenshot3.jpg[width=600]
 
-image:../images/pageconfig2.jpg[width=600]
-
-Sur cette page vous trouverez plusieurs sections :
+Sur cette page vous trouverez trois sections :
 
 ... Général
 
 Vous trouverez dans cette section toutes les configurations jeedom. A savoir
-le nom de votre équippement, l'objet auquel vous voulez l'associer, la catégorie (de préférence multimédia),
+le nom de votre équippement, l'objet auquel vous voulez l'associer, la catégorie,
 si vous voulez que l'équippement soit actif ou non , et enfin si vous voulez qu'il soit visible sur le dashboard.
 
 ... Configuration
 
-Cette section est une des plus importantes elle contient
+Cette section est une des plus importantes elle permet de régler le point de départ et d'arrivée :
 
-* IP : adresse ip de votre kodi (il est important de renseigner l'ip et non pas un hostname). Si Kodi est sur la meme machine
-que jeedom mettez 127.0.0.1. Ce champ est obligatoire
+* Ces infos doivent être les latitudes et longitudes des positions
 
-* Port : le port de communication du serveur web dans kodi (il faut activer le serveur web dans kodi). Ce champ est obligatoire
+* Elles peuvent être retrouvées en utilisant le site fournis en cliquant sur le lien de la page (il vous suffit de rentrer une adresse et de cliquer sur obtenir les coordonnées GPS)
 
-* Nom d'utilisateur : le nom d'utilisateur pour vous connecter à Kodi si vous en avez un
+... Tableau de Commandes
 
-* Mot de passe : le mot de passe pour se connecter à Kodi si vous en avez un. (va de paire avec le nom d'utilisateur)
+image:../images/config3.jpg[width=600]
 
-* MAC Address : l'adresse MAC de la machine pour faire du wake on lan
+* Durée 1 : durée aller avec le trajet 1
+* Durée 2 : durée aller avec le trajet alternatif
+* Trajet 1 : Trajet 1
+* Trajet 2 : Trajet alternatif
+* Durée retour 1 : durée retour avec le trajet 1
+* Durée retour 2 : durée retour avec le trajet alternatif
+* Trajet retour 1 : Trajet retour 1
+* Trajet retour 2 : Trajet retour alternatif
+* Rafraichir : Permet de rafraichir les infos
 
-* Volume +/- : le pas d'incrementation ou de décrémentation du volume (1 à 100)
-
-... Affichage
-
-Dans cette section vous trouverez toutes les personnalisations possibles de votre widget
-
-* Image de fond : actives ou non une image en fond de tuile
-* Couleur des commandes : permet de choisir la couleur des boutons de commandes (plusieurs thèmes seront disponibles dans le futur)
-* Couleur du texte : permet de choisir la couleur du texte de status
-
-image:../images/widgetfond.jpg[width=180]
-image:../images/kodi_screenshot1.jpg[width=180]
-image:../images/kodi_screenshot2.jpg[width=180]
-image:../images/kodi_screenshot3.jpg[width=180]
-image:../images/kodi_screenshot6.jpg[width=180]
-image:../images/widgetpause.jpg[width=180]
-
-Vous pouvez voir qu'avec status vous récupérez :
-
-* le cover
-* le titre
-* le status
-* un petit icone qui apparait en cours de lecture et qui distingue le type de média en cours
-
-D'autres arriveront.
+Toutes ces commandes sont disponibles via scénarios et via le dashboard
 
 
-... Commandes
+==== Le widget :
 
-Dans cette section vous trouverez les groupes de commandes. Il est vivement conseillé de tous les activer pour une expérience optimale.
-Vous pourrez par exemple avoir uniquement la section status :
+image:../images/wazeduration_screenshot1.jpg[width=256]
 
-image:../images/widgetstatusonly.jpg[width=180]
+* Le bouton en haut à droite permet de rafraichir les infos.
+* Toutes les infos sont visibles (pour les trajets, si le trajet est long, il peut être tronquée mais la version complète est visible en laissant la souris dessus)
 
-==== Configuration du plugin Kodi :
+==== Comment sont rafraichis les infos :
 
-Pour pouvoir bénéficier de la remontée des différents status, il est nécessaire
-d'installer un addon sur Kodi. Vous pouvez télécharger cet addon dans la page général du plugin dans Jeedom
-
-image:../images/kodi_screenshot5.jpg[width=380]
-
-Une fois que vous avez récupéré le zip. Il vous suffit de l'installer dans kodi.
-Pour cela il suffit dans Kodi de se rendre dans paramètres/addons/installer depuis un zip.
-
-Une fois fait vous devriez retrouver l'addon dans les addons activés dans la partie service.
-
-image:../images/kodi_screenshot7.jpg[width=580]
-
-Pour configurer l'addon cliquez sur configurer, vous arriverez sur cette page :
-
-image:../images/addondetail.jpg[width=580]
-
-Ici vous trouverez 3 paramètres important à configurer :
-
-* Adresse ip : l'adresse ip de votre jeedom
-* Type de box : mini/ mini+ , ou préciser si vous avez un /jeedom ou non dans votre adresse Jeedom
-* Clé api : votre clé api Jeedom que vous retrouverez dans les paramètres de configuration de jeedom
+Les infos sont rafraichis une fois toutes les 30 minutes.  Vous pouvez les rafraichir à la demande via scénario avec la commande rafraichir, ou via le dash avec les doubles flêches

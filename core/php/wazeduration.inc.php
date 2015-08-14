@@ -19,5 +19,5 @@
 
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
-include_file('core', 'kodi', 'class', 'kodi');
+include_file('core', 'wazeduration', 'class', 'wazeduration');
 ?>

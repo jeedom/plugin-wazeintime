@@ -95,6 +95,7 @@ class wazeduration extends eqLogic {
 						log::add('wazeduration','debug','set:'.$cmd->getName().' to '. $value);
 					}
 				}
+                $wazeduration->refreshWidget();
 			}
 		}
 	}
@@ -258,6 +259,47 @@ class wazeduration extends eqLogic {
     
     public function postUpdate() {
 		$this->cron30($this->getId());
+	}
+    
+    public function toHtml($_version = 'dashboard') {
+		if ($this->getIsEnable() != 1) {
+			return '';
+		}
+		if (!$this->hasRight('r')) {
+			return '';
+		}
+		$_version = jeedom::versionAlias($_version);
+		$background=$this->getBackgroundColor($_version);
+		$replace = array(
+			'#name#' => $this->getName(),
+			'#id#' => $this->getId(),
+			'#background_color#' => $background,
+			'#eqLink#' => $this->getLinkToConfiguration(),
+		);
+
+		foreach ($this->getCmd('info') as $cmd) {
+			$replace['#' . $cmd->getLogicalId() . '_history#'] = '';
+                $replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
+				$replace['#' . $cmd->getLogicalId() . '#'] = $cmd->execCmd();
+				$replace['#' . $cmd->getLogicalId() . '_collect#'] = $cmd->getCollectDate();
+				if ($cmd->getIsHistorized() == 1) {
+					$replace['#' . $cmd->getLogicalId() . '_history#'] = 'history cursor';
+				}
+			
+		}
+
+		$refresh = $this->getCmd(null, 'refresh');
+		$replace['#refresh_id#'] = $refresh->getId();
+
+		$parameters = $this->getDisplay('parameters');
+		if (is_array($parameters)) {
+			foreach ($parameters as $key => $value) {
+				$replace['#' . $key . '#'] = $value;
+			}
+		}
+
+		$html = template_replace($replace, getTemplate('core', $_version, 'eqlogic', 'wazeduration'));
+		return $html;
 	}
 }
 

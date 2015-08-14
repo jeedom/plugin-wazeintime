@@ -1,18 +1,11 @@
-== Kodi
+== Waze Duration
 
 === Description
-Ce plugin permet de commander et recevoir des infos de Kodi.
+Ce plugin permet d'avoir les infos de trajet (traffic pris en compte) via Waze. Ce plugin peux ne plus marcher si Waze n'acceptes plus qu'on interroge son site
 
-image:../images/kodi_screenshot1.jpg[width=256]
+image:../images/wazeduration_screenshot1.jpg[width=256]
 
 '''
 === Configuration
 include::configuration.asciidoc[]
 
-...
-
-=== Informations de statut
-
-include::infos.asciidoc[]
-
-...
