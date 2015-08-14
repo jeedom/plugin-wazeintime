@@ -36,6 +36,7 @@ class wazeduration extends eqLogic {
                 $latarrive=$wazeduration->getConfiguration('latarrive');
                 $lonarrive=$wazeduration->getConfiguration('lonarrive');
                 $wazeRouteurl = "https://www.waze.com/row-RoutingManager/routingRequest?from=x%3A$londepart+y%3A$latdepart&to=x%3A$lonarrive+y%3A$latarrive&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At";
+				$wazeRoutereturl = "https://www.waze.com/row-RoutingManager/routingRequest?from=x%3A$lonarrive+y%3A$latarrive&to=x%3A$londepart+y%3A$latdepart&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At";
 				$routeResponseText = file_get_contents($wazeRouteurl);
                 $routeResponseJson = json_decode($routeResponseText,true);
                 $route1Name = $routeResponseJson['alternatives'][0]['response']['routeName'];  
@@ -52,6 +53,22 @@ class wazeduration extends eqLogic {
                 }
                 $route1TotalTimeMin = round($route1TotalTimeSec/60);
                 $route2TotalTimeMin = round($route2TotalTimeSec/60);
+                $routeretResponseText = file_get_contents($wazeRoutereturl);
+                $routeretResponseJson = json_decode($routeretResponseText,true);
+                $route1retName = $routeretResponseJson['alternatives'][0]['response']['routeName'];  
+                $route2retName = $routeretResponseJson['alternatives'][1]['response']['routeName'];
+                $routeret1 = $routeretResponseJson['alternatives'][0]['response']['results'];
+                $routeret2 = $routeretResponseJson['alternatives'][1]['response']['results'];
+                $route1retTotalTimeSec = 0;
+                foreach ($routeret1 as $street){
+                    $route1retTotalTimeSec += $street['crossTime'];
+                }
+                $route2retTotalTimeSec = 0;
+                foreach ($routeret2 as $street){
+                    $route2retTotalTimeSec += $street['crossTime'];
+                }
+                $route1retTotalTimeMin = round($route1retTotalTimeSec/60);
+                $route2retTotalTimeMin = round($route2retTotalTimeSec/60);
 				foreach ($wazeduration->getCmd('info') as $cmd) {
 					switch ($cmd->getName()) {
 						case 'Durée 1':
@@ -63,6 +80,15 @@ class wazeduration extends eqLogic {
 							$value=$route1Name; break;
 						case 'Trajet 2':
 							$value=$route2Name; break;
+                        case 'Durée retour 1':
+							$value=$route1retTotalTimeMin;
+						break;
+						case 'Durée retour 2':
+							$value=$route2retTotalTimeMin; break;
+						case 'Trajet retour 1':
+							$value=$route1retName; break;
+						case 'Trajet retour 2':
+							$value=$route2retName; break;
 					}
 					if ($value==0 ||$value != 'old'){
 						$cmd->event($value);
@@ -97,6 +123,7 @@ class wazeduration extends eqLogic {
 			$routename1 = new wazedurationCmd();
 			$routename1->setLogicalId('routename1');
 			$routename1->setIsVisible(1);
+            $routename1->setOrder(3);
 			$routename1->setName(__('Trajet 1', __FILE__));
 		}
         $routename1->setType('info');
@@ -112,6 +139,7 @@ class wazeduration extends eqLogic {
 			$time1->setLogicalId('time1');
             $time1->setUnite('min');
 			$time1->setIsVisible(1);
+            $time1->setOrder(1);
 			$time1->setName(__('Durée 1', __FILE__));
 		}
         $time1->setType('info');
@@ -126,6 +154,7 @@ class wazeduration extends eqLogic {
 			$routename2 = new wazedurationCmd();
 			$routename2->setLogicalId('routename2');
 			$routename2->setIsVisible(1);
+            $routename2->setOrder(4);
 			$routename2->setName(__('Trajet 2', __FILE__));
 		}
         $routename2->setType('info');
@@ -140,6 +169,7 @@ class wazeduration extends eqLogic {
 			$time2 = new wazedurationCmd();
 			$time2->setLogicalId('time2');
 			$time2->setIsVisible(1);
+            $time2->setOrder(2);
 			$time2->setName(__('Durée 2', __FILE__));
 		}
         $time2->setType('info');
@@ -150,16 +180,78 @@ class wazeduration extends eqLogic {
 		$time2->setEqLogic_id($this->getId());
 		$time2->save();
         
+        $routeretname1 = $this->getCmd(null, 'routeretname1');
+		if (!is_object($routeretname1)) {
+			$routeretname1 = new wazedurationCmd();
+			$routeretname1->setLogicalId('routeretname1');
+			$routeretname1->setIsVisible(1);
+            $routeretname1->setOrder(7);
+			$routeretname1->setName(__('Trajet retour 1', __FILE__));
+		}
+        $routeretname1->setType('info');
+		$routeretname1->setSubType('string');
+		$routeretname1->setConfiguration('onlyChangeEvent',1);
+		$routeretname1->setEventOnly(1);
+		$routeretname1->setEqLogic_id($this->getId());
+		$routeretname1->save();
+        
+        $timeret1 = $this->getCmd(null, 'timeret1');
+		if (!is_object($timeret1)) {
+			$timeret1 = new wazedurationCmd();
+			$timeret1->setLogicalId('timeret1');
+            $timeret1->setUnite('min');
+			$timeret1->setIsVisible(1);
+            $timeret1->setOrder(5);
+			$timeret1->setName(__('Durée retour 1', __FILE__));
+		}
+        $timeret1->setType('info');
+		$timeret1->setSubType('numeric');
+		$timeret1->setConfiguration('onlyChangeEvent',1);
+		$timeret1->setEventOnly(1);
+		$timeret1->setEqLogic_id($this->getId());
+		$timeret1->save();
+        
+        $routeretname2 = $this->getCmd(null, 'routeretname2');
+		if (!is_object($routeretname2)) {
+			$routeretname2 = new wazedurationCmd();
+			$routeretname2->setLogicalId('routeretname2');
+			$routeretname2->setIsVisible(1);
+            $routeretname2->setOrder(8);
+			$routeretname2->setName(__('Trajet retour 2', __FILE__));
+		}
+        $routeretname2->setType('info');
+		$routeretname2->setSubType('string');
+		$routeretname2->setConfiguration('onlyChangeEvent',1);
+		$routeretname2->setEventOnly(1);
+		$routeretname2->setEqLogic_id($this->getId());
+		$routeretname2->save();
+        
+        $timeret2 = $this->getCmd(null, 'timeret2');
+		if (!is_object($timeret2)) {
+			$timeret2 = new wazedurationCmd();
+			$timeret2->setLogicalId('timeret2');
+			$timeret2->setIsVisible(1);
+            $timeret2->setOrder(6);
+			$timeret2->setName(__('Durée retour 2', __FILE__));
+		}
+        $timeret2->setType('info');
+		$timeret2->setSubType('numeric');
+        $timeret2->setUnite('min');
+		$timeret2->setConfiguration('onlyChangeEvent',1);
+		$timeret2->setEventOnly(1);
+		$timeret2->setEqLogic_id($this->getId());
+		$timeret2->save();
+        
         $refresh = $this->getCmd(null, 'refresh');
 		if (!is_object($refresh)) {
 			$refresh = new wazedurationCmd();
 			$refresh->setLogicalId('refresh');
 			$refresh->setIsVisible(1);
+            $refresh->setOrder(9);
 			$refresh->setName(__('Rafraichir', __FILE__));
 		}
 		$refresh->setType('action');
 		$refresh->setSubType('other');
-        $refresh->setOrder(5);
 		$refresh->setEqLogic_id($this->getId());
 		$refresh->save();
     }
