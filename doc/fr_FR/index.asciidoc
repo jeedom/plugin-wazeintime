@@ -1,0 +1,18 @@
+== Kodi
+
+=== Description
+Ce plugin permet de commander et recevoir des infos de Kodi.
+
+image:../images/kodi_screenshot1.jpg[width=256]
+
+'''
+=== Configuration
+include::configuration.asciidoc[]
+
+...
+
+=== Informations de statut
+
+include::infos.asciidoc[]
+
+...

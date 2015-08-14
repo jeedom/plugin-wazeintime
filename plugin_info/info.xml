@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<info>
+    <id>wazeduration</id>
+    <name>Waze Duration</name>
+    <description>Plugin pour avoir la durée de trajet entre deux points</description>
+    <icon>icon transport-car95</icon>
+    <licence>AGPL</licence>
+    <author>Ludovic SARAKHA</author>
+    <installation>Aucune</installation>
+    <require>1.100</require>
+    <version>1.0</version>
+    <category>organization</category>
+</info>
+
