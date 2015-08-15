@@ -350,7 +350,7 @@ class wazeintime extends eqLogic {
 			'#background_color#' => $background,
 			'#eqLink#' => $this->getLinkToConfiguration(),
             '#height#' => $this->getDisplay('height', 'auto'),
-            '#width#' => $this->getDisplay('width', 'auto'),
+            '#width#' => $this->getDisplay('width', '330px'),
             '#hide1#' => $hide1,
             '#hide2#' => $hide2,
             '#hide3#' => $hide3,
@@ -360,6 +360,7 @@ class wazeintime extends eqLogic {
                 $replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
 				$replace['#' . $cmd->getLogicalId() . '#'] = $cmd->execCmd();
 				$replace['#' . $cmd->getLogicalId() . '_collect#'] = $cmd->getCollectDate();
+				$replace['#last_date#'] = substr($cmd->getCollectDate(),11,5);
 				if ($cmd->getIsHistorized() == 1) {
 					$replace['#' . $cmd->getLogicalId() . '_history#'] = 'history cursor';
 				}
