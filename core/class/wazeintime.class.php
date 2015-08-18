@@ -111,6 +111,8 @@ class wazeintime extends eqLogic {
 							$value=$route2retName; break;
 						case 'Trajet retour 3':
 							$value=$route3retName; break;
+                        case 'Dernier refresh':
+                            $value=date('H:i');
 					}
 					if ($value==0 ||$value != 'old'){
 						$cmd->event($value);
@@ -326,6 +328,21 @@ class wazeintime extends eqLogic {
 		$refresh->setSubType('other');
 		$refresh->setEqLogic_id($this->getId());
 		$refresh->save();
+        
+        $lastrefresh = $this->getCmd(null, 'lastrefresh');
+		if (!is_object($lastrefresh)) {
+			$lastrefresh = new wazeintimeCmd();
+			$lastrefresh->setLogicalId(lastrefresh);
+			$lastrefresh->setIsVisible(1);
+			$lastrefresh->setName(__('Dernier refresh', __FILE__));
+		}
+        $lastrefresh->setType('info');
+		$lastrefresh->setSubType('string');
+		$lastrefresh->setConfiguration('onlyChangeEvent',1);
+		$lastrefresh->setEventOnly(1);
+		$lastrefresh->setEqLogic_id($this->getId());
+		$lastrefresh->save();
+        
     }
     
     public function postUpdate() {
@@ -360,7 +377,6 @@ class wazeintime extends eqLogic {
                 $replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
 				$replace['#' . $cmd->getLogicalId() . '#'] = $cmd->execCmd();
 				$replace['#' . $cmd->getLogicalId() . '_collect#'] = $cmd->getCollectDate();
-				$replace['#last_date#'] = substr($cmd->getCollectDate(),11,5);
 				if ($cmd->getIsHistorized() == 1) {
 					$replace['#' . $cmd->getLogicalId() . '_history#'] = 'history cursor';
 				}
