@@ -6,15 +6,15 @@ Afin d'utiliser le plugin, vous devez le télécharger, l'installer et l'activer
 
 Suite à cela il vous faudra créer votre ou vos trajets :
 
-Rendez vous dans le menu plugins/organisation, vous y trouverez le plugin Waze Duration :
+Rendez vous dans le menu plugins/organisation, vous y trouverez le plugin Waze in Time :
 
 image:../images/configuration1.jpg[width=380]
 
-Ensuite vous arriverez sur la page qui listera vos équipements (vous pouvez avoir plusieurs Trajets) et qui vous permettra d'en créer
+Ensuite vous arriverez sur la page qui listera vos équipements (vous pouvez avoir plusieurs Trajets) et qui vous permettra d'en créer :
 
 image:../images/wazeintime_screenshot2.jpg[width=380]
 
-Cliquez sur le bouton Ajouter un Trajet ou sur le bouton + :
+Cliquez sur le bouton Ajouter un trajet ou sur le bouton + :
 
 image:../images/config2.jpg[width=180]
 
@@ -32,24 +32,28 @@ si vous voulez que l'équippement soit actif ou non , et enfin si vous voulez qu
 
 ... Configuration
 
-Cette section est une des plus importantes elle permet de régler le point de départ et d'arrivée :
+Cette section est une des plus importantes. Elle permet de régler le point de départ et d'arrivée :
 
 * Ces infos doivent être les latitudes et longitudes des positions
 
-* Elles peuvent être retrouvées en utilisant le site fournis en cliquant sur le lien de la page (il vous suffit de rentrer une adresse et de cliquer sur obtenir les coordonnées GPS)
+* Elles peuvent être retrouvées en utilisant le site fourni en cliquant sur le lien de la page (il vous suffit de rentrer une adresse et de cliquer pour obtenir les coordonnées GPS)
 
 ... Tableau de Commandes
 
 image:../images/config3.jpg[width=600]
 
 * Durée 1 : durée aller avec le trajet 1
-* Durée 2 : durée aller avec le trajet alternatif
+* Durée 2 : durée aller avec le trajet alternatif 2
+* Durée 3 : durée aller avec le trajet alternatif 3
 * Trajet 1 : Trajet 1
-* Trajet 2 : Trajet alternatif
+* Trajet 2 : Trajet alternatif 2
+* Trajet 3 : Trajet alternatif 3
 * Durée retour 1 : durée retour avec le trajet 1
-* Durée retour 2 : durée retour avec le trajet alternatif
+* Durée retour 2 : durée retour avec le trajet alternatif 2
+* Durée retour 3 : durée retour avec le trajet alternatif 3
 * Trajet retour 1 : Trajet retour 1
-* Trajet retour 2 : Trajet retour alternatif
+* Trajet retour 2 : Trajet retour alternatif 2
+* Trajet retour 2 : Trajet retour alternatif 3
 * Rafraichir : Permet de rafraichir les infos
 
 Toutes ces commandes sont disponibles via scénarios et via le dashboard
@@ -60,8 +64,8 @@ Toutes ces commandes sont disponibles via scénarios et via le dashboard
 image:../images/wazeintime_screenshot1.jpg[width=256]
 
 * Le bouton en haut à droite permet de rafraichir les infos.
-* Toutes les infos sont visibles (pour les trajets, si le trajet est long, il peut être tronquée mais la version complète est visible en laissant la souris dessus)
+* Toutes les infos sont visibles (pour les trajets, si le trajet est long, il peut être tronqué mais le trajet complet est visible en tooltip (en laissant la souris au-dessus))
 
-==== Comment sont rafraichis les infos :
+==== Comment sont rafraichies les infos :
 
-Les infos sont rafraichis une fois toutes les 30 minutes.  Vous pouvez les rafraichir à la demande via scénario avec la commande rafraichir, ou via le dash avec les doubles flêches
+Les infos sont rafraichies une fois toutes les 30 minutes.  Vous pouvez les rafraichir à la demande via scénario avec la commande rafraichir, ou via le dashboard avec les doubles flêches (icône en haut à droite).
