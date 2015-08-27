@@ -32,7 +32,11 @@ $eqLogics = eqLogic::byType('wazeintime');
     </div>
          <?php
                 foreach ($eqLogics as $eqLogic) {
-                    echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >';
+                    $opacity = '';
+                    if ($eqLogic->getIsEnable() != 1) {
+                        $opacity = 'opacity:0.3;';
+                    }
+                    echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;' . $opacity . '" >';
                     echo "<center>";
                     echo '<img src="plugins/wazeintime/doc/images/wazeintime_icon.png" height="105" width="95" />';
                     echo "</center>";
@@ -111,6 +115,10 @@ $eqLogics = eqLogic::byType('wazeintime');
                         <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="lonarrive" placeholder="{{2.3522219000000177}}"/>
                     </div>
                 </div>
+                <div class="form-group">
+               <label class="col-lg-1 control-label">{{Amérique du Nord :}}</label>
+               <input type="checkbox" class="eqLogicAttr bootstrapSwitch" data-l1key="configuration" data-l2key="NOA" checked/>
+               </div>
                <a class="col-lg-4 control-label" href="http://www.coordonnees-gps.fr/" target="_blank"><i class="icon nature-planet5"></i> Cliquez-ici pour retrouver vos coordonnées</a>
             <legend><i class="fa fa-wrench"></i>  {{Affichage}}</legend>
              <div class="form-group">

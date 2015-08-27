@@ -35,13 +35,19 @@ class wazeintime extends eqLogic {
                 $londepart=$wazeintime->getConfiguration('londepart');
                 $latarrive=$wazeintime->getConfiguration('latarrive');
                 $lonarrive=$wazeintime->getConfiguration('lonarrive');
-                $wazeRouteurl = "https://www.waze.com/row-RoutingManager/routingRequest?from=x%3A$londepart+y%3A$latdepart&to=x%3A$lonarrive+y%3A$latarrive&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At";
-				$wazeRoutereturl = "https://www.waze.com/row-RoutingManager/routingRequest?from=x%3A$lonarrive+y%3A$latarrive&to=x%3A$londepart+y%3A$latdepart&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At";
+                if ($wazeintime->getConfiguration('NOA')){
+                    $row='';
+                } else {
+                    $row='row-';
+                }
+                $wazeRouteurl = "https://www.waze.com/".$row."RoutingManager/routingRequest?from=x%3A$londepart+y%3A$latdepart&to=x%3A$lonarrive+y%3A$latarrive&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At";
+                log::add('wazeintime', 'debug', $wazeRouteurl);
+				$wazeRoutereturl = "https://www.waze.com/".$row."RoutingManager/routingRequest?from=x%3A$lonarrive+y%3A$latarrive&to=x%3A$londepart+y%3A$latdepart&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At";
 				$routeResponseText = file_get_contents($wazeRouteurl);
                 $routeResponseJson = json_decode($routeResponseText,true);
-                $route1Name = $routeResponseJson['alternatives'][0]['response']['routeName'];  
-                $route2Name = $routeResponseJson['alternatives'][1]['response']['routeName'];  
-                $route3Name = $routeResponseJson['alternatives'][2]['response']['routeName'];
+                $route1Name = (isset($routeResponseJson['alternatives'][0]['response']['routeName'])) ? $routeResponseJson['alternatives'][0]['response']['routeName'] : "NA";
+                $route2Name = (isset($routeResponseJson['alternatives'][1]['response']['routeName'])) ? $routeResponseJson['alternatives'][1]['response']['routeName'] : "NA";
+                $route3Name = (isset($routeResponseJson['alternatives'][2]['response']['routeName'])) ? $routeResponseJson['alternatives'][2]['response']['routeName'] : "NA";
                 $route1 = $routeResponseJson['alternatives'][0]['response']['results'];
                 $route2 = $routeResponseJson['alternatives'][1]['response']['results'];
                 $route3 = $routeResponseJson['alternatives'][2]['response']['results'];
@@ -62,9 +68,9 @@ class wazeintime extends eqLogic {
                 $route3TotalTimeMin = round($route3TotalTimeSec/60);
                 $routeretResponseText = file_get_contents($wazeRoutereturl);
                 $routeretResponseJson = json_decode($routeretResponseText,true);
-                $route1retName = $routeretResponseJson['alternatives'][0]['response']['routeName'];  
-                $route2retName = $routeretResponseJson['alternatives'][1]['response']['routeName'];  
-                $route3retName = $routeretResponseJson['alternatives'][2]['response']['routeName'];
+                $route1retName = (isset($routeretResponseJson['alternatives'][0]['response']['routeName'])) ? $routeretResponseJson['alternatives'][0]['response']['routeName'] : "NA";
+                $route2retName = (isset($routeretResponseJson['alternatives'][1]['response']['routeName'])) ? $routeretResponseJson['alternatives'][1]['response']['routeName'] : "NA";
+                $route3retName = (isset($routeretResponseJson['alternatives'][2]['response']['routeName'])) ? $routeretResponseJson['alternatives'][2]['response']['routeName'] : "NA";
                 $routeret1 = $routeretResponseJson['alternatives'][0]['response']['results'];
                 $routeret2 = $routeretResponseJson['alternatives'][1]['response']['results'];
                 $routeret3 = $routeretResponseJson['alternatives'][2]['response']['results'];
@@ -111,6 +117,8 @@ class wazeintime extends eqLogic {
 							$value=$route2retName; break;
 						case 'Trajet retour 3':
 							$value=$route3retName; break;
+                        case 'Dernier refresh':
+                            $value=date('H:i');
 					}
 					if ($value==0 ||$value != 'old'){
 						$cmd->event($value);
@@ -326,6 +334,21 @@ class wazeintime extends eqLogic {
 		$refresh->setSubType('other');
 		$refresh->setEqLogic_id($this->getId());
 		$refresh->save();
+        
+        $lastrefresh = $this->getCmd(null, 'lastrefresh');
+		if (!is_object($lastrefresh)) {
+			$lastrefresh = new wazeintimeCmd();
+			$lastrefresh->setLogicalId(lastrefresh);
+			$lastrefresh->setIsVisible(1);
+			$lastrefresh->setName(__('Dernier refresh', __FILE__));
+		}
+        $lastrefresh->setType('info');
+		$lastrefresh->setSubType('string');
+		$lastrefresh->setConfiguration('onlyChangeEvent',1);
+		$lastrefresh->setEventOnly(1);
+		$lastrefresh->setEqLogic_id($this->getId());
+		$lastrefresh->save();
+        
     }
     
     public function postUpdate() {
@@ -360,7 +383,6 @@ class wazeintime extends eqLogic {
                 $replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
 				$replace['#' . $cmd->getLogicalId() . '#'] = $cmd->execCmd();
 				$replace['#' . $cmd->getLogicalId() . '_collect#'] = $cmd->getCollectDate();
-				$replace['#last_date#'] = substr($cmd->getCollectDate(),11,5);
 				if ($cmd->getIsHistorized() == 1) {
 					$replace['#' . $cmd->getLogicalId() . '_history#'] = 'history cursor';
 				}
