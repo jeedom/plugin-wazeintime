@@ -1,0 +1,44 @@
+{
+    "plugins/wazeintime/plugin_info/info.xml": {
+        "Plugin pour avoir la durée de trajet entre deux points": "Plugin pour avoir la durée de trajet entre deux points",
+        "Aucune": "Нет"
+    },
+    "plugins/wazeintime/desktop/php/wazeintime.php": {
+        "Ajouter un trajet": "Ajouter un trajet",
+        "Rechercher": "Искать",
+        "Mes Trajets": "Mes Trajets",
+        "Général": "Главная",
+        "Nom de l'équipement": "Название оборудования",
+        "Objet parent": "Родительский объект",
+        "Aucun": "Нет",
+        "Catégorie": "Категория",
+        "Activer": "Активировать",
+        "Visible": "Видимый",
+        "Configuration": "Конфигурация",
+        "Départ": "Départ",
+        "Latitude": "Широта",
+        "48.856614": "48.856614",
+        "Longitude": "Долгота",
+        "2.3522219000000177": "2.3522219000000177",
+        "Arrivée": "Arrivée",
+        "Amérique du Nord :": "Amérique du Nord :",
+        "Affichage": "Отображение",
+        "Masquer trajet :": "Masquer trajet :",
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "Tableau de commandes": "Tableau de commandes",
+        "Nom": "Имя",
+        "Options": "Опции",
+        "Action": "Действие",
+        "Supprimer": "Удалить",
+        "Sauvegarder": "Сохранить"
+    },
+    "plugins/wazeintime/desktop/js/wazeintime.js": {
+        "Historiser": "История",
+        "Tester": "Тест"
+    },
+    "plugins/wazeintime/core/class/wazeintime.class.php": {
+        "Dernier refresh retour": "Dernier refresh retour"
+    }
+}

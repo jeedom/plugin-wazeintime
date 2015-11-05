@@ -1,0 +1,44 @@
+{
+    "plugins/wazeintime/plugin_info/info.xml": {
+        "Plugin pour avoir la durée de trajet entre deux points": "Plugin pour avoir la durée de trajet entre deux points",
+        "Aucune": "None"
+    },
+    "plugins/wazeintime/desktop/php/wazeintime.php": {
+        "Ajouter un trajet": "Ajouter un trajet",
+        "Rechercher": "Search",
+        "Mes Trajets": "Mes Trajets",
+        "Général": "Main",
+        "Nom de l'équipement": "Device name",
+        "Objet parent": "Parent object",
+        "Aucun": "None",
+        "Catégorie": "Category",
+        "Activer": "Enabled",
+        "Visible": "Visible",
+        "Configuration": "Setup",
+        "Départ": "Départ",
+        "Latitude": "Latitude",
+        "48.856614": "48.856614",
+        "Longitude": "Longitude",
+        "2.3522219000000177": "2.3522219000000177",
+        "Arrivée": "Arrivée",
+        "Amérique du Nord :": "Amérique du Nord :",
+        "Affichage": "Display",
+        "Masquer trajet :": "Masquer trajet :",
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "Tableau de commandes": "Tableau de commandes",
+        "Nom": "Name",
+        "Options": "Options",
+        "Action": "Action",
+        "Supprimer": "Delete",
+        "Sauvegarder": "Save"
+    },
+    "plugins/wazeintime/desktop/js/wazeintime.js": {
+        "Historiser": "Historize",
+        "Tester": "Test"
+    },
+    "plugins/wazeintime/core/class/wazeintime.class.php": {
+        "Dernier refresh retour": "Dernier refresh retour"
+    }
+}
