@@ -167,7 +167,13 @@ class wazeintime extends eqLogic {
 						log::add('wazeintime','debug','set:'.$cmd->getName().' to '. $value);
 					}
 				}
-                $wazeintime->refreshWidget();
+				$mc = cache::byKey('wazeintimeWidgetmobile' . $wazeintime->getId());
+				$mc->remove();
+				$mc = cache::byKey('wazeintimeWidgetdashboard' . $wazeintime->getId());
+				$mc->remove();
+				$wazeintime->toHtml('mobile');
+				$wazeintime->toHtml('dashboard');
+				$wazeintime->refreshWidget();
 			}
 		}
 	}
@@ -412,11 +418,19 @@ class wazeintime extends eqLogic {
 	}
     
     public function toHtml($_version = 'dashboard') {
-		if ($this->getIsEnable() != 1) {
+    	if ($this->getIsEnable() != 1) {
 			return '';
 		}
 		if (!$this->hasRight('r')) {
 			return '';
+		}
+		$version = jeedom::versionAlias($_version);
+		if ($this->getDisplay('hideOn' . $version) == 1) {
+			return '';
+		}
+		$mc = cache::byKey('wazeintimeWidget' . jeedom::versionAlias($_version) . $this->getId());
+		if ($mc->getValue() != '') {
+			return preg_replace("/" . preg_quote(self::UIDDELIMITER) . "(.*?)" . preg_quote(self::UIDDELIMITER) . "/", self::UIDDELIMITER . mt_rand() . self::UIDDELIMITER, $mc->getValue());
 		}
 		$_version = jeedom::versionAlias($_version);
 		$background=$this->getBackgroundColor($_version);
@@ -428,6 +442,7 @@ class wazeintime extends eqLogic {
 			'#id#' => $this->getId(),
 			'#background_color#' => $background,
 			'#eqLink#' => $this->getLinkToConfiguration(),
+			'#uid#' => 'wazeintime' . $this->getId() . self::UIDDELIMITER . mt_rand() . self::UIDDELIMITER,
             '#height#' => $this->getDisplay('height', 'auto'),
             '#width#' => $this->getDisplay('width', '330px'),
             '#hide1#' => $hide1,
@@ -448,6 +463,15 @@ class wazeintime extends eqLogic {
 		$refresh = $this->getCmd(null, 'refresh');
 		$replace['#refresh_id#'] = $refresh->getId();
 
+    	if (($_version == 'dview' || $_version == 'mview') && $this->getDisplay('doNotShowNameOnView') == 1) {
+			$replace['#name#'] = '';
+			$replace['#object_name#'] = (is_object($object)) ? $object->getName() : '';
+		}
+		if (($_version == 'mobile' || $_version == 'dashboard') && $this->getDisplay('doNotShowNameOnDashboard') == 1) {
+			$replace['#name#'] = '<br/>';
+			$replace['#object_name#'] = (is_object($object)) ? $object->getName() : '';
+		}
+		
 		$parameters = $this->getDisplay('parameters');
 		if (is_array($parameters)) {
 			foreach ($parameters as $key => $value) {
@@ -456,6 +480,7 @@ class wazeintime extends eqLogic {
 		}
 
 		$html = template_replace($replace, getTemplate('core', $_version, 'eqlogic', 'wazeintime'));
+		cache::set('wazeintimeWidget' . $version . $this->getId(), $html, 0);
 		return $html;
 	}
 }
