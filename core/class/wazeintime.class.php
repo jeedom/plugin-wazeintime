@@ -35,6 +35,18 @@ class wazeintime extends eqLogic {
                 $londepart=$wazeintime->getConfiguration('londepart');
                 $latarrive=$wazeintime->getConfiguration('latarrive');
                 $lonarrive=$wazeintime->getConfiguration('lonarrive');
+				$route1retTotalTimeMin = 'old';
+				$route2retTotalTimeMin = 'old';
+				$route3retTotalTimeMin = 'old';
+				$route1retName = 'old';
+				$route2retName = 'old';
+				$route3retName = 'old'; 
+				$route1TotalTimeMin = 'old';
+				$route2TotalTimeMin = 'old';
+				$route3TotalTimeMin = 'old';
+				$route1Name = 'old';
+				$route2Name = 'old';
+				$route3Name = 'old';
                 if ($wazeintime->getConfiguration('NOA')){
                     $row='';
                 } else {
@@ -43,52 +55,72 @@ class wazeintime extends eqLogic {
                 $wazeRouteurl = "https://www.waze.com/".$row."RoutingManager/routingRequest?from=x%3A$londepart+y%3A$latdepart&to=x%3A$lonarrive+y%3A$latarrive&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At";
                 log::add('wazeintime', 'debug', $wazeRouteurl);
 				$wazeRoutereturl = "https://www.waze.com/".$row."RoutingManager/routingRequest?from=x%3A$lonarrive+y%3A$latarrive&to=x%3A$londepart+y%3A$latdepart&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At";
-				$routeResponseText = file_get_contents($wazeRouteurl);
-                $routeResponseJson = json_decode($routeResponseText,true);
-                $route1Name = (isset($routeResponseJson['alternatives'][0]['response']['routeName'])) ? $routeResponseJson['alternatives'][0]['response']['routeName'] : "NA";
-                $route2Name = (isset($routeResponseJson['alternatives'][1]['response']['routeName'])) ? $routeResponseJson['alternatives'][1]['response']['routeName'] : "NA";
-                $route3Name = (isset($routeResponseJson['alternatives'][2]['response']['routeName'])) ? $routeResponseJson['alternatives'][2]['response']['routeName'] : "NA";
-                $route1 = $routeResponseJson['alternatives'][0]['response']['results'];
-                $route2 = $routeResponseJson['alternatives'][1]['response']['results'];
-                $route3 = $routeResponseJson['alternatives'][2]['response']['results'];
-                $route1TotalTimeSec = 0;
-                foreach ($route1 as $street){
-                    $route1TotalTimeSec += $street['crossTime'];
+				$routeResponseText = @file_get_contents($wazeRouteurl);
+                if ($routeResponseText === FALSE) {
+                     log::add('wazeintime', 'debug', 'Difficulté à contacter le serveur');
+                } else {
+                    $routeResponseJson = json_decode($routeResponseText,true);
+                    $route1Name = (isset($routeResponseJson['alternatives'][0]['response']['routeName'])) ? $routeResponseJson['alternatives'][0]['response']['routeName'] : "NA";
+                    $route2Name = (isset($routeResponseJson['alternatives'][1]['response']['routeName'])) ? $routeResponseJson['alternatives'][1]['response']['routeName'] : "NA";
+                    $route3Name = (isset($routeResponseJson['alternatives'][2]['response']['routeName'])) ? $routeResponseJson['alternatives'][2]['response']['routeName'] : "NA";
+					$route1 = (isset($routeResponseJson['alternatives'][0]['response']['results'])) ? $routeResponseJson['alternatives'][0]['response']['results'] : 0;
+                    $route2 = (isset($routeResponseJson['alternatives'][1]['response']['results'])) ? $routeResponseJson['alternatives'][1]['response']['results'] : 0;
+                    $route3 = (isset($routeResponseJson['alternatives'][2]['response']['results'])) ? $routeResponseJson['alternatives'][2]['response']['results'] : 0;
+					$route1TotalTimeSec = 0;
+					if ($route1 != 0) {
+                    foreach ($route1 as $street){
+                        $route1TotalTimeSec += $street['crossTime'];
+                    }
+					}
+                    $route2TotalTimeSec = 0;
+					if ($route2 != 0) {
+                    foreach ($route2 as $street){
+                        $route2TotalTimeSec += $street['crossTime'];
+                    }
+					}
+                    $route3TotalTimeSec = 0;
+                    if ($route3 != 0) {
+					foreach ($route3 as $street){
+                        $route3TotalTimeSec += $street['crossTime'];
+                    }
+					}
+                    $route1TotalTimeMin = round($route1TotalTimeSec/60);
+                    $route2TotalTimeMin = round($route2TotalTimeSec/60);
+                    $route3TotalTimeMin = round($route3TotalTimeSec/60);
                 }
-                $route2TotalTimeSec = 0;
-                foreach ($route2 as $street){
-                    $route2TotalTimeSec += $street['crossTime'];
+                $routeretResponseText = @file_get_contents($wazeRoutereturl);
+                if ($routeretResponseText === FALSE) {
+                     log::add('wazeintime', 'debug', 'Difficulté à contacter le serveur');
+                } else {
+                    $routeretResponseJson = json_decode($routeretResponseText,true);
+                    $route1retName = (isset($routeretResponseJson['alternatives'][0]['response']['routeName'])) ? $routeretResponseJson['alternatives'][0]['response']['routeName'] : "NA";
+                    $route2retName = (isset($routeretResponseJson['alternatives'][1]['response']['routeName'])) ? $routeretResponseJson['alternatives'][1]['response']['routeName'] : "NA";
+                    $route3retName = (isset($routeretResponseJson['alternatives'][2]['response']['routeName'])) ? $routeretResponseJson['alternatives'][2]['response']['routeName'] : "NA";
+                    $routeret1 = (isset($routeretResponseJson['alternatives'][0]['response']['results'])) ? $routeretResponseJson['alternatives'][0]['response']['results'] : 0;
+                    $routeret2 = (isset($routeretResponseJson['alternatives'][1]['response']['results'])) ? $routeretResponseJson['alternatives'][1]['response']['results'] : 0;
+                    $routeret3 = (isset($routeretResponseJson['alternatives'][2]['response']['results'])) ? $routeretResponseJson['alternatives'][2]['response']['results'] : 0;
+                    $route1retTotalTimeSec = 0;
+					if ($routeret1 != 0) {
+                    foreach ($routeret1 as $street){
+                        $route1retTotalTimeSec += $street['crossTime'];
+                    }
+					}
+                    $route2retTotalTimeSec = 0;
+					if ($routeret2 != 0) {
+                    foreach ($routeret2 as $street){
+                        $route2retTotalTimeSec += $street['crossTime'];
+                    }
+					}
+                    $route3retTotalTimeSec = 0;
+					if ($routeret3 != 0) {
+                    foreach ($routeret3 as $street){
+                        $route3retTotalTimeSec += $street['crossTime'];
+                    }
+					}
+                    $route1retTotalTimeMin = round($route1retTotalTimeSec/60);
+                    $route2retTotalTimeMin = round($route2retTotalTimeSec/60);
+                    $route3retTotalTimeMin = round($route3retTotalTimeSec/60);
                 }
-                $route3TotalTimeSec = 0;
-                foreach ($route3 as $street){
-                    $route3TotalTimeSec += $street['crossTime'];
-                }
-                $route1TotalTimeMin = round($route1TotalTimeSec/60);
-                $route2TotalTimeMin = round($route2TotalTimeSec/60);
-                $route3TotalTimeMin = round($route3TotalTimeSec/60);
-                $routeretResponseText = file_get_contents($wazeRoutereturl);
-                $routeretResponseJson = json_decode($routeretResponseText,true);
-                $route1retName = (isset($routeretResponseJson['alternatives'][0]['response']['routeName'])) ? $routeretResponseJson['alternatives'][0]['response']['routeName'] : "NA";
-                $route2retName = (isset($routeretResponseJson['alternatives'][1]['response']['routeName'])) ? $routeretResponseJson['alternatives'][1]['response']['routeName'] : "NA";
-                $route3retName = (isset($routeretResponseJson['alternatives'][2]['response']['routeName'])) ? $routeretResponseJson['alternatives'][2]['response']['routeName'] : "NA";
-                $routeret1 = $routeretResponseJson['alternatives'][0]['response']['results'];
-                $routeret2 = $routeretResponseJson['alternatives'][1]['response']['results'];
-                $routeret3 = $routeretResponseJson['alternatives'][2]['response']['results'];
-                $route1retTotalTimeSec = 0;
-                foreach ($routeret1 as $street){
-                    $route1retTotalTimeSec += $street['crossTime'];
-                }
-                $route2retTotalTimeSec = 0;
-                foreach ($routeret2 as $street){
-                    $route2retTotalTimeSec += $street['crossTime'];
-                }
-                $route3retTotalTimeSec = 0;
-                foreach ($routeret3 as $street){
-                    $route3retTotalTimeSec += $street['crossTime'];
-                }
-                $route1retTotalTimeMin = round($route1retTotalTimeSec/60);
-                $route2retTotalTimeMin = round($route2retTotalTimeSec/60);
-                $route3retTotalTimeMin = round($route3retTotalTimeSec/60);
 				foreach ($wazeintime->getCmd('info') as $cmd) {
 					switch ($cmd->getName()) {
 						case 'Durée 1':
@@ -104,6 +136,12 @@ class wazeintime extends eqLogic {
 							$value=$route2Name; break;
 						case 'Trajet 3':
 							$value=$route3Name; break;
+                        case 'Dernier refresh':
+                            if ($route1TotalTimeMin == 'old') {
+								$value='old';break;
+							} else {
+								$value=date('H:i'); break;
+							}
                         case 'Durée retour 1':
 							$value=$route1retTotalTimeMin;
 						break;
@@ -117,10 +155,14 @@ class wazeintime extends eqLogic {
 							$value=$route2retName; break;
 						case 'Trajet retour 3':
 							$value=$route3retName; break;
-                        case 'Dernier refresh':
-                            $value=date('H:i');
+                        case 'Dernier refresh retour':
+                            if ($route1retTotalTimeMin == 'old') {
+								$value='old';break;
+							} else {
+								$value=date('H:i'); break;
+							}
 					}
-					if ($value==0 ||$value != 'old'){
+					if ($value != 'old'){
 						$cmd->event($value);
 						log::add('wazeintime','debug','set:'.$cmd->getName().' to '. $value);
 					}
@@ -338,7 +380,7 @@ class wazeintime extends eqLogic {
         $lastrefresh = $this->getCmd(null, 'lastrefresh');
 		if (!is_object($lastrefresh)) {
 			$lastrefresh = new wazeintimeCmd();
-			$lastrefresh->setLogicalId(lastrefresh);
+			$lastrefresh->setLogicalId('lastrefresh');
 			$lastrefresh->setIsVisible(1);
 			$lastrefresh->setName(__('Dernier refresh', __FILE__));
 		}
@@ -348,6 +390,20 @@ class wazeintime extends eqLogic {
 		$lastrefresh->setEventOnly(1);
 		$lastrefresh->setEqLogic_id($this->getId());
 		$lastrefresh->save();
+		
+		$lastrefreshret = $this->getCmd(null, 'lastrefreshret');
+		if (!is_object($lastrefreshret)) {
+			$lastrefreshret = new wazeintimeCmd();
+			$lastrefreshret->setLogicalId('lastrefreshret');
+			$lastrefreshret->setIsVisible(1);
+			$lastrefreshret->setName(__('Dernier refresh retour', __FILE__));
+		}
+        $lastrefreshret->setType('info');
+		$lastrefreshret->setSubType('string');
+		$lastrefreshret->setConfiguration('onlyChangeEvent',1);
+		$lastrefreshret->setEventOnly(1);
+		$lastrefreshret->setEqLogic_id($this->getId());
+		$lastrefreshret->save();
         
     }
     
