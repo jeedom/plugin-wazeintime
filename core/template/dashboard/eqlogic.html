@@ -1,4 +1,4 @@
-<div class="eqLogic-widget eqLogic allowResize wazeintime" style="width: #width#;height: #height#;background-color: #background_color#; padding : 0px; #style#" data-eqLogic_id="#id#" data-version="dashboard" >
+<div class="eqLogic-widget eqLogic allowResize wazeintime" style="width: #width#;height: #height#;background-color: #background_color#; padding : 0px; #style#" data-eqLogic_id="#id#" data-eqLogic_uid="#uid#" data-version="dashboard" >
   <span class="statusCmd" style="position : absolute;right : 5px; width : 30px;z-index: 1030;"></span>
   <i class='fa fa-refresh pull-right cursor refresh' style="margin-top: 3px;margin-right: 6px;"></i>
   <center><a href="#eqLink#" style="font-size : 1.2em;"><i class="icon transport-car95"></i> #name# </a></center>
@@ -39,17 +39,17 @@
  </div>
 
  <script>
-  $('.eqLogic[data-eqLogic_id=#id#] .refresh').on('click', function () {
+  $('.eqLogic[data-eqLogic_uid=#uid#] .refresh').on('click', function () {
     jeedom.cmd.execute({id: '#refresh_id#'});
   });
   if('#hide1#' == 1){
-	$('.wazeintime[data-eqLogic_id=#id#] .travel1').hide();
+	$('.eqLogic[data-eqLogic_uid=#uid#] .travel1').hide();
     }
   if('#hide2#' == 1){
-        $('.wazeintime[data-eqLogic_id=#id#] .travel2').hide();
+        $('.eqLogic[data-eqLogic_uid=#uid#] .travel2').hide();
     }
    if('#hide3#' == 1){
-        $('.wazeintime[data-eqLogic_id=#id#] .travel3').hide();
+        $('.eqLogic[data-eqLogic_uid=#uid#] .travel3').hide();
 	}
   
 </script>
