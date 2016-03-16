@@ -14,6 +14,22 @@
  * You should have received a copy of the GNU General Public License
  * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
  */
+$('.eqLogicAttr[data-l1key=configuration][data-l2key=geolocend]').on('change', function () {
+  if($(this).value() != '' && $(this).value() != null && $(this).value() != 'none'){
+    $('.hideend').hide();
+  } else {
+	$('.hideend').show();
+  }
+});
+
+$('.eqLogicAttr[data-l1key=configuration][data-l2key=geolocstart]').on('change', function () {
+  if($(this).value() != '' && $(this).value() != null && $(this).value() != 'none'){
+    $('.hidestart').hide();
+  } else {
+	$('.hidestart').show();
+  }
+});
+
 $("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 function addCmdToTable(_cmd) {
     if (!isset(_cmd)) {

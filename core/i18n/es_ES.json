@@ -1,12 +1,12 @@
 {
     "plugins/wazeintime/plugin_info/info.xml": {
-        "Plugin pour avoir la durée de trajet entre deux points": "Plugin pour avoir la durée de trajet entre deux points",
+        "Plugin pour avoir la durée de trajet entre deux points": "Plugin para tener la duración del trayecto entre dos puntos",
         "Aucune": "Ninguna"
     },
     "plugins/wazeintime/desktop/php/wazeintime.php": {
-        "Ajouter un trajet": "Ajouter un trajet",
+        "Ajouter un trajet": "Añadir un trayecto",
         "Rechercher": "Buscar",
-        "Mes Trajets": "Mes Trajets",
+        "Mes Trajets": "Mis Trayectos",
         "Général": "General",
         "Nom de l'équipement": "Nombre del equipo",
         "Objet parent": "Objeto padre",
@@ -16,6 +16,8 @@
         "Visible": "Visible",
         "Configuration": "Configuración",
         "Départ": "Comienzo",
+        "Géolocalisation": "Geolocalización",
+        "Manuel": "Manual",
         "Latitude": "Latitud",
         "48.856614": "48.856614",
         "Longitude": "Longitud",
@@ -23,7 +25,7 @@
         "Arrivée": "Llegada",
         "Amérique du Nord :": "América del norte :",
         "Affichage": "Visualización",
-        "Masquer trajet :": "Masquer trajet :",
+        "Masquer trajet :": "Ocultar trayecto :",
         "1": "1",
         "2": "2",
         "3": "3",
@@ -34,11 +36,21 @@
         "Supprimer": "Borrar",
         "Sauvegarder": "Guardar"
     },
-    "plugins/wazeintime/desktop/js/wazeintime.js": {
-        "Historiser": "Historizar",
-        "Tester": "Probar"
-    },
     "plugins/wazeintime/core/class/wazeintime.class.php": {
-        "Dernier refresh retour": "Dernier refresh retour"
+        "Trajet 1": "Trajet 1",
+        "Durée 1": "Durée 1",
+        "Trajet 2": "Trajet 2",
+        "Durée 2": "Durée 2",
+        "Trajet 3": "Trajet 3",
+        "Durée 3": "Durée 3",
+        "Trajet retour 1": "Trajet retour 1",
+        "Durée retour 1": "Durée retour 1",
+        "Trajet retour 2": "Trajet retour 2",
+        "Durée retour 2": "Durée retour 2",
+        "Trajet retour 3": "Trajet retour 3",
+        "Durée retour 3": "Durée retour 3",
+        "Rafraichir": "Rafraichir",
+        "Dernier refresh": "Dernier refresh",
+        "Dernier refresh retour": "Última actualización "
     }
 }

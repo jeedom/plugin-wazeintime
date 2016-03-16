@@ -1,13 +1,14 @@
-<div class="eqLogic-widget eqLogic allowResize wazeintime" style="width: #width#;height: #height#;background-color: #background_color#; padding : 0px; #style#" data-eqLogic_id="#id#" data-eqLogic_uid="#uid#" data-version="dashboard" >
+<div class="eqLogic-widget eqLogic allowResize wazeintime" style="width: #width#;border:#border#;border-radius:#border-radius#;background-color: #background-color#;color: #color#;#style#" data-eqLogic_id="#id#" data-eqLogic_uid="#uid#" data-version="dashboard">
+  
   <span class="statusCmd" style="position : absolute;right : 5px; width : 30px;z-index: 1030;"></span>
   <i class='fa fa-refresh pull-right cursor refresh' style="margin-top: 3px;margin-right: 6px;"></i>
-  <center><a href="#eqLink#" style="font-size : 1.2em;"><i class="icon transport-car95"></i> #name# </a></center>
+  <center><a href="#eqLink#" style="font-size : 1.2em;#hideEqLogicName#"><i class="icon transport-car95"></i> #name_display# </a></center>
 
   <span class="cmd cmd-widget" data-cmd_id="#refresh_id#" style="display:none;"></span>
 
   <div class="row" style="margin-left : 2px;margin-right : 2px;">
    <div class="col-sm-6" style="padding-right : 5px;padding-left : 5px;White-space:nowrap; Overflow:hidden;">
-     <legend style="color:white;margin-bottom : 0px;font-size : 13px;font-weight: bold;Cursor:default"><i class="fa fa-arrow-right"></i> Aller  <span style="font-size : 0.8em;">#lastrefresh#</span></legend>
+     <legend style="color:#color#;margin-bottom : 0px;font-size : 13px;font-weight: bold;Cursor:default"><i class="fa fa-arrow-right"></i> Aller  <span style="font-size : 0.8em;">#lastrefresh#</span></legend>
      <div class="travel1">
         <span class="#time1_history# time1" data-cmd_id="#time1_id#">1 - Durée <strong class="tooltips" title="#time1_collect#" style="font-size:1.0em;">#time1#</strong> <span style="font-size:0.6em;">min</span><br/></span>
         <span class="#routename1_history# routename1" data-cmd_id="#routename1_id#" style="Cursor:default">Via <strong class="tooltips" title="#routename1# le #routename1_collect#" style="font-size:1.0em;">#routename1#</strong> <span style="font-size:0.6em;"></span><br/></span>
@@ -22,7 +23,7 @@
      </div>
      </div>
    <div class="col-sm-6" style="padding-right : 3px;padding-left : 10px;White-space:nowrap; Overflow:hidden;">
-     <legend style="color:white;margin-bottom : 0px;font-size : 13px;font-weight: bold;Cursor:default"><i class="fa fa-arrow-left"></i> Retour  <span style="font-size : 0.8em;">#lastrefreshret#</span></legend>
+     <legend style="color:#color#;margin-bottom : 0px;font-size : 13px;font-weight: bold;Cursor:default"><i class="fa fa-arrow-left"></i> Retour  <span style="font-size : 0.8em;">#lastrefreshret#</span></legend>
      <div class="travel1">
         <span class="#timeret1_history# time1" data-cmd_id="#timeret1_id#">1 - Durée <strong class="tooltips" title="#timeret1_collect#" style="font-size:1.0em;">#timeret1#</strong> <span style="font-size:0.6em;">min</span><br/></span>
         <span class="#routeretname1_history# routeretname1" data-cmd_id="#routeretname1_id#" style="Cursor:default">Via <strong class="tooltips" title="#routeretname1# le #routeretname1_collect#" style="font-size:1.0em;">#routeretname1#</strong> <span style="font-size:0.6em;"></span><br/></span>

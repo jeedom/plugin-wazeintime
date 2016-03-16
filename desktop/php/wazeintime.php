@@ -21,7 +21,7 @@ $eqLogics = eqLogic::byType('wazeintime');
         </div>
     </div>
 	<div class="col-lg-10 col-md-9 col-sm-8 eqLogicThumbnailDisplay" style="border-left: solid 1px #EEE; padding-left: 25px;">
-        <legend>{{Mes Trajets}}
+        <legend><i class="fa fa-car"></i>  {{Mes Trajets}}
         </legend>
         <div class="eqLogicThumbnailContainer">
                       <div class="cursor eqLogicAction" data-action="add" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >
@@ -93,32 +93,79 @@ $eqLogics = eqLogic::byType('wazeintime');
                 </div>
                 </div>
 				 <legend><i class="fa fa-wrench"></i>  {{Configuration}}</legend>
+				 
                 <div class="form-group">
                     <label class="col-lg-1 control-label"><i class="icon maison-house109"></i> {{Départ}}</label>
-                    <label class="col-lg-1 control-label">{{Latitude}}</label>
+					<label class="col-lg-2 control-label">{{Géolocalisation}}</label>
+                          <div class="col-lg-2">
+                            <select class="form-control eqLogicAttr configuration geolocstart" id="geoloc" data-l1key="configuration" data-l2key="geolocstart">
+                              <option value="none">{{Manuel}}</option>
+                              <?php
+                              foreach (eqLogic::byType('geoloc') as $geoloc) {
+                                foreach (geolocCmd::byEqLogicId($geoloc->getId()) as $geoinfo) {
+                                    if ($geoinfo->getConfiguration('mode') == 'fixe' || $geoinfo->getConfiguration('mode') == 'dynamic') {
+                                        echo '<option value="normal|' . $geoinfo->getId() . '">' . $geoinfo->getName() . '</option>';
+                                    }
+                                }
+                              }
+							  foreach (eqLogic::byType('geoloc_ios') as $geoloc) {
+                                foreach (geoloc_iosCmd::byEqLogicId($geoloc->getId()) as $geoinfo) {
+                                    if (($geoinfo->getConfiguration('mode') == 'fixe' || $geoinfo->getConfiguration('mode') == 'dynamic') && $geoinfo->getName() != 'Refresh') {
+                                        echo '<option value="ios|' . $geoinfo->getId() . '">' . $geoinfo->getName() . '</option>';
+                                    }
+                                }
+                              }
+                              ?>
+                            </select>
+                          </div>
+                    <label class="col-lg-1 control-label hidestart">{{Latitude}}</label>
                     <div class="col-lg-2">
-                        <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="latdepart" placeholder="{{48.856614}}"/>
+                        <input type="text" class="eqLogicAttr form-control hidestart" data-l1key="configuration" data-l2key="latdepart" placeholder="{{48.856614}}"/>
                     </div>
-					<label class="col-lg-1 control-label">{{Longitude}}</label>
+					<label class="col-lg-1 control-label hidestart">{{Longitude}}</label>
                     <div class="col-lg-2">
-                        <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="londepart" placeholder="{{2.3522219000000177}}"/>
+                        <input type="text" class="eqLogicAttr form-control hidestart" data-l1key="configuration" data-l2key="londepart" placeholder="{{2.3522219000000177}}"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-1 control-label"><i class="fa fa-location-arrow"></i> {{Arrivée}}</label>
-                    <label class="col-lg-1 control-label">{{Latitude}}</label>
+					<label class="col-lg-2 control-label">{{Géolocalisation}}</label>
+                          <div class="col-lg-2">
+                            <select class="form-control eqLogicAttr configuration geolocend" id="geoloc" data-l1key="configuration" data-l2key="geolocend">
+                              <option value="none">{{Manuel}}</option>
+                              <?php
+                              foreach (eqLogic::byType('geoloc') as $geoloc) {
+                                foreach (geolocCmd::byEqLogicId($geoloc->getId()) as $geoinfo) {
+                                    if ($geoinfo->getConfiguration('mode') == 'fixe' || $geoinfo->getConfiguration('mode') == 'dynamic') {
+                                        echo '<option value="normal|' . $geoinfo->getId() . '">' . $geoinfo->getName() . '</option>';
+                                    }
+                                }
+                              }
+							  foreach (eqLogic::byType('geoloc_ios') as $geoloc) {
+                                foreach (geoloc_iosCmd::byEqLogicId($geoloc->getId()) as $geoinfo) {
+                                    if (($geoinfo->getConfiguration('mode') == 'fixe' || $geoinfo->getConfiguration('mode') == 'dynamic') && $geoinfo->getName() != 'Refresh') {
+                                        echo '<option value="ios|' . $geoinfo->getId() . '">' . $geoinfo->getName() . '</option>';
+                                    }
+                                }
+                              }
+                              ?>
+                            </select>
+                          </div>
+                    <label class="col-lg-1 control-label hideend">{{Latitude}}</label>
                     <div class="col-lg-2">
-                        <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="latarrive" placeholder="{{48.856614}}"/>
+                        <input type="text" class="eqLogicAttr form-control hideend" data-l1key="configuration" data-l2key="latarrive" placeholder="{{48.856614}}"/>
                     </div>
-					<label class="col-lg-1 control-label">{{Longitude}}</label>
+					<label class="col-lg-1 control-label hideend">{{Longitude}}</label>
                     <div class="col-lg-2">
-                        <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="lonarrive" placeholder="{{2.3522219000000177}}"/>
+                        <input type="text" class="eqLogicAttr form-control hideend" data-l1key="configuration" data-l2key="lonarrive" placeholder="{{2.3522219000000177}}"/>
                     </div>
                 </div>
                 <div class="form-group">
-               <label class="col-lg-1 control-label">{{Amérique du Nord :}}</label>
+               <label class="col-lg-3 control-label">{{Amérique du Nord :}}</label>
+			   <div class="col-lg-2">
                <input type="checkbox" class="eqLogicAttr bootstrapSwitch" data-l1key="configuration" data-l2key="NOA" checked/>
                </div>
+			   </div>
                <a class="col-lg-4 control-label" href="http://www.coordonnees-gps.fr/" target="_blank"><i class="icon nature-planet5"></i> Cliquez-ici pour retrouver vos coordonnées</a>
             <legend><i class="fa fa-wrench"></i>  {{Affichage}}</legend>
              <div class="form-group">

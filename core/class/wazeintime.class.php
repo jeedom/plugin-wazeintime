@@ -22,7 +22,9 @@ require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 class wazeintime extends eqLogic {
     /*     * *************************Attributs****************************** */
     
-    public static function cron30($_eqlogic_id = null) {
+	public static $_widgetPossibility = array('custom' => true);
+    
+	public static function cron30($_eqlogic_id = null) {
 		if($_eqlogic_id !== null){
 			$eqLogics = array(eqLogic::byId($_eqlogic_id));
 		}else{
@@ -30,11 +32,47 @@ class wazeintime extends eqLogic {
 		}
         foreach ($eqLogics as $wazeintime) {
 			if ($wazeintime->getIsEnable() == 1) {
-				log::add('wazeintime', 'debug', 'Pull Cron pour Waze Duration');
-                $latdepart=$wazeintime->getConfiguration('latdepart');
-                $londepart=$wazeintime->getConfiguration('londepart');
-                $latarrive=$wazeintime->getConfiguration('latarrive');
-                $lonarrive=$wazeintime->getConfiguration('lonarrive');
+				log::add('wazeintime', 'debug', 'Pull Cron pour Waze in time');
+				if ('none' == ($wazeintime->getConfiguration('geolocstart', ''))) {
+					$latdepart=$wazeintime->getConfiguration('latdepart');
+					$londepart=$wazeintime->getConfiguration('londepart');
+				} else {
+					$geoloc = $wazeintime->getConfiguration('geolocstart', '');
+					$typeId = explode('|',$geoloc);
+					if ($typeId[0] == 'ios') {
+						$geolocCmd = geoloc_iosCmd::byId($typeId[1]);
+					} else  {
+						$geolocCmd = geolocCmd::byId($typeId[1]);
+					}
+					$geoloctab = explode(',', $geolocCmd->execCmd(null, 0));
+					if (isset($geoloctab[0]) && isset($geoloctab[1])) {
+						$latdepart = $geoloctab[0];
+						$londepart = $geoloctab[1];
+					} else {
+						log::add('wazeintime', 'debug', 'Position de départ invalide');
+						continue;
+					}
+				}
+				if ('none' == ($wazeintime->getConfiguration('geolocend', ''))) {
+					$latarrive=$wazeintime->getConfiguration('latarrive');
+					$lonarrive=$wazeintime->getConfiguration('lonarrive');
+				} else {
+					$geoloc = $wazeintime->getConfiguration('geolocend', '');
+					$typeId = explode('|',$geoloc);
+					if ($typeId[0] == 'ios') {
+						$geolocCmd = geoloc_iosCmd::byId($typeId[1]);
+					} else  {
+						$geolocCmd = geolocCmd::byId($typeId[1]);
+					}
+					$geoloctab = explode(',', $geolocCmd->execCmd(null, 0));
+					if (isset($geoloctab[0]) && isset($geoloctab[1])) {
+						$latarrive = $geoloctab[0];
+						$lonarrive = $geoloctab[1];
+					} else {
+						log::add('wazeintime', 'debug', 'Position d\'arrivée invalide');
+						continue;
+					}
+				}
 				$route1retTotalTimeMin = 'old';
 				$route2retTotalTimeMin = 'old';
 				$route3retTotalTimeMin = 'old';
@@ -55,7 +93,16 @@ class wazeintime extends eqLogic {
                 $wazeRouteurl = "https://www.waze.com/".$row."RoutingManager/routingRequest?from=x%3A$londepart+y%3A$latdepart&to=x%3A$lonarrive+y%3A$latarrive&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At";
                 log::add('wazeintime', 'debug', $wazeRouteurl);
 				$wazeRoutereturl = "https://www.waze.com/".$row."RoutingManager/routingRequest?from=x%3A$lonarrive+y%3A$latarrive&to=x%3A$londepart+y%3A$latdepart&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At";
-				$routeResponseText = @file_get_contents($wazeRouteurl);
+                $opts = array(
+                    'http'=>array(
+                    'method'=>"GET",
+                    'header'=>"Accept-language: en\r\n" .
+                    "User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0".
+                    "Cookie: foo=bar\r\n"
+                    )
+                );
+                $context = stream_context_create($opts);
+				$routeResponseText = @file_get_contents($wazeRouteurl, false, $context);
                 if ($routeResponseText === FALSE) {
                      log::add('wazeintime', 'debug', 'Difficulté à contacter le serveur');
                 } else {
@@ -88,7 +135,7 @@ class wazeintime extends eqLogic {
                     $route2TotalTimeMin = round($route2TotalTimeSec/60);
                     $route3TotalTimeMin = round($route3TotalTimeSec/60);
                 }
-                $routeretResponseText = @file_get_contents($wazeRoutereturl);
+                $routeretResponseText = @file_get_contents($wazeRoutereturl, false, $context);
                 if ($routeretResponseText === FALSE) {
                      log::add('wazeintime', 'debug', 'Difficulté à contacter le serveur');
                 } else {
@@ -167,28 +214,22 @@ class wazeintime extends eqLogic {
 						log::add('wazeintime','debug','set:'.$cmd->getName().' to '. $value);
 					}
 				}
-				$mc = cache::byKey('wazeintimeWidgetmobile' . $wazeintime->getId());
-				$mc->remove();
-				$mc = cache::byKey('wazeintimeWidgetdashboard' . $wazeintime->getId());
-				$mc->remove();
-				$wazeintime->toHtml('mobile');
-				$wazeintime->toHtml('dashboard');
 				$wazeintime->refreshWidget();
 			}
 		}
 	}
     
     public function preUpdate() {
-       if ($this->getConfiguration('latdepart') == '' || !is_numeric($this->getConfiguration('latdepart'))) {
+       if (($this->getConfiguration('latdepart') == '' || !is_numeric($this->getConfiguration('latdepart'))) && $this->getConfiguration('geolocstart') == 'none') {
             throw new Exception(__('La latitude de départ ne peut être vide et doit être un nombre valide',__FILE__));
 	   }
-        if ($this->getConfiguration('latarrive') == '' || !is_numeric($this->getConfiguration('latarrive'))) {
+        if (($this->getConfiguration('latarrive') == '' || !is_numeric($this->getConfiguration('latarrive'))) && $this->getConfiguration('geolocend') == 'none') {
             throw new Exception(__('La latitude d\'arrivée ne peut être vide et doit être un nombre valide',__FILE__));
 	   }
-        if ($this->getConfiguration('londepart') == '' || !is_numeric($this->getConfiguration('londepart'))) {
+        if (($this->getConfiguration('londepart') == '' || !is_numeric($this->getConfiguration('londepart'))) && $this->getConfiguration('geolocstart') == 'none') {
             throw new Exception(__('La longitude de départ ne peut être vide et doit être un nombre valide',__FILE__));
 	   }
-        if ($this->getConfiguration('lonarrive') == '' || !is_numeric($this->getConfiguration('lonarrive'))) {
+        if (($this->getConfiguration('lonarrive') == '' || !is_numeric($this->getConfiguration('lonarrive'))) && $this->getConfiguration('geolocend') == 'none') {
             throw new Exception(__('La longitude d\'arrivée ne peut être vide et doit être un nombre valide',__FILE__));
 	   }
     }
@@ -359,7 +400,7 @@ class wazeintime extends eqLogic {
         $timeret3 = $this->getCmd(null, 'timeret3');
 		if (!is_object($timeret3)) {
 			$timeret3 = new wazeintimeCmd();
-			$timeret3->setLogicalId(timeret3);
+			$timeret3->setLogicalId('timeret3');
 			$timeret3->setIsVisible(1);
 			$timeret3->setName(__('Durée retour 3', __FILE__));
 		}
@@ -418,37 +459,20 @@ class wazeintime extends eqLogic {
 	}
     
     public function toHtml($_version = 'dashboard') {
-    	if ($this->getIsEnable() != 1) {
-			return '';
-		}
-		if (!$this->hasRight('r')) {
-			return '';
-		}
+		$replace = $this->preToHtml($_version);
+ 		if (!is_array($replace)) {
+ 			return $replace;
+  		}
 		$version = jeedom::versionAlias($_version);
 		if ($this->getDisplay('hideOn' . $version) == 1) {
 			return '';
 		}
-		$mc = cache::byKey('wazeintimeWidget' . jeedom::versionAlias($_version) . $this->getId());
-		if ($mc->getValue() != '') {
-			return preg_replace("/" . preg_quote(self::UIDDELIMITER) . "(.*?)" . preg_quote(self::UIDDELIMITER) . "/", self::UIDDELIMITER . mt_rand() . self::UIDDELIMITER, $mc->getValue());
-		}
-		$_version = jeedom::versionAlias($_version);
-		$background=$this->getBackgroundColor($_version);
         $hide1=$this->getConfiguration('hide1');
         $hide2=$this->getConfiguration('hide2');
         $hide3=$this->getConfiguration('hide3');
-		$replace = array(
-			'#name#' => $this->getName(),
-			'#id#' => $this->getId(),
-			'#background_color#' => $background,
-			'#eqLink#' => $this->getLinkToConfiguration(),
-			'#uid#' => 'wazeintime' . $this->getId() . self::UIDDELIMITER . mt_rand() . self::UIDDELIMITER,
-            '#height#' => $this->getDisplay('height', 'auto'),
-            '#width#' => $this->getDisplay('width', '330px'),
-            '#hide1#' => $hide1,
-            '#hide2#' => $hide2,
-            '#hide3#' => $hide3,
-		);
+		$replace['#hide1#'] = $hide1;
+		$replace['#hide2#'] = $hide2;
+		$replace['#hide3#'] = $hide3;
 		foreach ($this->getCmd('info') as $cmd) {
 			$replace['#' . $cmd->getLogicalId() . '_history#'] = '';
                 $replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
@@ -463,24 +487,8 @@ class wazeintime extends eqLogic {
 		$refresh = $this->getCmd(null, 'refresh');
 		$replace['#refresh_id#'] = $refresh->getId();
 
-    	if (($_version == 'dview' || $_version == 'mview') && $this->getDisplay('doNotShowNameOnView') == 1) {
-			$replace['#name#'] = '';
-			$replace['#object_name#'] = (is_object($object)) ? $object->getName() : '';
-		}
-		if (($_version == 'mobile' || $_version == 'dashboard') && $this->getDisplay('doNotShowNameOnDashboard') == 1) {
-			$replace['#name#'] = '<br/>';
-			$replace['#object_name#'] = (is_object($object)) ? $object->getName() : '';
-		}
-		
-		$parameters = $this->getDisplay('parameters');
-		if (is_array($parameters)) {
-			foreach ($parameters as $key => $value) {
-				$replace['#' . $key . '#'] = $value;
-			}
-		}
-
 		$html = template_replace($replace, getTemplate('core', $_version, 'eqlogic', 'wazeintime'));
-		cache::set('wazeintimeWidget' . $version . $this->getId(), $html, 0);
+		cache::set('widgetHtml' . $version . $this->getId(), $html, 0);
 		return $html;
 	}
 }

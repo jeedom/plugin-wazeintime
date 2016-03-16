@@ -4,9 +4,9 @@
         "Aucune": "None"
     },
     "plugins/wazeintime/desktop/php/wazeintime.php": {
-        "Ajouter un trajet": "Ajouter un trajet",
+        "Ajouter un trajet": "Add a path",
         "Rechercher": "Search",
-        "Mes Trajets": "Mes Trajets",
+        "Mes Trajets": "My paths",
         "Général": "Main",
         "Nom de l'équipement": "Device name",
         "Objet parent": "Parent object",
@@ -16,6 +16,8 @@
         "Visible": "Visible",
         "Configuration": "Setup",
         "Départ": "Départ",
+        "Géolocalisation": "Géolocalisation",
+        "Manuel": "Manual",
         "Latitude": "Latitude",
         "48.856614": "48.856614",
         "Longitude": "Longitude",
@@ -27,18 +29,28 @@
         "1": "1",
         "2": "2",
         "3": "3",
-        "Tableau de commandes": "Tableau de commandes",
+        "Tableau de commandes": "Dashboard",
         "Nom": "Name",
         "Options": "Options",
         "Action": "Action",
         "Supprimer": "Delete",
         "Sauvegarder": "Save"
     },
-    "plugins/wazeintime/desktop/js/wazeintime.js": {
-        "Historiser": "Historize",
-        "Tester": "Test"
-    },
     "plugins/wazeintime/core/class/wazeintime.class.php": {
-        "Dernier refresh retour": "Dernier refresh retour"
+        "Trajet 1": "Trajet 1",
+        "Durée 1": "Durée 1",
+        "Trajet 2": "Trajet 2",
+        "Durée 2": "Durée 2",
+        "Trajet 3": "Trajet 3",
+        "Durée 3": "Durée 3",
+        "Trajet retour 1": "Trajet retour 1",
+        "Durée retour 1": "Durée retour 1",
+        "Trajet retour 2": "Trajet retour 2",
+        "Durée retour 2": "Durée retour 2",
+        "Trajet retour 3": "Trajet retour 3",
+        "Durée retour 3": "Durée retour 3",
+        "Rafraichir": "Rafraichir",
+        "Dernier refresh": "Dernier refresh",
+        "Dernier refresh retour": "Last refresh return"
     }
 }

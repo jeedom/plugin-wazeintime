@@ -16,6 +16,8 @@
         "Visible": "Visible",
         "Configuration": "Configuration",
         "Départ": "Départ",
+        "Géolocalisation": "Géolocalisation",
+        "Manuel": "Manuel",
         "Latitude": "Latitude",
         "48.856614": "48.856614",
         "Longitude": "Longitude",
@@ -34,11 +36,26 @@
         "Supprimer": "Supprimer",
         "Sauvegarder": "Sauvegarder"
     },
+    "plugins\/wazeintime\/core\/class\/wazeintime.class.php": {
+        "Trajet 1": "Trajet 1",
+        "Durée 1": "Durée 1",
+        "Trajet 2": "Trajet 2",
+        "Durée 2": "Durée 2",
+        "Trajet 3": "Trajet 3",
+        "Durée 3": "Durée 3",
+        "Trajet retour 1": "Trajet retour 1",
+        "Durée retour 1": "Durée retour 1",
+        "Trajet retour 2": "Trajet retour 2",
+        "Durée retour 2": "Durée retour 2",
+        "Trajet retour 3": "Trajet retour 3",
+        "Durée retour 3": "Durée retour 3",
+        "Rafraichir": "Rafraichir",
+        "Dernier refresh": "Dernier refresh",
+        "Dernier refresh retour": "Dernier refresh retour",
+        "La latitude de départ ne peut être vide et doit être un nombre valide": "La latitude de départ ne peut être vide et doit être un nombre valide"
+    },
     "plugins\/wazeintime\/desktop\/js\/wazeintime.js": {
         "Historiser": "Historiser",
         "Tester": "Tester"
-    },
-    "plugins\/wazeintime\/core\/class\/wazeintime.class.php": {
-        "Dernier refresh retour": "Dernier refresh retour"
     }
 }

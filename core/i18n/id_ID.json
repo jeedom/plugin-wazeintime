@@ -16,6 +16,8 @@
         "Visible": "Terlihat",
         "Configuration": "Konfigurasi",
         "Départ": "Départ",
+        "Géolocalisation": "Géolocalisation",
+        "Manuel": "Manuel",
         "Latitude": "Lintang",
         "48.856614": "48.856614",
         "Longitude": "Bujur",
@@ -34,11 +36,21 @@
         "Supprimer": "Menghapus",
         "Sauvegarder": "Menyimpan"
     },
-    "plugins/wazeintime/desktop/js/wazeintime.js": {
-        "Historiser": "Historicize",
-        "Tester": "Coba"
-    },
     "plugins/wazeintime/core/class/wazeintime.class.php": {
+        "Trajet 1": "Trajet 1",
+        "Durée 1": "Durée 1",
+        "Trajet 2": "Trajet 2",
+        "Durée 2": "Durée 2",
+        "Trajet 3": "Trajet 3",
+        "Durée 3": "Durée 3",
+        "Trajet retour 1": "Trajet retour 1",
+        "Durée retour 1": "Durée retour 1",
+        "Trajet retour 2": "Trajet retour 2",
+        "Durée retour 2": "Durée retour 2",
+        "Trajet retour 3": "Trajet retour 3",
+        "Durée retour 3": "Durée retour 3",
+        "Rafraichir": "Rafraichir",
+        "Dernier refresh": "Dernier refresh",
         "Dernier refresh retour": "Dernier refresh retour"
     }
 }
