@@ -27,10 +27,13 @@ class wazeintime extends eqLogic {
 	public static function cron30($_eqlogic_id = null) {
 		if($_eqlogic_id !== null){
 			$eqLogics = array(eqLogic::byId($_eqlogic_id));
+			$sleep = 0;
 		}else{
 			$eqLogics = eqLogic::byType('wazeintime');
+			$sleep = 96;
 		}
         foreach ($eqLogics as $wazeintime) {
+			sleep($sleep);
 			if ($wazeintime->getIsEnable() == 1) {
 				log::add('wazeintime', 'debug', 'Pull Cron pour Waze in time');
 				if ('none' == ($wazeintime->getConfiguration('geolocstart', ''))) {
@@ -97,8 +100,7 @@ class wazeintime extends eqLogic {
                     'http'=>array(
                     'method'=>"GET",
                     'header'=>"Accept-language: en\r\n" .
-                    "User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0".
-                    "Cookie: foo=bar\r\n"
+                    "User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0"
                     )
                 );
                 $context = stream_context_create($opts);
@@ -487,7 +489,7 @@ class wazeintime extends eqLogic {
 		$refresh = $this->getCmd(null, 'refresh');
 		$replace['#refresh_id#'] = $refresh->getId();
 
-		$html = template_replace($replace, getTemplate('core', $_version, 'eqlogic', 'wazeintime'));
+		$html = template_replace($replace, getTemplate('core', $version, 'eqlogic', 'wazeintime'));
 		cache::set('widgetHtml' . $version . $this->getId(), $html, 0);
 		return $html;
 	}

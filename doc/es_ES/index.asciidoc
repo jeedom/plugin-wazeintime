@@ -5,6 +5,6 @@ Ce plugin permet d'avoir les infos de trajet (traffic pris en compte) via Waze. 
 
 image:../images/wazeintime_screenshot1.jpg[width=256]
 
-'''
+"
 === Configuration
 include::configuration.asciidoc[]

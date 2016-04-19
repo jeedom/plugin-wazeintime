@@ -1,12 +1,12 @@
 {
     "plugins/wazeintime/plugin_info/info.xml": {
-        "Plugin pour avoir la durée de trajet entre deux points": "Plugin pour avoir la durée de trajet entre deux points",
+        "Plugin pour avoir la durée de trajet entre deux points": "Plugin um Wegbeschreibungen zwischen Standorten abzurufen.",
         "Aucune": "Ohne"
     },
     "plugins/wazeintime/desktop/php/wazeintime.php": {
-        "Ajouter un trajet": "Ajouter un trajet",
+        "Ajouter un trajet": "Route hinzufügen",
         "Rechercher": "Suchen nach",
-        "Mes Trajets": "Mes Trajets",
+        "Mes Trajets": "Meine Route",
         "Général": "Allgemein",
         "Nom de l'équipement": "Gerätename",
         "Objet parent": "Eltern-Objekt",
@@ -15,17 +15,17 @@
         "Activer": "aktivieren",
         "Visible": "Sichtbar",
         "Configuration": "Konfiguration",
-        "Départ": "Départ",
-        "Géolocalisation": "Géolocalisation",
-        "Manuel": "Manuel",
+        "Départ": "Start",
+        "Géolocalisation": "Geolokalisierung",
+        "Manuel": "Handbuch",
         "Latitude": "Breite",
         "48.856614": "48.856614",
         "Longitude": "Länge",
         "2.3522219000000177": "2.3522219000000177",
-        "Arrivée": "Arrivée",
-        "Amérique du Nord :": "Amérique du Nord :",
+        "Arrivée": "Ziel",
+        "Amérique du Nord :": "Nordamerika :",
         "Affichage": "Anzeigen",
-        "Masquer trajet :": "Masquer trajet :",
+        "Masquer trajet :": "Route verstecken :",
         "1": "1",
         "2": "2",
         "3": "3",
@@ -39,7 +39,7 @@
     "plugins/wazeintime/core/class/wazeintime.class.php": {
         "Trajet 1": "Trajet 1",
         "Durée 1": "Durée 1",
-        "Trajet 2": "Trajet 2",
+        "Trajet 2": "Route 2",
         "Durée 2": "Durée 2",
         "Trajet 3": "Trajet 3",
         "Durée 3": "Durée 3",
@@ -49,8 +49,13 @@
         "Durée retour 2": "Durée retour 2",
         "Trajet retour 3": "Trajet retour 3",
         "Durée retour 3": "Durée retour 3",
-        "Rafraichir": "Rafraichir",
+        "Rafraichir": "Aktualisieren",
         "Dernier refresh": "Dernier refresh",
-        "Dernier refresh retour": "Dernier refresh retour"
+        "Dernier refresh retour": "Letzten Aktualisierung Rückkehr",
+        "La latitude de départ ne peut être vide et doit être un nombre valide": "La latitude de départ ne peut être vide et doit être un nombre valide"
+    },
+    "plugins/wazeintime/desktop/js/wazeintime.js": {
+        "Historiser": "Chronik",
+        "Tester": "Test"
     }
 }

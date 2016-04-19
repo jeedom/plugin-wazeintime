@@ -51,6 +51,11 @@
         "Durée retour 3": "Durée retour 3",
         "Rafraichir": "Rafraichir",
         "Dernier refresh": "Dernier refresh",
-        "Dernier refresh retour": "Dernier refresh retour"
+        "Dernier refresh retour": "Dernier refresh retour",
+        "La latitude de départ ne peut être vide et doit être un nombre valide": "La latitude de départ ne peut être vide et doit être un nombre valide"
+    },
+    "plugins/wazeintime/desktop/js/wazeintime.js": {
+        "Historiser": "Historicize",
+        "Tester": "Coba"
     }
 }

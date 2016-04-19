@@ -1,6 +1,6 @@
 {
     "plugins/wazeintime/plugin_info/info.xml": {
-        "Plugin pour avoir la durée de trajet entre deux points": "Plugin pour avoir la durée de trajet entre deux points",
+        "Plugin pour avoir la durée de trajet entre deux points": "Plugin for the travel time between two points",
         "Aucune": "None"
     },
     "plugins/wazeintime/desktop/php/wazeintime.php": {
@@ -15,17 +15,17 @@
         "Activer": "Enabled",
         "Visible": "Visible",
         "Configuration": "Setup",
-        "Départ": "Départ",
-        "Géolocalisation": "Géolocalisation",
+        "Départ": "Departure",
+        "Géolocalisation": "Geolocalization",
         "Manuel": "Manual",
         "Latitude": "Latitude",
         "48.856614": "48.856614",
         "Longitude": "Longitude",
         "2.3522219000000177": "2.3522219000000177",
-        "Arrivée": "Arrivée",
-        "Amérique du Nord :": "Amérique du Nord :",
+        "Arrivée": "Arrival",
+        "Amérique du Nord :": "North America :",
         "Affichage": "Display",
-        "Masquer trajet :": "Masquer trajet :",
+        "Masquer trajet :": "Hide path:",
         "1": "1",
         "2": "2",
         "3": "3",
@@ -37,20 +37,25 @@
         "Sauvegarder": "Save"
     },
     "plugins/wazeintime/core/class/wazeintime.class.php": {
-        "Trajet 1": "Trajet 1",
-        "Durée 1": "Durée 1",
-        "Trajet 2": "Trajet 2",
-        "Durée 2": "Durée 2",
-        "Trajet 3": "Trajet 3",
-        "Durée 3": "Durée 3",
-        "Trajet retour 1": "Trajet retour 1",
-        "Durée retour 1": "Durée retour 1",
-        "Trajet retour 2": "Trajet retour 2",
-        "Durée retour 2": "Durée retour 2",
-        "Trajet retour 3": "Trajet retour 3",
-        "Durée retour 3": "Durée retour 3",
-        "Rafraichir": "Rafraichir",
-        "Dernier refresh": "Dernier refresh",
-        "Dernier refresh retour": "Last refresh return"
+        "Trajet 1": "Path 1",
+        "Durée 1": "Duration 1",
+        "Trajet 2": "Path 2",
+        "Durée 2": "Duration 2",
+        "Trajet 3": "Path 3",
+        "Durée 3": "Duration 3",
+        "Trajet retour 1": "Return trip 1",
+        "Durée retour 1": "Return Period 1",
+        "Trajet retour 2": "Return trip 2",
+        "Durée retour 2": "Return Period 2",
+        "Trajet retour 3": "Return trip 3",
+        "Durée retour 3": "Return Period 3",
+        "Rafraichir": "Refresh",
+        "Dernier refresh": "Last refresh",
+        "Dernier refresh retour": "Last refresh return",
+        "La latitude de départ ne peut être vide et doit être un nombre valide": "The starting latitude can not be empty and must be a valid number"
+    },
+    "plugins/wazeintime/desktop/js/wazeintime.js": {
+        "Historiser": "Historize",
+        "Tester": "Test"
     }
 }
