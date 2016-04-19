@@ -104,14 +104,14 @@ $eqLogics = eqLogic::byType('wazeintime');
                               foreach (eqLogic::byType('geoloc') as $geoloc) {
                                 foreach (geolocCmd::byEqLogicId($geoloc->getId()) as $geoinfo) {
                                     if ($geoinfo->getConfiguration('mode') == 'fixe' || $geoinfo->getConfiguration('mode') == 'dynamic') {
-                                        echo '<option value="normal|' . $geoinfo->getId() . '">' . $geoinfo->getName() . '</option>';
+                                        echo '<option value="normal|' . $geoinfo->getId() . '">' . $geoinfo->getHumanName(true) . '</option>';
                                     }
                                 }
                               }
 							  foreach (eqLogic::byType('geoloc_ios') as $geoloc) {
                                 foreach (geoloc_iosCmd::byEqLogicId($geoloc->getId()) as $geoinfo) {
                                     if (($geoinfo->getConfiguration('mode') == 'fixe' || $geoinfo->getConfiguration('mode') == 'dynamic') && $geoinfo->getName() != 'Refresh') {
-                                        echo '<option value="ios|' . $geoinfo->getId() . '">' . $geoinfo->getName() . '</option>';
+                                        echo '<option value="ios|' . $geoinfo->getId() . '">' . $geoinfo->getHumanName(true) . '</option>';
                                     }
                                 }
                               }
@@ -137,14 +137,14 @@ $eqLogics = eqLogic::byType('wazeintime');
                               foreach (eqLogic::byType('geoloc') as $geoloc) {
                                 foreach (geolocCmd::byEqLogicId($geoloc->getId()) as $geoinfo) {
                                     if ($geoinfo->getConfiguration('mode') == 'fixe' || $geoinfo->getConfiguration('mode') == 'dynamic') {
-                                        echo '<option value="normal|' . $geoinfo->getId() . '">' . $geoinfo->getName() . '</option>';
+                                        echo '<option value="normal|' . $geoinfo->getId() . '">' . $geoinfo->getHumanName(true) . '</option>';
                                     }
                                 }
                               }
 							  foreach (eqLogic::byType('geoloc_ios') as $geoloc) {
                                 foreach (geoloc_iosCmd::byEqLogicId($geoloc->getId()) as $geoinfo) {
                                     if (($geoinfo->getConfiguration('mode') == 'fixe' || $geoinfo->getConfiguration('mode') == 'dynamic') && $geoinfo->getName() != 'Refresh') {
-                                        echo '<option value="ios|' . $geoinfo->getId() . '">' . $geoinfo->getName() . '</option>';
+                                        echo '<option value="ios|' . $geoinfo->getId() . '">' . $geoinfo->getHumanName(true) . '</option>';
                                     }
                                 }
                               }
