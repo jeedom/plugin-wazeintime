@@ -30,7 +30,7 @@ class wazeintime extends eqLogic {
 			$sleep = 0;
 		}else{
 			$eqLogics = eqLogic::byType('wazeintime');
-			$sleep = 96;
+			$sleep = rand(0,120);
 		}
         foreach ($eqLogics as $wazeintime) {
 			sleep($sleep);
