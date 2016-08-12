@@ -82,9 +82,9 @@ class wazeintime extends eqLogic {
 
 	public static function extractInfo($_data, $_prefix = '') {
 		$return = array();
-		$return['route' . $_prefix . 'name1'] = (isset($_data['alternatives'][0]['response']['routeName'])) ? $_data['alternatives'][0]['response']['routeName'] : "NA";
-		$return['route' . $_prefix . 'name2'] = (isset($_data['alternatives'][1]['response']['routeName'])) ? $_data['alternatives'][1]['response']['routeName'] : "NA";
-		$return['route' . $_prefix . 'name3'] = (isset($_data['alternatives'][2]['response']['routeName'])) ? $_data['alternatives'][2]['response']['routeName'] : "NA";
+		$return['route' . $_prefix . 'name1'] = (isset($_data['alternatives'][0]['response']['routeName'])) ? trim($_data['alternatives'][0]['response']['routeName']) : "NA";
+		$return['route' . $_prefix . 'name2'] = (isset($_data['alternatives'][1]['response']['routeName'])) ? trim($_data['alternatives'][1]['response']['routeName']) : "NA";
+		$return['route' . $_prefix . 'name3'] = (isset($_data['alternatives'][2]['response']['routeName'])) ? trim($_data['alternatives'][2]['response']['routeName']) : "NA";
 		$return['time' . $_prefix . '1'] = 0;
 		$return['time' . $_prefix . '2'] = 0;
 		$return['time' . $_prefix . '3'] = 0;

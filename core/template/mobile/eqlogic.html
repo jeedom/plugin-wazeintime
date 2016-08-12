@@ -1,4 +1,4 @@
-<div class="eqLogic-widget eqLogic wazeintime" style="background-color: #background-color#;color: #color#;width: 120px;border:#border#;border-radius:#border-radius#; padding : 0px; #style#" data-eqLogic_id="#id#" data-eqLogic_uid="#uid#" data-version="mobile" >
+<div class="eqLogic-widget eqLogic wazeintime col2" style="border:#border#;border-radius:#border-radius#;background-color: #background-color#;color: #color#;#style#" data-eqLogic_id="#id#" data-eqLogic_uid="#uid#" data-version="#version#" >
   <span class="statusCmd" style="position : absolute;left : 5px; width : 30px;z-index: 1030;"></span>
   <i class='fa fa-refresh pull-right cursor refresh' style="margin-top: 3px;margin-right: 6px;"></i>
   <center><i class="icon transport-car95" style="#hideEqLogicName#"></i> #name_display# <span style="font-size: 0.85em;position: relative;top:-2px;">#object_name#</span></center>
@@ -6,51 +6,76 @@
   <span class="cmd cmd-widget" data-cmd_id="#refresh_id#" style="display:none;"></span>
 
   <div class="row" style="margin-left : 2px;margin-right : 2px;">
-   <div class="col-sm-6" style="padding-right : 5px;padding-left : 5px;White-space:nowrap; Overflow:hidden;">
+    <div class="col-sm-6" style="padding-right : 5px;padding-left : 5px;overflow:hidden;">
      <legend style="color:white;margin-bottom : 0px;font-size : 15px;font-weight: bold;Cursor:default"><i class="fa fa-arrow-right"></i> Aller  <span style="font-size : 0.8em;">#lastrefresh#</span></legend>
      <div class="travel1">
-        <span class="#time1_history# time1" data-cmd_id="#time1_id#">1 - Durée <strong class="tooltips" title="#time1_collect#" style="font-size:1.1em;">#time1#</strong> <span style="font-size:0.8em;">min</span><br/></span>
-        <span class="#routename1_history# routename1" data-cmd_id="#routename1_id#" style="Cursor:default">Via <strong class="tooltips" title="#routename1# le #routename1_collect#" style="font-size:1.1em;">#routename1#</strong> <span style="font-size:0.8em;"></span><br/></span>
-     </div>
-     <div class="travel2">
-        <span class="#time2_history# time2" data-cmd_id="#time2_id#">2 - Durée <strong class="tooltips" title="#time2_collect#" style="font-size:1.1em;">#time2#</strong> <span style="font-size:0.8em;">min</span><br/></span>
-        <span class="#routename2_history# routename2" data-cmd_id="#routename2_id#" style="Cursor:default">Via <strong class="tooltips" title="#routename2# le #routename2_collect#" style="font-size:1.1em;">#routename2#</strong> <span style="font-size:0.8em;"></span><br/></span>
-     </div>
-     <div class="travel3">
-        <span class="#time3_history# time3" data-cmd_id="#time3_id# travel3">3 - Durée <strong class="tooltips" title="#time3_collect#" style="font-size:1.1em;">#time3#</strong> <span style="font-size:0.8em;">min</span><br/></span>
-        <span class="#routename3_history# routename3" data-cmd_id="#routename3_id# travel3" style="Cursor:default">Via <strong class="tooltips" title="#routename3# le #routename3_collect#" style="font-size:1.1em;">#routename3#</strong> <span style="font-size:0.8em;"></span><br/></span>
-     </div>
-     </div>
-   <div class="col-sm-6" style="padding-right : 3px;padding-left : 10px;White-space:nowrap; Overflow:hidden;">
-     <legend style="color:white;margin-bottom : 0px;font-size : 15px;font-weight: bold;Cursor:default"><i class="fa fa-arrow-left"></i> Retour  <span style="font-size : 0.8em;">#lastrefresh#</span></legend>
-     <div class="travel1">
-        <span class="#timeret1_history# time1" data-cmd_id="#timeret1_id#">1 - Durée <strong class="tooltips" title="#timeret1_collect#" style="font-size:1.1em;">#timeret1#</strong> <span style="font-size:0.8em;">min</span><br/></span>
-        <span class="#routeretname1_history# routeretname1" data-cmd_id="#routeretname1_id#" style="Cursor:default">Via <strong class="tooltips" title="#routeretname1# le #routeretname1_collect#" style="font-size:1.1em;">#routeretname1#</strong> <span style="font-size:0.8em;"></span><br/></span>
-     </div>
-     <div class="travel2">
-        <span class="#timeret2_history# time2" data-cmd_id="#timeret2_id#">2 - Durée <strong class="tooltips" title="#timeret2_collect#" style="font-size:1.1em;">#timeret2#</strong> <span style="font-size:0.8em;">min</span><br/></span>
-        <span class="#routeretname2_history# routeretname2" data-cmd_id="#routeretname2_id#" style="Cursor:default">Via <strong class="tooltips" title="#routeretname2# le #routeretname2_collect#" style="font-size:1.1em;">#routeretname2#</strong> <span style="font-size:0.8em;"></span><br/></span>
-     </div>
-     <div class="travel3">
-        <span class="#timeret3_history# timeret3" data-cmd_id="#timeret3_id# travel3">3 - Durée <strong class="tooltips" title="#timeret3_collect#" style="font-size:1.1em;">#timeret3#</strong> <span style="font-size:0.8em;">min</span><br/></span>
-        <span class="#routeretname3_history# routeretname3" data-cmd_id="#routeretname3_id# travel3" style="Cursor:default">Via <strong class="tooltips" title="#routeretname3# le #routeretname3_collect#" style="font-size:1.1em;">#routeretname3#</strong> <span style="font-size:0.8em;"></span><br/></span>
-     </div>
-   </div>
- </div>
+      <span class="#time1_history# time1" data-cmd_id="#time1_id#">
+        <strong class="tooltips" title="#time1_collect#" style="font-size:1.0em;">#time1#</strong> <span style="font-size:0.6em;">min</span>
+      </span>
+      <span class="routename1" data-cmd_id="#routename1_id#" style="cursor:default">
+        <span class="tooltips" title="#routename1# le #routename1_collect#" style="font-size:0.7em;"> - #routename1#</span>
+      </span>
+    </div>
+    <div class="travel2">
+      <span class="#time1_history# time2" data-cmd_id="#time2_id#">
+        <strong class="tooltips" title="#time2_collect#" style="font-size:1.0em;">#time2#</strong> <span style="font-size:0.6em;">min</span>
+      </span>
+      <span class="routename2" data-cmd_id="#routename2_id#" style="cursor:default">
+        <span class="tooltips" title="#routename2# le #routename2_collect#" style="font-size:0.7em;"> - #routename2#</span>
+      </span>
+    </div>
+    <div class="travel3">
+      <span class="#time1_history# time3" data-cmd_id="#time3_id#">
+        <strong class="tooltips" title="#time3_collect#" style="font-size:1.0em;">#time3#</strong> <span style="font-size:0.6em;">min</span>
+      </span>
+      <span class="routename3" data-cmd_id="#routename3_id#" style="cursor:default">
+        <span class="tooltips" title="#routename3# le #routename3_collect#" style="font-size:0.7em;"> - #routename3#</span>
+      </span>
+    </div>
+  </div>
+  <div class="col-sm-6" style="padding-right : 3px;padding-left : 10px;overflow:hidden;">
+   <legend style="color:white;margin-bottom : 0px;font-size : 15px;font-weight: bold;Cursor:default"><i class="fa fa-arrow-left"></i> Retour  <span style="font-size : 0.8em;">#lastrefresh#</span></legend>
+   <div class="travel1">
+    <span class="#timeret1_history# time1" data-cmd_id="#timeret1_id#">
+      <strong class="tooltips" title="#timeret1_collect#" style="font-size:1.0em;">#timeret1#</strong> <span style="font-size:0.6em;">min</span>
+    </span>
+    <span class="routename1" data-cmd_id="#routeretname1_id#" style="cursor:default">
+      <span class="tooltips" title="#routeretname1# le #routeretname1_collect#" style="font-size:0.7em;"> - #routeretname1#</span>
+    </span>
+  </div>
 
- <script>
+  <div class="travel2">
+    <span class="#timeret2_history# time2" data-cmd_id="#timeret2_id#">
+      <strong class="tooltips" title="#timeret2_collect#" style="font-size:1.0em;">#timeret2#</strong> <span style="font-size:0.6em;">min</span>
+    </span>
+    <span class="routename2" data-cmd_id="#routeretname2_id#" style="cursor:default">
+      <span class="tooltips" title="#routeretname2# le #routeretname2_collect#" style="font-size:0.7em;"> - #routeretname2#</span>
+    </span>
+  </div>
+  <div class="travel3">
+    <span class="#timeret3_history# time2" data-cmd_id="#timeret3_id#">
+      <strong class="tooltips" title="#timeret3_collect#" style="font-size:1.0em;">#timeret3#</strong> <span style="font-size:0.6em;">min</span>
+    </span>
+    <span class="routename3" data-cmd_id="#routeretname3_id#" style="cursor:default">
+      <span class="tooltips" title="#routeretname3# le #routeretname3_collect#" style="font-size:0.7em;"> - #routeretname3#</span>
+    </span>
+  </div>
+</div>
+</div>
+
+<script>
   $('.eqLogic[data-eqLogic_uid=#uid#] .refresh').on('click', function () {
     jeedom.cmd.execute({id: '#refresh_id#'});
   });
   if('#hide1#' == 1){
-	$('.eqLogic[data-eqLogic_uid=#uid#] .travel1').hide();
-    }
-  if('#hide2#' == 1){
-        $('.eqLogic[data-eqLogic_uid=#uid#] .travel2').hide();
-    }
-   if('#hide3#' == 1){
-        $('.eqLogic[data-eqLogic_uid=#uid#] .travel3').hide();
-	}
-  
+   $('.eqLogic[data-eqLogic_uid=#uid#] .travel1').hide();
+ }
+ if('#hide2#' == 1){
+  $('.eqLogic[data-eqLogic_uid=#uid#] .travel2').hide();
+}
+if('#hide3#' == 1){
+  $('.eqLogic[data-eqLogic_uid=#uid#] .travel3').hide();
+}
+
 </script>
 </div>
