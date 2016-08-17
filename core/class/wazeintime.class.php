@@ -369,13 +369,9 @@ class wazeintime extends eqLogic {
 			}
 
 		}
-
 		$refresh = $this->getCmd(null, 'refresh');
 		$replace['#refresh_id#'] = $refresh->getId();
-
-		$html = template_replace($replace, getTemplate('core', $version, 'eqlogic', 'wazeintime'));
-		cache::set('widgetHtml' . $version . $this->getId(), $html, 0);
-		return $html;
+		return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, 'eqlogic', 'wazeintime')));
 	}
 }
 
