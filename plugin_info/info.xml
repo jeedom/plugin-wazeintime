@@ -3,12 +3,9 @@
     <id>wazeintime</id>
     <name>Waze in Time</name>
     <description>Plugin pour avoir la durée de trajet entre deux points</description>
-    <icon>icon transport-car95</icon>
     <licence>AGPL</licence>
     <author>Ludovic SARAKHA</author>
-    <installation>Aucune</installation>
     <require>2.2</require>
-    <version>1.0</version>
     <category>travel</category>
 </info>
 
