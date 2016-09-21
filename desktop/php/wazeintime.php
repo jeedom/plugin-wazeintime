@@ -2,9 +2,9 @@
 if (!isConnect('admin')) {
 	throw new Exception('{{401 - Accès non autorisé}}');
 }
-
-sendVarToJS('eqType', 'wazeintime');
-$eqLogics = eqLogic::byType('wazeintime');
+$plugin = plugin::byId('wazeintime');
+sendVarToJS('eqType', $plugin->getId());
+$eqLogics = eqLogic::byType($plugin->getId());
 ?>
 <div class="row row-overflow">
     <div class="col-lg-2">
@@ -38,7 +38,7 @@ foreach ($eqLogics as $eqLogic) {
 	}
 	echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;' . $opacity . '" >';
 	echo "<center>";
-	echo '<img src="plugins/wazeintime/doc/images/wazeintime_icon.png" height="105" width="95" />';
+	echo '<img src="' . $plugin->getPathImgIcon() . '" height="105" width="95" />';
 	echo "</center>";
 	echo '<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"><center>' . $eqLogic->getHumanName(true, true) . '</center></span>';
 	echo '</div>';
