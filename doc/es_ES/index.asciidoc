@@ -8,3 +8,7 @@ image:../images/wazeintime_screenshot1.jpg[width=256]
 "
 === Configuration
 include::configuration.asciidoc[]
+
+"
+
+include::changelog.asciidoc[]
