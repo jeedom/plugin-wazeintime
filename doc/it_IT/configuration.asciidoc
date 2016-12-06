@@ -26,9 +26,9 @@ Sur cette page vous trouverez trois sections :
 
 ... Général
 
-Vous trouverez dans cette section toutes les configurations jeedom. A savoir
+Vous trouverez dans cette section toutes les configurations Jeedom. A savoir
 le nom de votre équippement, l'objet auquel vous voulez l'associer, la catégorie,
-si vous voulez que l'équippement soit actif ou non , et enfin si vous voulez qu'il soit visible sur le dashboard.
+si vous voulez que l'équipement soit actif ou non , et enfin si vous voulez qu'il soit visible sur le dashboard.
 
 ... Configuration
 
@@ -36,7 +36,7 @@ Cette section est une des plus importantes elle permet de régler le point de d�
 
 * Ces infos doivent être les latitudes et longitudes des positions
 
-* Elles peuvent être retrouvées en utilisant le site fournis en cliquant sur le lien de la page (il vous suffit de rentrer une adresse et de cliquer sur obtenir les coordonnées GPS)
+* Elles peuvent être retrouvées en utilisant le site fourni en cliquant sur le lien de la page (il vous suffit de rentrer une adresse et de cliquer sur obtenir les coordonnées GPS)
 
 ... Tableau de Commandes
 
@@ -50,7 +50,7 @@ image:../images/config3.jpg[width=600]
 * Durée retour 2 : durée retour avec le trajet alternatif
 * Trajet retour 1 : Trajet retour 1
 * Trajet retour 2 : Trajet retour alternatif
-* Rafraichir : Permet de rafraichir les infos
+* Rafraîchir : Permet de rafraîchir les infos
 
 Toutes ces commandes sont disponibles via scénarios et via le dashboard
 
@@ -59,9 +59,9 @@ Toutes ces commandes sont disponibles via scénarios et via le dashboard
 
 image:../images/wazeintime_screenshot1.jpg[width=256]
 
-* Le bouton en haut à droite permet de rafraichir les infos.
-* Toutes les infos sont visibles (pour les trajets, si le trajet est long, il peut être tronquée mais la version complète est visible en laissant la souris dessus)
+* Le bouton en haut à droite permet de rafraîchir les infos.
+* Toutes les infos sont visibles (pour les trajets, si le trajet est long, il peut être tronqué mais la version complète est visible en laissant la souris dessus)
 
 ==== Comment sont rafraichis les infos :
 
-Les infos sont rafraichis une fois toutes les 30 minutes.  Vous pouvez les rafraichir à la demande via scénario avec la commande rafraichir, ou via le dash avec les doubles flêches
+Les infos sont rafraichies une fois toutes les 30 minutes.  Vous pouvez les rafraîchir à la demande via scénario avec la commande rafraîchir, ou via le dash avec les doubles flêches
