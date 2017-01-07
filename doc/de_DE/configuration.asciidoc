@@ -26,7 +26,7 @@ Auf dieser Seite finden sie drei Abschnitte :
 
 ... Allgemein
 
-Vous trouverez dans cette section toutes les configurations Jeedom. A savoir
+Sie finden in diesem Abschnitt alle Jeedom Konfigurationen. Nämlich
 Das ist der Gerätename, das Objekt, das Sie verknüpfen möchten, die Kategorie,
 si vous voulez que l'équipement soit actif ou non , et enfin si vous voulez qu'il soit visible sur le dashboard.
 
