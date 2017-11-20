@@ -1,0 +1,3 @@
+== Changelog
+
+Changelog détaillé : https://github.com/jeedom/plugin-wazeintime/commits/stable
