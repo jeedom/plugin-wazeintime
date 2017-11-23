@@ -1,6 +1,6 @@
 ==== Plugin Konfiguration
 
-.. Installation/Création
+.. Installation/Einrichtung
 
 Um das Plugin zu benutzen, müssen sie es herunterladen, installieren und aktivieren wie jedes andere Jeedom Plugin.  
 
