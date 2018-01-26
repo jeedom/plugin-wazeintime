@@ -1,0 +1,61 @@
+{
+    "plugins/wazeintime/plugin_info/info.xml": {
+        "Plugin pour avoir la durée de trajet entre deux points": "2点間の移動時間のためのプラグイン",
+        "Aucune": "何でもありません"
+    },
+    "plugins/wazeintime/desktop/php/wazeintime.php": {
+        "Ajouter un trajet": "パスを追加",
+        "Rechercher": "検索する",
+        "Mes Trajets": "私のルート",
+        "Général": "コモン",
+        "Nom de l'équipement": "機器の名前",
+        "Objet parent": "親オブジェクト",
+        "Aucun": "何でもありません",
+        "Catégorie": "カテゴリ",
+        "Activer": "アクティブにし",
+        "Visible": "目に見えます",
+        "Configuration": "コンフィギュレーション",
+        "Départ": "出発",
+        "Géolocalisation": "ジオロケーション",
+        "Manuel": "マニュアル",
+        "Latitude": "緯度",
+        "48.856614": "48.856614",
+        "Longitude": "経度",
+        "2.3522219000000177": "2.3522219000000177",
+        "Arrivée": "到着",
+        "Amérique du Nord :": "北米：",
+        "Affichage": "観覧",
+        "Masquer trajet :": "旅行を隠します：",
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "Tableau de commandes": "コントロールパネル",
+        "Nom": "表題",
+        "Options": "オプション",
+        "Action": "アクション",
+        "Supprimer": "取り除きます",
+        "Sauvegarder": "セーブ"
+    },
+    "plugins/wazeintime/core/class/wazeintime.class.php": {
+        "Trajet 1": "パス1",
+        "Durée 1": "期間1",
+        "Trajet 2": "ルート2",
+        "Durée 2": "期間2",
+        "Trajet 3": "ルート3",
+        "Durée 3": "期間3",
+        "Trajet retour 1": "帰路1",
+        "Durée retour 1": "期間1つの復帰",
+        "Trajet retour 2": "帰路2",
+        "Durée retour 2": "所要時間2バック",
+        "Trajet retour 3": "帰路3",
+        "Durée retour 3": "期間3戻ります",
+        "Rafraichir": "リフレッシュ",
+        "Dernier refresh": "最後のリフレッシュ",
+        "Dernier refresh retour": "最後のリフレッシュ復帰",
+        "La latitude de départ ne peut être vide et doit être un nombre valide": "出発緯度は空にすることはできませんし、有効な数値でなければなりません"
+    },
+    "plugins/wazeintime/desktop/js/wazeintime.js": {
+        "Historiser": "historicize",
+        "Tester": "テスト"
+    }
+}
