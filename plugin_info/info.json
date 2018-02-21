@@ -5,7 +5,7 @@
 	"licence" : "AGPL",
 	"author" : "Ludovic SARAKHA",
 	"require" : "2.3",
-	"category" : "travel",
-	"changelog" : "https://github.com/jeedom/plugin-wazeintime/blob/stable/doc/#language#/changelog.asciidoc",
-	"documentation" : "https://github.com/jeedom/plugin-wazeintime/blob/stable/doc/#language#/index.asciidoc"
+        "category" : "travel",
+        "changelog" : "https://jeedom.github.io/plugin-wazeintime/#language#/changelog",
+        "documentation" : "https://jeedom.github.io/plugin-wazeintime/#language#/"
 }
