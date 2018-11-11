@@ -1,7 +1,7 @@
 Waze in Time 
 ============
 
-Description 
+Beschreibung 
 -----------
 
 Ce plugin permet d’avoir les infos de trajet (trafic pris en compte) via
