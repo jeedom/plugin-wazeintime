@@ -1,7 +1,7 @@
 Waze in Time 
 ============
 
-Description 
+Description
 -----------
 
 Ce plugin permet d’avoir les infos de trajet (trafic pris en compte) via
@@ -10,7 +10,7 @@ interroge son site
 
 ![wazeintime screenshot1](../images/wazeintime_screenshot1.jpg)
 
-Configuration 
+Configuration
 -------------
 
 ### Configuration du plugin: 
