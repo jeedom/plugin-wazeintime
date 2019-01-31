@@ -15,7 +15,7 @@ Configuration
 
 ### Configuration du plugin: 
 
-a.  Installation/Création
+a. Installation/Creation
 
 Afin d’utiliser le plugin, vous devez le télécharger, l’installer et
 l’activer comme tout plugin Jeedom.
