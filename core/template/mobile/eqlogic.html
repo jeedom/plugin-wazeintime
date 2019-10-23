@@ -1,13 +1,19 @@
-<div class="eqLogic-widget eqLogic wazeintime col2" style="border:#border#;border-radius:#border-radius#;background-color: #background-color#;color: #color#;#style#" data-eqLogic_id="#id#" data-eqLogic_uid="#uid#" data-version="#version#" >
-
+<div class="eqLogic-widget eqLogic wazeintime col2" data-eqLogic_id="#id#" data-eqLogic_uid="#uid#" data-version="#version#" data-eqType="#eqType#" data-translate-category="#translate_category#" data-category="#category#" data-tags="#tags#" style="#style#">
+  	<span class="cmd refresh pull-right cursor" data-cmd_id="#refresh_id#">
+		<i class="fas fa-sync"></i>
+	</span>
+	<center>
+		<span class="widget-name">
+			<span class="warning" title="#alert_name#">
+				<i class='#alert_icon#'></i>
+			</span>
+			<span>#name_display# <span class="object_name">#object_name#</span></span><br/>
+		</span>
+	</center>
   <span style="font-size : 0.7em;margin-left:5px;" class="pull-left">#lastrefresh#</span>
-  <span class="statusCmd" style="position : absolute;left : 5px; width : 30px;z-index: 1030;"></span>
-  <i class='fa fa-refresh pull-right cursor refresh' style="margin-top: 3px;margin-right: 6px;"></i>
-  <center><i class="icon transport-car95" style="#hideEqLogicName#"></i> #name_display# <span style="font-size: 0.85em;position: relative;top:-2px;" class="object_name">#object_name#</span></center>
-  <span class="cmd cmd-widget" data-cmd_id="#refresh_id#" style="display:none;"></span>
   <div class="row" style="margin-left : 2px;margin-right : 2px;">
     <div class="col-sm-6" style="overflow:hidden;">
-     <legend style="color:white;margin-bottom : 0px;font-size : 15px;font-weight: bold;Cursor:default"><i class="fa fa-arrow-right"></i> Aller</legend>
+     <legend style="margin : 0px !important;font-size : 15px;font-weight: bold;cursor:default"><i class="fa fa-arrow-right"></i> Aller</legend>
      <div class="travel1">
       <span class="#time1_history# time1" data-cmd_id="#time1_id#">
         <strong class="tooltips" title="#time1_collect#" style="font-size:1.0em;">#time1#</strong> <span style="font-size:0.6em;">min</span>
@@ -34,7 +40,7 @@
     </div>
   </div>
   <div class="col-sm-6" style="overflow:hidden;">
-   <legend style="color:white;margin-bottom : 0px;font-size : 15px;font-weight: bold;Cursor:default"><i class="fa fa-arrow-left"></i> Retour</legend>
+   <legend style="margin : 0px !important;font-size : 15px;font-weight: bold;Cursor:default"><i class="fa fa-arrow-left"></i> Retour</legend>
    <div class="travel1">
     <span class="#timeret1_history# time1" data-cmd_id="#timeret1_id#">
       <strong class="tooltips" title="#timeret1_collect#" style="font-size:1.0em;">#timeret1#</strong> <span style="font-size:0.6em;">min</span>
@@ -76,6 +82,5 @@
 if('#hide3#' == 1){
   $('.eqLogic[data-eqLogic_uid=#uid#] .travel3').hide();
 }
-
 </script>
 </div>
