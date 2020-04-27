@@ -1,42 +1,47 @@
 {
-    "plugins/wazeintime/plugin_info/info.xml": {
-        "Plugin pour avoir la durée de trajet entre deux points": "İki nokta arasında yol süresini hesaplamak için eklenti",
-        "Aucune": "Hiçbir"
-    },
-    "plugins/wazeintime/desktop/php/wazeintime.php": {
-        "Ajouter un trajet": "Yol ekle",
-        "Rechercher": "Arayın",
+    "plugins\/wazeintime\/desktop\/php\/wazeintime.php": {
+        "401 - Accès non autorisé": "401 - Yetkisiz erişim",
+        "Gestion": "Idare",
+        "Ajouter": "Ekle",
+        "Configuration": "Ayar",
         "Mes Trajets": "Yollarım",
-        "Général": "Genel",
+        "Configuration avancée": "Gelişmiş ayarlar",
+        "Dupliquer": "Kopyala",
+        "Sauvegarder": "Kaydet",
+        "Supprimer": "Sil",
+        "Equipement": "Cihaz",
+        "Commandes": "Komutalar",
         "Nom de l'équipement": "Ekipman ismi",
         "Objet parent": "Üst nesne",
         "Aucun": "Hiçbir",
         "Catégorie": "Kategori",
-        "Activer": "Etkinleştirmek",
+        "Activer": "Etkinleştir",
         "Visible": "Görülebilir",
-        "Configuration": "Ayar",
         "Départ": "Başlangıç",
         "Géolocalisation": "Coğrafi konum belirleme",
         "Manuel": "Manüel",
         "Latitude": "Enlem",
-        "48.856614": "48.856614",
+        "48.856614": "",
         "Longitude": "Boylam",
-        "2.3522219000000177": "2.3522219000000177",
+        "2.3522219000000177": "",
         "Arrivée": "Geliş",
         "Amérique du Nord :": "Kuzey Amerika",
         "Affichage": "Gösterim",
         "Masquer trajet :": "Yol gizle:",
-        "1": "1",
-        "2": "2",
-        "3": "3",
-        "Tableau de commandes": "Komut tablosu",
         "Nom": "İsim",
         "Options": "Opsiyonlar",
-        "Action": "Etki",
-        "Supprimer": "Sil",
-        "Sauvegarder": "Kaydet"
+        "Action": "Eylem"
     },
-    "plugins/wazeintime/core/class/wazeintime.class.php": {
+    "plugins\/wazeintime\/desktop\/js\/wazeintime.js": {
+        "Historiser": "Tarihe göre sırala",
+        "Tester": "Test et"
+    },
+    "plugins\/wazeintime\/core\/class\/wazeintime.class.php": {
+        "Position de départ invalide": "",
+        "La latitude de départ ne peut être vide et doit être un nombre valide": "Başlangıç enlemi boş olamaz ve düzgün sayı olmak zorunda",
+        "La latitude d\\'arrivée ne peut être vide et doit être un nombre valide": "",
+        "La longitude de départ ne peut être vide et doit être un nombre valide": "",
+        "La longitude d\\'arrivée ne peut être vide et doit être un nombre valide": "",
         "Trajet 1": "Yol 1",
         "Durée 1": "Süre 1",
         "Trajet 2": "Yol 2",
@@ -49,13 +54,7 @@
         "Durée retour 2": "Dönüş yol 2",
         "Trajet retour 3": "Dönüş yol 3",
         "Durée retour 3": "Dönüş yol 3",
-        "Rafraichir": "Yenile",
         "Dernier refresh": "Son yenileme",
-        "Dernier refresh retour": "Son yenileme dönüş",
-        "La latitude de départ ne peut être vide et doit être un nombre valide": "Başlangıç enlemi boş olamaz ve düzgün sayı olmak zorunda"
-    },
-    "plugins/wazeintime/desktop/js/wazeintime.js": {
-        "Historiser": "Tarihe göre sırala",
-        "Tester": "Dene"
+        "Rafraichir": "Yenile"
     }
 }

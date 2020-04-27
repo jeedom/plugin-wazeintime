@@ -1,20 +1,22 @@
 {
-    "plugins\/wazeintime\/plugin_info\/info.xml": {
-        "Plugin pour avoir la durée de trajet entre deux points": "Plugin pour avoir la durée de trajet entre deux points",
-        "Aucune": "Aucune"
-    },
     "plugins\/wazeintime\/desktop\/php\/wazeintime.php": {
-        "Ajouter un trajet": "Ajouter un trajet",
-        "Rechercher": "Rechercher",
+        "401 - Accès non autorisé": "401 - Accès non autorisé",
+        "Gestion": "Gestion",
+        "Ajouter": "Ajouter",
+        "Configuration": "Configuration",
         "Mes Trajets": "Mes Trajets",
-        "Général": "Général",
+        "Configuration avancée": "Configuration avancée",
+        "Dupliquer": "Dupliquer",
+        "Sauvegarder": "Sauvegarder",
+        "Supprimer": "Supprimer",
+        "Equipement": "Equipement",
+        "Commandes": "Commandes",
         "Nom de l'équipement": "Nom de l'équipement",
         "Objet parent": "Objet parent",
         "Aucun": "Aucun",
         "Catégorie": "Catégorie",
         "Activer": "Activer",
         "Visible": "Visible",
-        "Configuration": "Configuration",
         "Départ": "Départ",
         "Géolocalisation": "Géolocalisation",
         "Manuel": "Manuel",
@@ -26,17 +28,20 @@
         "Amérique du Nord :": "Amérique du Nord :",
         "Affichage": "Affichage",
         "Masquer trajet :": "Masquer trajet :",
-        "1": "1",
-        "2": "2",
-        "3": "3",
-        "Tableau de commandes": "Tableau de commandes",
         "Nom": "Nom",
         "Options": "Options",
-        "Action": "Action",
-        "Supprimer": "Supprimer",
-        "Sauvegarder": "Sauvegarder"
+        "Action": "Action"
+    },
+    "plugins\/wazeintime\/desktop\/js\/wazeintime.js": {
+        "Historiser": "Historiser",
+        "Tester": "Tester"
     },
     "plugins\/wazeintime\/core\/class\/wazeintime.class.php": {
+        "Position de départ invalide": "Position de départ invalide",
+        "La latitude de départ ne peut être vide et doit être un nombre valide": "La latitude de départ ne peut être vide et doit être un nombre valide",
+        "La latitude d\\'arrivée ne peut être vide et doit être un nombre valide": "La latitude d\\'arrivée ne peut être vide et doit être un nombre valide",
+        "La longitude de départ ne peut être vide et doit être un nombre valide": "La longitude de départ ne peut être vide et doit être un nombre valide",
+        "La longitude d\\'arrivée ne peut être vide et doit être un nombre valide": "La longitude d\\'arrivée ne peut être vide et doit être un nombre valide",
         "Trajet 1": "Trajet 1",
         "Durée 1": "Durée 1",
         "Trajet 2": "Trajet 2",
@@ -49,13 +54,7 @@
         "Durée retour 2": "Durée retour 2",
         "Trajet retour 3": "Trajet retour 3",
         "Durée retour 3": "Durée retour 3",
-        "Rafraichir": "Rafraichir",
         "Dernier refresh": "Dernier refresh",
-        "Dernier refresh retour": "Dernier refresh retour",
-        "La latitude de départ ne peut être vide et doit être un nombre valide": "La latitude de départ ne peut être vide et doit être un nombre valide"
-    },
-    "plugins\/wazeintime\/desktop\/js\/wazeintime.js": {
-        "Historiser": "Historiser",
-        "Tester": "Tester"
+        "Rafraichir": "Rafraichir"
     }
 }

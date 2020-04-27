@@ -1,7 +1,7 @@
  
 ============
 
-Beschreibung 
+Descrição 
 -----------
 
 
@@ -10,15 +10,15 @@ Beschreibung
 
 ![wazeintime screenshot1](../images/wazeintime_screenshot1.jpg)
 
-Konfiguration 
+Configuração 
 -------------
 
-### Plugin Konfiguration: 
+### Configuração do plugin: 
 
-a. Installation / Erstellung
 
-Um das Plugin nutzen zu können, müssen Sie herunterladen und installieren
-aktiviere es wie jedes Jeedom Plugin.
+
+
+.
 
  :
 
@@ -44,7 +44,7 @@ aktiviere es wie jedes Jeedom Plugin.
 
 
 
-In diesem Abschnitt finden Sie alle Jeedom-Konfigurationen. A.
+
 
 
 .
@@ -64,27 +64,27 @@ In diesem Abschnitt finden Sie alle Jeedom-Konfigurationen. A.
 
 ![config3](../images/config3.jpg)
 
--   Dauer 1 : 
+-   1 duração : 
 
--   Dauer 2 : 
+-   Duração dois : 
 
--   Route 1 : Route 1
+-   Caminho 1 : Caminho 1
 
--   Route 2 : 
+-   Rota 2 : 
 
--   Dauer zurück 1 : 
+-   Duração 1 retorno : 
 
--   Dauer zurück 2 : 
+-   Duração 2 back : 
 
--   Route zurück 1 : Route zurück 1
+-   Viagem de regresso 1 : Viagem de regresso 1
 
--   Route zurück 2 : 
+-   Viagem de regresso 2 : 
 
--   Aktualisieren : 
+-   Legal : 
 
 
 
-### Das Widget : 
+###  : 
 
 ![wazeintime screenshot1](../images/wazeintime_screenshot1.jpg)
 
@@ -96,12 +96,12 @@ In diesem Abschnitt finden Sie alle Jeedom-Konfigurationen. A.
 
 ###  : 
 
-. Du kannst
+. 
 
 
 
-Änderungsprotokoll 
+ 
 =========
 
-Änderungsprotokoll detailliert :
+ :
 <https://github.com/jeedom/plugin-wazeintime/commits/stable>
