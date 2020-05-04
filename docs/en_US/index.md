@@ -49,7 +49,7 @@ know the name of your equipment, the object you want
 associate it, category, if you want the equipment to be active or
 no, and finally if you want it to be visible on the dashboard.
 
-i. Setup
+i. Configuration
 
 This section is one of the most important, it allows you to adjust the
 starting and ending point :
