@@ -44,7 +44,7 @@ Auf dieser Seite finden Sie drei Abschnitte :
 
 ich. Allgemein
 
-In diesem Abschnitt finden Sie alle Jeedom-Konfigurationen. A.
+In diesem Abschnitt finden Sie alle Jeedom-Konfigurationen. A
 Kennen Sie den Namen Ihrer Ausrüstung, das gewünschte Objekt
 Ordnen Sie es der Kategorie zu, wenn das Gerät aktiv sein soll oder
 Nein, und schließlich, wenn Sie möchten, dass es im Dashboard angezeigt wird.
@@ -103,5 +103,5 @@ Aktualisieren Sie sie bei Bedarf über ein Szenario mit dem Befehl refresh oder
 Änderungsprotokoll 
 =========
 
-Änderungsprotokoll detailliert :
+Changelog detailliert :
 <https://github.com/jeedom/plugin-wazeintime/commits/stable>

@@ -69,15 +69,21 @@
         "Description ": "Descrição ",
         "[Description": "[Descrição",
         "Description]": "Descrição]",
+        "*Description": "*Descrição",
+        "Description*": "Descrição*",
         " Configuration.": " Configuração.",
         " Configuration?": " Configuração?",
         "Configuration ": "Configuração ",
         "[Configuration": "[Configuração",
         "Configuration]": "Configuração]",
+        "*Configuration": "*Configuração",
+        "Configuration*": "Configuração*",
         " Changelog.": " Changelog.",
         " Changelog?": " Changelog?",
         "Changelog ": "Changelog ",
         "[Changelog": "[Changelog",
-        "Changelog]": "Changelog]"
+        "Changelog]": "Changelog]",
+        "*Changelog": "*Changelog",
+        "Changelog*": "Changelog*"
     }
 }

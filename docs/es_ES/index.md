@@ -40,7 +40,7 @@ Luego llegará a la página de configuración de su viaje:
 
 ![wazeintime screenshot3](../images/wazeintime_screenshot3.jpg)
 
-En esta página encontrarás tres secciones. :
+En esta página encontrarás tres secciones :
 
 yo. General
 
@@ -54,7 +54,7 @@ yo. Configuracion
 Esta sección es una de las más importantes y le permite ajustar el
 punto inicial y final :
 
--   Estas informaciones deben ser las latitudes y longitudes de las posiciones.
+-   Estas informaciones deben ser las latitudes y longitudes de las posiciones
 
 -   Se pueden encontrar utilizando el sitio provisto en
     haciendo clic en el enlace de la página (solo tiene que ingresar un
@@ -96,7 +96,7 @@ Todos estos comandos están disponibles a través de escenarios y a través del 
 
 ### ¿Cómo se actualizan las noticias? : 
 
-La información se actualiza una vez cada 30 minutos.. Usted puede
+La información se actualiza una vez cada 30 minutos. Usted puede
 actualícelos a pedido mediante un escenario con el comando Actualizar, o
 a través del tablero con las flechas dobles
 

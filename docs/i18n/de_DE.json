@@ -24,7 +24,7 @@
         "Vous arriverez ensuite sur la page de configuration de votre Trajet": "Sie gelangen dann auf die Konfigurationsseite Ihrer Reise",
         "Sur cette page vous trouverez trois sections": "Auf dieser Seite finden Sie drei Abschnitte",
         "i.  Général": "ich. Allgemein",
-        "Vous trouverez dans cette section toutes les configurations Jeedom. A": "In diesem Abschnitt finden Sie alle Jeedom-Konfigurationen. A.",
+        "Vous trouverez dans cette section toutes les configurations Jeedom. A": "In diesem Abschnitt finden Sie alle Jeedom-Konfigurationen. A",
         "savoir le nom de votre équippement, l'objet auquel vous voulez": "Kennen Sie den Namen Ihrer Ausrüstung, das gewünschte Objekt",
         "l'associer, la catégorie, si vous voulez que l'équipement soit actif ou": "Ordnen Sie es der Kategorie zu, wenn das Gerät aktiv sein soll oder",
         "non , et enfin si vous voulez qu'il soit visible sur le dashboard": "Nein, und schließlich, wenn Sie möchten, dass es im Dashboard angezeigt wird",
@@ -69,15 +69,21 @@
         "Description ": "Beschreibung ",
         "[Description": "[Beschreibung",
         "Description]": "Beschreibung]",
+        "*Description": "*Beschreibung",
+        "Description*": "Beschreibung*",
         " Configuration.": " Konfiguration.",
         " Configuration?": " Konfiguration?",
         "Configuration ": "Konfiguration ",
         "[Configuration": "[Konfiguration",
         "Configuration]": "Konfiguration]",
+        "*Configuration": "*Konfiguration",
+        "Configuration*": "Konfiguration*",
         " Changelog.": " Änderungsprotokoll.",
         " Changelog?": " Änderungsprotokoll?",
         "Changelog ": "Änderungsprotokoll ",
         "[Changelog": "[Änderungsprotokoll",
-        "Changelog]": "Änderungsprotokoll]"
+        "Changelog]": "Änderungsprotokoll]",
+        "*Changelog": "*Änderungsprotokoll",
+        "Changelog*": "Änderungsprotokoll*"
     }
 }
