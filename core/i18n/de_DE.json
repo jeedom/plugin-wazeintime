@@ -1,20 +1,22 @@
 {
-    "plugins/wazeintime/plugin_info/info.xml": {
-        "Plugin pour avoir la durée de trajet entre deux points": "Plugin um Wegbeschreibungen zwischen Standorten abzurufen.",
-        "Aucune": "Ohne"
-    },
-    "plugins/wazeintime/desktop/php/wazeintime.php": {
-        "Ajouter un trajet": "Route hinzufügen",
-        "Rechercher": "Suchen nach",
+    "plugins\/wazeintime\/desktop\/php\/wazeintime.php": {
+        "401 - Accès non autorisé": "401 - Nicht autorisierter Zugriff",
+        "Gestion": "Verwaltung",
+        "Ajouter": "Hinzufügen",
+        "Configuration": "Konfiguration",
         "Mes Trajets": "Meine Route",
-        "Général": "Allgemein",
-        "Nom de l'équipement": "Gerätename",
-        "Objet parent": "Eltern-Objekt",
+        "Configuration avancée": "Erweiterte Konfiguration",
+        "Dupliquer": "Duplikat",
+        "Sauvegarder": "Speichern",
+        "Supprimer": "Löschen",
+        "Equipement": "Gerät",
+        "Commandes": "Befehle",
+        "Nom de l'équipement": "Name der Ausrüstung",
+        "Objet parent": "Übergeordnetes Objekt",
         "Aucun": "Ohne",
         "Catégorie": "Kategorie",
-        "Activer": "aktivieren",
+        "Activer": "Aktivieren",
         "Visible": "Sichtbar",
-        "Configuration": "Konfiguration",
         "Départ": "Start",
         "Géolocalisation": "Geolokalisierung",
         "Manuel": "Handbuch",
@@ -26,17 +28,20 @@
         "Amérique du Nord :": "Nordamerika :",
         "Affichage": "Anzeigen",
         "Masquer trajet :": "Route verstecken :",
-        "1": "1",
-        "2": "2",
-        "3": "3",
-        "Tableau de commandes": "Bedienfeld",
         "Nom": "Name",
         "Options": "Optionen",
-        "Action": "Aktion",
-        "Supprimer": "Löschen",
-        "Sauvegarder": "Speichern"
+        "Action": "Aktion"
     },
-    "plugins/wazeintime/core/class/wazeintime.class.php": {
+    "plugins\/wazeintime\/desktop\/js\/wazeintime.js": {
+        "Historiser": "Chronik",
+        "Tester": "Test"
+    },
+    "plugins\/wazeintime\/core\/class\/wazeintime.class.php": {
+        "Position de départ invalide": "Ungültige Startposition",
+        "La latitude de départ ne peut être vide et doit être un nombre valide": "Der Startbreitengrad darf nicht leer sein und muss eine gültige Zahl sein",
+        "La latitude d\\'arrivée ne peut être vide et doit être un nombre valide": "Der Ankunftsspielraum darf nicht leer sein und muss eine gültige Nummer sein",
+        "La longitude de départ ne peut être vide et doit être un nombre valide": "Die Startlänge darf nicht leer sein und muss eine gültige Zahl sein",
+        "La longitude d\\'arrivée ne peut être vide et doit être un nombre valide": "Die Ankunftslänge darf nicht leer sein und muss eine gültige Nummer sein",
         "Trajet 1": "Route 1",
         "Durée 1": "Dauer 1",
         "Trajet 2": "Route 2",
@@ -49,13 +54,7 @@
         "Durée retour 2": "Dauer zurück 2",
         "Trajet retour 3": "Route zurück 3",
         "Durée retour 3": "Dauer zurück 3",
-        "Rafraichir": "Aktualisieren",
         "Dernier refresh": "Letzte Aktualisierung",
-        "Dernier refresh retour": "Letzten Aktualisierung Rückkehr",
-        "La latitude de départ ne peut être vide et doit être un nombre valide": "Der Startbreitengrad darf nicht leer sein und muss eine gültige Zahl sein"
-    },
-    "plugins/wazeintime/desktop/js/wazeintime.js": {
-        "Historiser": "Chronik",
-        "Tester": "Test"
+        "Rafraichir": "Aktualisieren"
     }
 }

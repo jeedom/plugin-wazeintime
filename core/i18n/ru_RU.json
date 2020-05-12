@@ -1,42 +1,47 @@
 {
-    "plugins/wazeintime/plugin_info/info.xml": {
-        "Plugin pour avoir la durée de trajet entre deux points": "Плагин для путешествия во времени между двумя точками",
-        "Aucune": "Нет"
-    },
-    "plugins/wazeintime/desktop/php/wazeintime.php": {
-        "Ajouter un trajet": "Добавить путь",
-        "Rechercher": "Искать",
+    "plugins\/wazeintime\/desktop\/php\/wazeintime.php": {
+        "401 - Accès non autorisé": "401 - Несанкционированный доступ",
+        "Gestion": "Управление",
+        "Ajouter": "Добавить",
+        "Configuration": "Конфигурация",
         "Mes Trajets": "мои маршруты",
-        "Général": "Главная",
+        "Configuration avancée": "Расширенные настройки",
+        "Dupliquer": "дубликат",
+        "Sauvegarder": "Сохранить",
+        "Supprimer": "удаление",
+        "Equipement": "Оборудование",
+        "Commandes": "Команды",
         "Nom de l'équipement": "Название оборудования",
         "Objet parent": "Родительский объект",
         "Aucun": "Нет",
-        "Catégorie": "Категория",
-        "Activer": "Активировать",
+        "Catégorie": "категория",
+        "Activer": "активировать",
         "Visible": "Видимый",
-        "Configuration": "Конфигурация",
         "Départ": "выезд",
         "Géolocalisation": "геолокации",
         "Manuel": "руководство",
         "Latitude": "Широта",
-        "48.856614": "48.856614",
+        "48.856614": "",
         "Longitude": "Долгота",
         "2.3522219000000177": "2,3522219000000177",
         "Arrivée": "прибытие",
         "Amérique du Nord :": "Северная Америка:",
         "Affichage": "Отображение",
         "Masquer trajet :": "Скрыть поездки:",
-        "1": "1",
-        "2": "2",
-        "3": "3",
-        "Tableau de commandes": "панель управления",
         "Nom": "Имя",
         "Options": "Опции",
-        "Action": "Действие",
-        "Supprimer": "Удалить",
-        "Sauvegarder": "Сохранить"
+        "Action": "Действие"
     },
-    "plugins/wazeintime/core/class/wazeintime.class.php": {
+    "plugins\/wazeintime\/desktop\/js\/wazeintime.js": {
+        "Historiser": "История",
+        "Tester": "Тест"
+    },
+    "plugins\/wazeintime\/core\/class\/wazeintime.class.php": {
+        "Position de départ invalide": "",
+        "La latitude de départ ne peut être vide et doit être un nombre valide": "Отправная широта не может быть пустой и должна быть допустимым числом",
+        "La latitude d\\'arrivée ne peut être vide et doit être un nombre valide": "",
+        "La longitude de départ ne peut être vide et doit être un nombre valide": "",
+        "La longitude d\\'arrivée ne peut être vide et doit être un nombre valide": "",
         "Trajet 1": "путь 1",
         "Durée 1": "длительность 1",
         "Trajet 2": "Маршрут 2",
@@ -49,13 +54,7 @@
         "Durée retour 2": "Продолжительность 2 назад",
         "Trajet retour 3": "Обратный путь 3",
         "Durée retour 3": "Период возврата 3",
-        "Rafraichir": "Обновить",
         "Dernier refresh": "последнее обновление",
-        "Dernier refresh retour": "Последнее возвращение обновления",
-        "La latitude de départ ne peut être vide et doit être un nombre valide": "Отправная широта не может быть пустой и должна быть допустимым числом"
-    },
-    "plugins/wazeintime/desktop/js/wazeintime.js": {
-        "Historiser": "История",
-        "Tester": "Тест"
+        "Rafraichir": "Обновить"
     }
 }
