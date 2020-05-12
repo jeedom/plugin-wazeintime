@@ -1,3 +1,5 @@
+# Registro de cambios Waze in Time
+
 # 23/10/2019
 
 - Mejora del widget para jeedom v4
