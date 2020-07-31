@@ -56,5 +56,8 @@
         "Durée retour 3": "Return Period 3",
         "Dernier refresh": "Last refresh",
         "Rafraichir": "Refresh"
+    },
+    "info.json": {
+        "Plugin pour avoir la durée de trajet entre deux points": "Plugin to have the journey time between two points"
     }
 }

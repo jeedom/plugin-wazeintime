@@ -56,5 +56,8 @@
         "Durée retour 3": "Dauer zurück 3",
         "Dernier refresh": "Letzte Aktualisierung",
         "Rafraichir": "Aktualisieren"
+    },
+    "info.json": {
+        "Plugin pour avoir la durée de trajet entre deux points": "Plugin für die Reisezeit zwischen zwei Punkten"
     }
 }

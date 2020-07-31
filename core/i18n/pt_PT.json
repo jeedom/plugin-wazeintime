@@ -56,5 +56,8 @@
         "Durée retour 3": "Voltar Período 3",
         "Dernier refresh": "última atualização",
         "Rafraichir": "Legal"
+    },
+    "info.json": {
+        "Plugin pour avoir la durée de trajet entre deux points": "Plugin para ter o tempo de viagem entre dois pontos"
     }
 }

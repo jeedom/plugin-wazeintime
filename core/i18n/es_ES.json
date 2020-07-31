@@ -56,5 +56,8 @@
         "Durée retour 3": "Duración trayecto de vuelta 3",
         "Dernier refresh": "Última actualización",
         "Rafraichir": "Refrescar"
+    },
+    "info.json": {
+        "Plugin pour avoir la durée de trajet entre deux points": "Complemento para tener el tiempo de viaje entre dos puntos"
     }
 }

@@ -56,5 +56,8 @@
         "Durée retour 3": "Dönüş yol 3",
         "Dernier refresh": "Son yenileme",
         "Rafraichir": "Yenile"
+    },
+    "info.json": {
+        "Plugin pour avoir la durée de trajet entre deux points": ""
     }
 }

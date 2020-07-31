@@ -56,5 +56,8 @@
         "Durée retour 3": "Kembali Periode 3",
         "Dernier refresh": "Pembaruan terakhir",
         "Rafraichir": "Dingin"
+    },
+    "info.json": {
+        "Plugin pour avoir la durée de trajet entre deux points": ""
     }
 }

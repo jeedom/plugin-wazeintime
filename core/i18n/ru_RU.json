@@ -56,5 +56,8 @@
         "Durée retour 3": "Период возврата 3",
         "Dernier refresh": "последнее обновление",
         "Rafraichir": "Обновить"
+    },
+    "info.json": {
+        "Plugin pour avoir la durée de trajet entre deux points": ""
     }
 }
