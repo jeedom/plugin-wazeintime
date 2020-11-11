@@ -98,6 +98,7 @@ foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
       <label class="col-lg-1 control-label">{{Géolocalisation}}</label>
       <div class="col-lg-2">
         <select class="form-control eqLogicAttr configuration geolocstart" id="geoloc" data-l1key="configuration" data-l2key="geolocstart">
+          <option value="jeedom">Configuration Jeedom</option>
           <option value="none">{{Manuel}}</option>
           <?php
 foreach (eqLogic::byType('geoloc') as $geoloc) {
@@ -131,6 +132,7 @@ foreach (eqLogic::byType('geoloc_ios') as $geoloc) {
   <label class="col-lg-1 control-label">{{Géolocalisation}}</label>
   <div class="col-lg-2">
     <select class="form-control eqLogicAttr configuration geolocend" id="geoloc" data-l1key="configuration" data-l2key="geolocend">
+      <option value="jeedom">Configuration Jeedom</option>
       <option value="none">{{Manuel}}</option>
       <?php
 foreach (eqLogic::byType('geoloc') as $geoloc) {
