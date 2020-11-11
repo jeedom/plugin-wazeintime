@@ -119,6 +119,9 @@ class wazeintime extends eqLogic {
 		if ($this->getConfiguration('geoloc' . $_point, '') == 'none') {
 			$return['lat'] = $this->getConfiguration('lat' . $point);
 			$return['lon'] = $this->getConfiguration('lon' . $point);
+		} else if ($this->getConfiguration('geoloc' . $_point, '') == 'jeedom') {
+			$return['lat'] = config::byKey('info::latitude');
+			$return['lon'] = config::byKey('info::longitude');
 		} else {
 			$geoloc = $this->getConfiguration('geoloc' . $_point, '');
 			$typeId = explode('|', $geoloc);
