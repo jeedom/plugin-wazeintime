@@ -45,15 +45,8 @@ function addCmdToTable(_cmd) {
   tr += '</td>';
   tr += '<td style="min-width:300px;">';
   tr += '<div class="row">';
-  tr += '<div class="col-xs-7">';
+  tr += '<div class="col-xs-6">';
   tr += '<input class="cmdAttr form-control input-sm" data-l1key="name" placeholder="{{Nom de la commande}}">';
-  tr += '<select class="cmdAttr form-control input-sm" data-l1key="value" style="display : none;margin-top : 5px;" title="{{Commande information liée}}">';
-  tr += '<option value="">{{Aucune}}</option>';
-  tr += '</select>';
-  tr += '</div>';
-  tr += '<div class="col-xs-5">';
-  tr += '<a class="cmdAction btn btn-default btn-sm" data-l1key="chooseIcon"><i class="fas fa-flag"></i> {{Icône}}</a>';
-  tr += '<span class="cmdAttr" data-l1key="display" data-l2key="icon" style="margin-left : 10px;"></span>';
   tr += '</div>';
   tr += '</div>';
   tr += '</td>';

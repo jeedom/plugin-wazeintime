@@ -41,8 +41,8 @@ class wazeintime extends eqLogic {
 
 					$wazeRouteurl = 'https://www.waze.com/' . $row . 'RoutingManager/routingRequest?from=x%3A' . $start['lon'] . '+y%3A' . $start['lat'] . '&to=x%3A' . $end['lon'] . '+y%3A' . $end['lat'] . '&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At';
 					$request_http = new com_http($wazeRouteurl);
-					$request_http->setUserAgent('User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0'.hex2bin('0A').'referer: https://www.waze.com ');
-					$json = json_decode($request_http->exec(60,2), true);
+					$request_http->setUserAgent('User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0' . hex2bin('0A') . 'referer: https://www.waze.com ');
+					$json = json_decode($request_http->exec(60, 2), true);
 					if (isset($json['error'])) {
 						throw new Exception($json['error']);
 					}
@@ -50,8 +50,8 @@ class wazeintime extends eqLogic {
 
 					$wazeRoutereturl = 'https://www.waze.com/' . $row . 'RoutingManager/routingRequest?from=x%3A' . $end['lon'] . '+y%3A' . $end['lat'] . '&to=x%3A' . $start['lon'] . '+y%3A' . $start['lat'] . '&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At';
 					$request_http = new com_http($wazeRoutereturl);
-					$request_http->setUserAgent('User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0'.hex2bin('0A').'referer: https://www.waze.com ');
-					$json = json_decode($request_http->exec(60,2), true);
+					$request_http->setUserAgent('User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0' . hex2bin('0A') . 'referer: https://www.waze.com ');
+					$json = json_decode($request_http->exec(60, 2), true);
 					if (isset($json['error'])) {
 						throw new Exception($json['error']);
 					}
@@ -367,7 +367,6 @@ class wazeintime extends eqLogic {
 			if ($cmd->getIsHistorized() == 1) {
 				$replace['#' . $cmd->getLogicalId() . '_history#'] = 'history cursor';
 			}
-
 		}
 		$refresh = $this->getCmd(null, 'refresh');
 		$replace['#refresh_id#'] = $refresh->getId();
@@ -376,18 +375,9 @@ class wazeintime extends eqLogic {
 }
 
 class wazeintimeCmd extends cmd {
-	/*     * *************************Attributs****************************** */
-
-	/*     * ***********************Methode static*************************** */
-
-	/*     * *********************Methode d'instance************************* */
-
 	public function execute($_options = null) {
 		if ($this->getLogicalId() == 'refresh') {
 			wazeintime::cron30($this->getEqlogic_id());
 		}
 	}
-
-	/*     * **********************Getteur Setteur*************************** */
 }
-?>
