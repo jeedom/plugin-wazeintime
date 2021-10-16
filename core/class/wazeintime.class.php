@@ -26,56 +26,56 @@ class wazeintime extends eqLogic {
 
 	public static function cron30($_eqlogic_id = null) {
 		if ($_eqlogic_id !== null) {
-			$eqLogics = array(eqLogic::byId($_eqlogic_id));
+			$eqLogic = eqLogic::byId($_eqlogic_id);
+			if ($eqLogic->getIsEnable() != 1) return;
+			$eqLogics = array($eqLogic);
 		} else {
-			$eqLogics = eqLogic::byType('wazeintime');
+			$eqLogics = eqLogic::byType('wazeintime', true);
 			sleep(rand(0, 120));
 		}
 		foreach ($eqLogics as $wazeintime) {
-			if ($wazeintime->getIsEnable() == 1) {
-				try {
-					$start = $wazeintime->getPosition('start');
-					$end = $wazeintime->getPosition('end');
+			try {
+				$start = $wazeintime->getPosition('start');
+				$end = $wazeintime->getPosition('end');
 
-					$row = ($wazeintime->getConfiguration('NOA')) ? '' : 'row-';
+				$row = ($wazeintime->getConfiguration('NOA')) ? '' : 'row-';
 
-					$wazeRouteurl = 'https://www.waze.com/' . $row . 'RoutingManager/routingRequest?from=x%3A' . $start['lon'] . '+y%3A' . $start['lat'] . '&to=x%3A' . $end['lon'] . '+y%3A' . $end['lat'] . '&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At';
-					$request_http = new com_http($wazeRouteurl);
-					$request_http->setUserAgent('User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0' . hex2bin('0A') . 'referer: https://www.waze.com ');
-					$json = json_decode($request_http->exec(60, 2), true);
-					if (isset($json['error'])) {
-						throw new Exception($json['error']);
-					}
-					$data = self::extractInfo($json);
-
-					$wazeRoutereturl = 'https://www.waze.com/' . $row . 'RoutingManager/routingRequest?from=x%3A' . $end['lon'] . '+y%3A' . $end['lat'] . '&to=x%3A' . $start['lon'] . '+y%3A' . $start['lat'] . '&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At';
-					$request_http = new com_http($wazeRoutereturl);
-					$request_http->setUserAgent('User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0' . hex2bin('0A') . 'referer: https://www.waze.com ');
-					$json = json_decode($request_http->exec(60, 2), true);
-					if (isset($json['error'])) {
-						throw new Exception($json['error']);
-					}
-					$data = array_merge($data, self::extractInfo($json, 'ret'));
-
-					log::add('wazeintime', 'debug', 'Data : ' . print_r($data, true));
-
-					foreach ($wazeintime->getCmd('info') as $cmd) {
-						if ($cmd->getLogicalId() == 'lastrefresh') {
-							$cmd->event(date('H:i'));
-							continue;
-						}
-						if (!isset($data[$cmd->getLogicalId()])) {
-							continue;
-						}
-						if ($cmd->formatValue($data[$cmd->getLogicalId()]) != $cmd->execCmd()) {
-							$cmd->setCollectDate('');
-							$cmd->event($data[$cmd->getLogicalId()]);
-						}
-					}
-					$wazeintime->refreshWidget();
-				} catch (Exception $e) {
-					log::add('wazeintime', 'error', $e->getMessage());
+				$wazeRouteurl = 'https://www.waze.com/' . $row . 'RoutingManager/routingRequest?from=x%3A' . $start['lon'] . '+y%3A' . $start['lat'] . '&to=x%3A' . $end['lon'] . '+y%3A' . $end['lat'] . '&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At';
+				$request_http = new com_http($wazeRouteurl);
+				$request_http->setUserAgent('User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0' . hex2bin('0A') . 'referer: https://www.waze.com ');
+				$json = json_decode($request_http->exec(60, 2), true);
+				if (isset($json['error'])) {
+					throw new Exception($json['error']);
 				}
+				$data = self::extractInfo($json);
+
+				$wazeRoutereturl = 'https://www.waze.com/' . $row . 'RoutingManager/routingRequest?from=x%3A' . $end['lon'] . '+y%3A' . $end['lat'] . '&to=x%3A' . $start['lon'] . '+y%3A' . $start['lat'] . '&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At';
+				$request_http = new com_http($wazeRoutereturl);
+				$request_http->setUserAgent('User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0' . hex2bin('0A') . 'referer: https://www.waze.com ');
+				$json = json_decode($request_http->exec(60, 2), true);
+				if (isset($json['error'])) {
+					throw new Exception($json['error']);
+				}
+				$data = array_merge($data, self::extractInfo($json, 'ret'));
+
+				log::add('wazeintime', 'debug', 'Data : ' . print_r($data, true));
+
+				foreach ($wazeintime->getCmd('info') as $cmd) {
+					if ($cmd->getLogicalId() == 'lastrefresh') {
+						$cmd->event(date('H:i'));
+						continue;
+					}
+					if (!isset($data[$cmd->getLogicalId()])) {
+						continue;
+					}
+					if ($cmd->formatValue($data[$cmd->getLogicalId()]) != $cmd->execCmd()) {
+						$cmd->setCollectDate('');
+						$cmd->event($data[$cmd->getLogicalId()]);
+					}
+				}
+				$wazeintime->refreshWidget();
+			} catch (Exception $e) {
+				log::add('wazeintime', 'error', $e->getMessage());
 			}
 		}
 	}
@@ -136,6 +136,13 @@ class wazeintime extends eqLogic {
 			}
 		}
 		return $return;
+	}
+
+	public function preInsert() {
+		$this->setConfiguration('NOA', 0);
+		$this->setConfiguration('hide1', 0);
+		$this->setConfiguration('hide2', 0);
+		$this->setConfiguration('hide3', 0);
 	}
 
 	public function preUpdate() {
