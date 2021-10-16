@@ -122,17 +122,26 @@ class wazeintime extends eqLogic {
 		} else {
 			$geoloc = $this->getConfiguration('geoloc' . $_point, '');
 			$typeId = explode('|', $geoloc);
-			if ($typeId[0] == 'ios') {
-				$geolocCmd = geoloc_iosCmd::byId($typeId[1]);
+			if ($typeId[0] == 'jeedom') {
+				if ((config::byKey('info::latitude') != '') && (config::byKey('info::longitude') != '')) {
+					$return['lat'] = config::byKey('info::latitude');
+					$return['lon'] = config::byKey('info::longitude');
+				} else {
+					throw new Exception(__('Configuration Jeedom invalide', __FILE__));
+				}
 			} else {
-				$geolocCmd = geolocCmd::byId($typeId[1]);
-			}
-			$geoloctab = explode(',', $geolocCmd->execCmd(null, 0));
-			if (isset($geoloctab[0]) && isset($geoloctab[1])) {
-				$return['lat'] = $geoloctab[0];
-				$return['lon'] = $geoloctab[1];
-			} else {
-				throw new Exception(__('Position de départ invalide', __FILE__));
+				if ($typeId[0] == 'ios') {
+					$geolocCmd = geoloc_iosCmd::byId($typeId[1]);
+				} else {
+					$geolocCmd = geolocCmd::byId($typeId[1]);
+				}
+				$geoloctab = explode(',', $geolocCmd->execCmd(null, 0));
+				if (isset($geoloctab[0]) && isset($geoloctab[1])) {
+					$return['lat'] = $geoloctab[0];
+					$return['lon'] = $geoloctab[1];
+				} else {
+					throw new Exception(__('Position de départ invalide', __FILE__));
+				}
 			}
 		}
 		return $return;

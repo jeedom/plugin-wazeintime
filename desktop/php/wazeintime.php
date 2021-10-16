@@ -109,11 +109,13 @@ $eqLogics = eqLogic::byType($plugin->getId());
               <legend><i class="fas fa-cogs"></i> {{Paramètres de géolocalisation}}</legend>
               <div class="form-group">
                 <label class="col-sm-3 control-label"><i class="icon maison-house109"></i> {{Départ}}</label>
-                <label class="col-sm-2 control-label">{{Géolocalisation}}</label>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                   <select class="form-control eqLogicAttr configuration geolocstart" id="geoloc" data-l1key="configuration" data-l2key="geolocstart">
                     <option value="none">{{Manuel}}</option>
                     <?php
+                    if ((config::byKey('info::latitude') != '') && (config::byKey('info::longitude') != '')) {
+                      echo '<option value="jeedom|">Configuration Jeedom</option>';
+                    }
                     foreach (eqLogic::byType('geoloc', true) as $geoloc) {
                       foreach (geolocCmd::byEqLogicId($geoloc->getId()) as $geoinfo) {
                         if ($geoinfo->getConfiguration('mode') == 'fixe' || $geoinfo->getConfiguration('mode') == 'dynamic') {
@@ -131,9 +133,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
                     ?>
                   </select>
                 </div>
-              </div>
-              <div class="form-group hidestart">
-                <label class="col-sm-5 control-label hidestart">{{Latitude}}</label>
+                <label class="col-sm-1 control-label hidestart">{{Latitude}}</label>
                 <div class="col-sm-2">
                   <input type="text" class="eqLogicAttr form-control hidestart" data-l1key="configuration" data-l2key="latdepart" placeholder="{{48.856614}}" />
                 </div>
@@ -144,11 +144,14 @@ $eqLogics = eqLogic::byType($plugin->getId());
               </div>
               <div class="form-group">
                 <label class="col-sm-3 control-label"><i class="fa fa-location-arrow"></i> {{Arrivée}}</label>
-                <label class="col-sm-2 control-label">{{Géolocalisation}}</label>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                   <select class="form-control eqLogicAttr configuration geolocend" id="geoloc" data-l1key="configuration" data-l2key="geolocend">
                     <option value="none">{{Manuel}}</option>
                     <?php
+                    if ((config::byKey('info::latitude') != '') && (config::byKey('info::longitude') != '')) {
+                      echo '<option value="jeedom|">Configuration Jeedom</option>';
+                    }
+
                     foreach (eqLogic::byType('geoloc', true) as $geoloc) {
                       foreach (geolocCmd::byEqLogicId($geoloc->getId()) as $geoinfo) {
                         if ($geoinfo->getConfiguration('mode') == 'fixe' || $geoinfo->getConfiguration('mode') == 'dynamic') {
@@ -166,9 +169,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
                     ?>
                   </select>
                 </div>
-              </div>
-              <div class="form-group hideend">
-                <label class="col-sm-5 control-label hideend">{{Latitude}}</label>
+                <label class="col-sm-1 control-label hideend">{{Latitude}}</label>
                 <div class="col-sm-2">
                   <input type="text" class="eqLogicAttr form-control hideend" data-l1key="configuration" data-l2key="latarrive" placeholder="{{48.856614}}" />
                 </div>
