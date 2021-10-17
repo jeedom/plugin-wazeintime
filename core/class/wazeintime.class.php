@@ -82,34 +82,17 @@ class wazeintime extends eqLogic {
 
 	public static function extractInfo($_data, $_prefix = '') {
 		$return = array();
-		$return['route' . $_prefix . 'name1'] = (isset($_data['alternatives'][0]['response']['routeName'])) ? trim($_data['alternatives'][0]['response']['routeName']) : "NA";
-		$return['route' . $_prefix . 'name2'] = (isset($_data['alternatives'][1]['response']['routeName'])) ? trim($_data['alternatives'][1]['response']['routeName']) : "NA";
-		$return['route' . $_prefix . 'name3'] = (isset($_data['alternatives'][2]['response']['routeName'])) ? trim($_data['alternatives'][2]['response']['routeName']) : "NA";
+		log::add(__CLASS__, 'debug', 'raw data:' . json_encode($_data));
+		$return['route' . $_prefix . 'name1'] = (isset($_data['response'][0]['route_name'])) ? trim($_data['response'][0]['route_name']) : "NA";
+		$return['route' . $_prefix . 'name2'] = (isset($_data['response'][1]['route_name'])) ? trim($_data['response'][1]['route_name']) : "NA";
+		$return['route' . $_prefix . 'name3'] = (isset($_data['response'][2]['route_name'])) ? trim($_data['response'][2]['route_name']) : "NA";
 		$return['time' . $_prefix . '1'] = 0;
 		$return['time' . $_prefix . '2'] = 0;
 		$return['time' . $_prefix . '3'] = 0;
 
-		if (isset($_data['alternatives'][0]['response']['results'])) {
-			foreach ($_data['alternatives'][0]['response']['results'] as $street) {
-				$return['time' . $_prefix . '1'] += $street['crossTime'];
-			}
-		}
-
-		if (isset($_data['alternatives'][1]['response']['results'])) {
-			foreach ($_data['alternatives'][1]['response']['results'] as $street) {
-				$return['time' . $_prefix . '2'] += $street['crossTime'];
-			}
-		}
-
-		if (isset($_data['alternatives'][2]['response']['results'])) {
-			foreach ($_data['alternatives'][2]['response']['results'] as $street) {
-				$return['time' . $_prefix . '3'] += $street['crossTime'];
-			}
-		}
-
-		$return['time' . $_prefix . '1'] = round($return['time' . $_prefix . '1'] / 60);
-		$return['time' . $_prefix . '2'] = round($return['time' . $_prefix . '2'] / 60);
-		$return['time' . $_prefix . '3'] = round($return['time' . $_prefix . '3'] / 60);
+		$return['time' . $_prefix . '1'] = round($_data['response'][0]['total_route_time'] / 60);
+		$return['time' . $_prefix . '2'] = round($_data['response'][1]['total_route_time'] / 60);
+		$return['time' . $_prefix . '3'] = round($_data['response'][2]['total_route_time'] / 60);
 		return $return;
 	}
 
