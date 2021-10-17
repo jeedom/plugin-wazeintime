@@ -24,59 +24,69 @@ class wazeintime extends eqLogic {
 
 	public static $_widgetPossibility = array('custom' => true);
 
-	public static function cron30($_eqlogic_id = null) {
-		if ($_eqlogic_id !== null) {
-			$eqLogic = eqLogic::byId($_eqlogic_id);
-			if ($eqLogic->getIsEnable() != 1) return;
-			$eqLogics = array($eqLogic);
-		} else {
-			$eqLogics = eqLogic::byType('wazeintime', true);
-			sleep(rand(0, 120));
-		}
-		foreach ($eqLogics as $wazeintime) {
+	public static function cron() {
+		foreach (eqLogic::byType(__CLASS__, true) as $eqLogic) {
+			$autorefresh = $eqLogic->getConfiguration('autorefresh', '');
+			$cronIsDue = false;
+			if ($autorefresh == '')  continue;
 			try {
-				$start = $wazeintime->getPosition('start');
-				$end = $wazeintime->getPosition('end');
-
-				$row = ($wazeintime->getConfiguration('NOA')) ? '' : 'row-';
-
-				$wazeRouteurl = 'https://www.waze.com/' . $row . 'RoutingManager/routingRequest?from=x%3A' . $start['lon'] . '+y%3A' . $start['lat'] . '&to=x%3A' . $end['lon'] . '+y%3A' . $end['lat'] . '&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At';
-				$request_http = new com_http($wazeRouteurl);
-				$request_http->setUserAgent('User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0' . hex2bin('0A') . 'referer: https://www.waze.com ');
-				$json = json_decode($request_http->exec(60, 2), true);
-				if (isset($json['error'])) {
-					throw new Exception($json['error']);
-				}
-				$data = self::extractInfo($json);
-
-				$wazeRoutereturl = 'https://www.waze.com/' . $row . 'RoutingManager/routingRequest?from=x%3A' . $end['lon'] . '+y%3A' . $end['lat'] . '&to=x%3A' . $start['lon'] . '+y%3A' . $start['lat'] . '&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At';
-				$request_http = new com_http($wazeRoutereturl);
-				$request_http->setUserAgent('User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0' . hex2bin('0A') . 'referer: https://www.waze.com ');
-				$json = json_decode($request_http->exec(60, 2), true);
-				if (isset($json['error'])) {
-					throw new Exception($json['error']);
-				}
-				$data = array_merge($data, self::extractInfo($json, 'ret'));
-
-				log::add('wazeintime', 'debug', 'Data : ' . print_r($data, true));
-
-				foreach ($wazeintime->getCmd('info') as $cmd) {
-					if ($cmd->getLogicalId() == 'lastrefresh') {
-						$cmd->event(date('H:i'));
-						continue;
-					}
-					if (!isset($data[$cmd->getLogicalId()])) {
-						continue;
-					}
-					if ($cmd->formatValue($data[$cmd->getLogicalId()]) != $cmd->execCmd()) {
-						$cmd->setCollectDate('');
-						$cmd->event($data[$cmd->getLogicalId()]);
-					}
-				}
-				$wazeintime->refreshWidget();
+				$cron = new Cron\CronExpression($autorefresh, new Cron\FieldFactory);
+				$cronIsDue = $cron->isDue();
 			} catch (Exception $e) {
-				log::add('wazeintime', 'error', $e->getMessage());
+				log::add(__CLASS__, 'error', __('Expression cron non valide: ', __FILE__) . $autorefresh);
 			}
+
+			if ($cronIsDue) {
+				$eqLogic->refreshRoutes();
+			}
+		}
+	}
+
+	public function refreshRoutes() {
+		if (!$this->getIsEnable() == 1) return;
+		try {
+			log::add(__CLASS__, 'info', __('Refresh routes pour: ', __FILE__) . $this->getName());
+			$start = $this->getPosition('start');
+			$end = $this->getPosition('end');
+
+			$row = ($this->getConfiguration('NOA')) ? '' : 'row-';
+
+			$wazeRouteurl = 'https://www.waze.com/' . $row . 'RoutingManager/routingRequest?from=x%3A' . $start['lon'] . '+y%3A' . $start['lat'] . '&to=x%3A' . $end['lon'] . '+y%3A' . $end['lat'] . '&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At';
+			$request_http = new com_http($wazeRouteurl);
+			$request_http->setUserAgent('User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0' . hex2bin('0A') . 'referer: https://www.waze.com ');
+			$json = json_decode($request_http->exec(60, 2), true);
+			if (isset($json['error'])) {
+				throw new Exception($json['error']);
+			}
+			$data = self::extractInfo($json);
+
+			$wazeRoutereturl = 'https://www.waze.com/' . $row . 'RoutingManager/routingRequest?from=x%3A' . $end['lon'] . '+y%3A' . $end['lat'] . '&to=x%3A' . $start['lon'] . '+y%3A' . $start['lat'] . '&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At';
+			$request_http = new com_http($wazeRoutereturl);
+			$request_http->setUserAgent('User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0' . hex2bin('0A') . 'referer: https://www.waze.com ');
+			$json = json_decode($request_http->exec(60, 2), true);
+			if (isset($json['error'])) {
+				throw new Exception($json['error']);
+			}
+			$data = array_merge($data, self::extractInfo($json, 'ret'));
+
+			log::add(__CLASS__, 'debug', 'Data : ' . print_r($data, true));
+
+			foreach ($this->getCmd('info') as $cmd) {
+				if ($cmd->getLogicalId() == 'lastrefresh') {
+					$cmd->event(date('H:i'));
+					continue;
+				}
+				if (!isset($data[$cmd->getLogicalId()])) {
+					continue;
+				}
+				if ($cmd->formatValue($data[$cmd->getLogicalId()]) != $cmd->execCmd()) {
+					$cmd->setCollectDate('');
+					$cmd->event($data[$cmd->getLogicalId()]);
+				}
+			}
+			$this->refreshWidget();
+		} catch (Exception $e) {
+			log::add(__CLASS__, 'error', $e->getMessage());
 		}
 	}
 
@@ -135,6 +145,7 @@ class wazeintime extends eqLogic {
 		$this->setConfiguration('hide1', 0);
 		$this->setConfiguration('hide2', 0);
 		$this->setConfiguration('hide3', 0);
+		$this->setConfiguration('autorefresh', '*/30 * * * *');
 	}
 
 	public function preUpdate() {
@@ -340,7 +351,7 @@ class wazeintime extends eqLogic {
 		$refresh->setEqLogic_id($this->getId());
 		$refresh->save();
 
-		$this->cron30($this->getId());
+		$this->refreshRoutes();
 	}
 
 	public function toHtml($_version = 'dashboard') {
@@ -376,7 +387,8 @@ class wazeintime extends eqLogic {
 class wazeintimeCmd extends cmd {
 	public function execute($_options = null) {
 		if ($this->getLogicalId() == 'refresh') {
-			wazeintime::cron30($this->getEqlogic_id());
+			$eqlogic = $this->getEqLogic();
+			$eqlogic->refreshRoutes();
 		}
 	}
 }

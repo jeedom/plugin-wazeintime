@@ -105,7 +105,20 @@ $eqLogics = eqLogic::byType($plugin->getId());
                   <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isVisible" checked />{{Visible}}</label>
                 </div>
               </div>
-
+              <br />
+              <div class="form-group">
+                <label class="col-sm-3 control-label">{{Auto-actualisation (cron)}}</label>
+                <div class="col-sm-3">
+                  <div class="input-group">
+                    <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="autorefresh" placeholder="" />
+                    <span class="input-group-btn">
+                      <a class="btn btn-default cursor jeeHelper" data-helper="cron">
+                        <i class="fas fa-question-circle"></i>
+                      </a>
+                    </span>
+                  </div>
+                </div>
+              </div>
               <legend><i class="fas fa-cogs"></i> {{Paramètres de géolocalisation}}</legend>
               <div class="form-group">
                 <label class="col-sm-3 control-label"><i class="icon maison-house109"></i> {{Départ}}</label>
