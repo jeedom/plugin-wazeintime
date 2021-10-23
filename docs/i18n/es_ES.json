@@ -2,6 +2,16 @@
     "changelog.md": {
         "Changelog Waze in Time": "Registro de cambios Waze in Time",
         "Pour rappel s'il n'y a pas d'information sur la mise à jour, c'est que celle-ci concerne uniquement de la mise à jour de documentation, de traduction ou de texte": "Como recordatorio si no hay información sobre la actualización, significa que solo se refiere a la actualización de documentación, traducción o texto",
+        "18\/10\/2021": "18\/10\/2021",
+        "Amélioration des pages de configuration pour la v4": "Páginas de configuración mejoradas para v4",
+        "Ajout de la zone de recherche": "Agregar el cuadro de búsqueda",
+        "Ajout de la présentation en mode tableau des équipements (Jeedom v4.2": "Adición de la presentación en modo mesa de equipo (Jeedom v4.2",
+        "Nouvelle présentation de la page de configuration": "Nueva presentación de la página de configuración",
+        "Nouvelle présentation de la liste des objets dans la page équipement": "Nueva presentación de la lista de objetos en la página del equipo",
+        "Nouvelle présentation de la liste des commandes": "Nueva presentación de la lista de pedidos",
+        "Ajout du support de la géolocalisation configurée dans le core de Jeedom": "Se agregó soporte para la geolocalización configurada en el núcleo de Jeedom",
+        "Ajout d'un cron d'auto-actualisation personnalisé dans la config de l'équipement; attention vous devez allez reconfigurer vos équipements car le cron30 est désactivé; Sans cela le refresh des trajets ne sera plus effectué automatiquement": "Adición de un cron personalizado de actualización automática en la configuración del equipo; atención debe reconfigurar su equipo porque el cron30 está deshabilitado; De lo contrario, la actualización de los viajes ya no se realizará automáticamente",
+        "Correction de l'extraction des infos dû à un changement d'api de Waze": "Extracción de información fija debido al cambio de API de Waze",
         "23\/10\/2019": "23\/10\/2019",
         "Amélioration du widget pour jeedom v4": "Mejora del widget para jeedom v4",
         "05\/09\/2019": "05\/09\/2019",
@@ -10,10 +20,10 @@
         " IMPORTANT.": " Importante.",
         " IMPORTANT?": " Importante?",
         "IMPORTANT ": "Importante ",
-        "[IMPORTANT": "[Importante",
-        "IMPORTANT]": "Importante]",
-        "*IMPORTANT": "*Importante",
-        "IMPORTANT*": "Importante*"
+        " IMPORTANT]": " Importante]",
+        "[IMPORTANT]": "[Importante]",
+        "*IMPORTANT*": "*Importante*",
+        " IMPORTANT*": " Importante*"
     },
     "index.md": {
         "Plugin Waze in Time": "Complemento Waze in Time",
@@ -32,7 +42,7 @@
         "A savoir le nom de votre équippement, l'objet auquel vous voulez l'associer, la catégorie, si vous voulez que l'équipement soit actif ou non , et enfin si vous voulez qu'il soit visible sur le dashboard": "Es decir, el nombre de su equipo, el objeto con el que desea asociarlo, la categoría, si desea que el equipo esté activo o no, y finalmente si quiere que esté visible en el tablero",
         "Cette section est une des plus importantes elle permet de régler le point de départ et d'arrivée": "Esta sección es una de las más importantes y le permite establecer el punto inicial y final",
         "Ces infos doivent être les latitudes et longitudes des positions": "Estas informaciones deben ser las latitudes y longitudes de las posiciones",
-        "Elles peuvent être retrouvées en utilisant le site fourni en cliquant sur le lien de la page (il vous suffit de rentrer une adresse et de cliquer sur obtenir les coordonnées GPS)": "Se pueden encontrar utilizando el sitio provisto haciendo clic en el enlace de la página (solo ingrese una dirección y haga clic en obtener coordenadas GPS)",
+        "Elles peuvent être retrouvées en utilisant le site fourni en cliquant sur le lien de la page (il vous suffit de rentrer une adresse et de cliquer sur obtenir les coordonnées GPS": "Se pueden encontrar utilizando el sitio proporcionado haciendo clic en el enlace de la página (solo ingrese una dirección y haga clic en obtener coordenadas GPS",
         "Tableau de Commandes": "Panel de control",
         "Durée 1": "Duración 1",
         "durée aller avec le trajet 1": "duración del viaje 1",
@@ -53,16 +63,16 @@
         "Toutes ces commandes sont disponibles via scénarios et via le dashboard": "Todos estos comandos están disponibles a través de escenarios y a través del tablero",
         "Le widget": "El widget",
         "Le bouton en haut à droite permet de rafraîchir les infos": "El botón en la parte superior derecha actualiza la información",
-        "Toutes les infos sont visibles (pour les trajets, si le trajet est long, il peut être tronqué mais la version complète est visible en laissant la souris dessus)": "Toda la información es visible (para viajes, si el viaje es largo, se puede truncar pero la versión completa es visible dejando el mouse sobre ella)",
+        "Toutes les infos sont visibles (pour les trajets, si le trajet est long, il peut être tronqué mais la version complète est visible en laissant la souris dessus": "Toda la información es visible (para viajes, si el viaje es largo, se puede truncar pero la versión completa es visible dejando el mouse sobre ella)",
         "Comment sont rafraichis les infos": "¿Cómo se actualizan las noticias?",
         "Les infos sont rafraichies une fois toutes les 30 minutes": "La información se actualiza una vez cada 30 minutos",
         "Vous pouvez les rafraîchir à la demande via scénario avec la commande rafraîchir, ou via le dash avec les doubles flêches": "Puede actualizarlos a pedido a través del escenario con el comando de actualización, o mediante el guión con flechas dobles",
         " Configuration.": " Configuración.",
         " Configuration?": " Configuración?",
         "Configuration ": "Configuración ",
-        "[Configuration": "[Configuración",
-        "Configuration]": "Configuración]",
-        "*Configuration": "*Configuración",
-        "Configuration*": "Configuración*"
+        " Configuration]": " Configuración]",
+        "[Configuration]": "[Configuración]",
+        "*Configuration*": "*Configuración*",
+        " Configuration*": " Configuración*"
     }
 }

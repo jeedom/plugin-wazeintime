@@ -5,38 +5,46 @@
         "Ajouter": "Añadir",
         "Configuration": "Configuración",
         "Mes Trajets": "Mis Trayectos",
+        "Rechercher": "Buscar",
         "Configuration avancée": "Configuración avanzada",
         "Dupliquer": "Duplicar",
         "Sauvegarder": "Guardar",
         "Supprimer": "Borrar",
         "Equipement": "Dispositivos",
         "Commandes": "Comandos",
+        "Paramètres généraux": "Configuración general",
         "Nom de l'équipement": "Nombre del equipo",
         "Objet parent": "Objeto padre",
         "Aucun": "Ninguna",
         "Catégorie": "Categoría",
+        "Options": "Opciones",
         "Activer": "Activar",
         "Visible": "Visible",
+        "Auto-actualisation (cron)": "Actualización automática (cron)",
+        "Paramètres de géolocalisation": "Configuración de geolocalización",
         "Départ": "Comienzo",
-        "Géolocalisation": "Geolocalización",
         "Manuel": "Manual",
         "Latitude": "Latitud",
         "48.856614": "48.856614",
         "Longitude": "Longitud",
         "2.3522219000000177": "2.3522219000000177",
         "Arrivée": "Llegada",
-        "Amérique du Nord :": "América del Norte:",
-        "Affichage": "Visualización",
-        "Masquer trajet :": "Ocultar trayecto:",
+        "Amérique du Nord": "América del norte",
+        "Paramètres d'affichage": "Configuraciones de pantalla",
+        "Masquer trajet": "Ocultar ruta",
+        "Informations": "Información",
+        "Id": "Identificación",
         "Nom": "Nombre",
-        "Options": "Opciones",
         "Action": "Acción"
     },
     "plugins\/wazeintime\/desktop\/js\/wazeintime.js": {
-        "Historiser": "Guardar historial",
-        "Tester": "Probar"
+        "Nom de la commande": "Nombre de la orden",
+        "Historiser": "Guardar historial"
     },
     "plugins\/wazeintime\/core\/class\/wazeintime.class.php": {
+        "Expression cron non valide: ": "Expresión cron no válida:",
+        "Refresh routes pour: ": "Actualizar rutas para:",
+        "Configuration Jeedom invalide": "Configuración de Jeedom no válida",
         "Position de départ invalide": "Posición inicial no válida",
         "La latitude de départ ne peut être vide et doit être un nombre valide": "La latitud de partida no puede estar vacía y debe ser un número válido",
         "La latitude d\\'arrivée ne peut être vide et doit être un nombre valide": "La latitud de llegada no puede estar vacía y debe ser un número válido",
@@ -56,5 +64,8 @@
         "Durée retour 3": "Duración trayecto de vuelta 3",
         "Dernier refresh": "Última actualización",
         "Rafraichir": "Refrescar"
+    },
+    "info.json": {
+        "Plugin pour avoir la durée de trajet entre deux points": "Complemento para tener el tiempo de viaje entre dos puntos"
     }
 }

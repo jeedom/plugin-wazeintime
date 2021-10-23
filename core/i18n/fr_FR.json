@@ -5,38 +5,46 @@
         "Ajouter": "Ajouter",
         "Configuration": "Configuration",
         "Mes Trajets": "Mes Trajets",
+        "Rechercher": "Rechercher",
         "Configuration avancée": "Configuration avancée",
         "Dupliquer": "Dupliquer",
         "Sauvegarder": "Sauvegarder",
         "Supprimer": "Supprimer",
         "Equipement": "Equipement",
         "Commandes": "Commandes",
+        "Paramètres généraux": "Paramètres généraux",
         "Nom de l'équipement": "Nom de l'équipement",
         "Objet parent": "Objet parent",
         "Aucun": "Aucun",
         "Catégorie": "Catégorie",
+        "Options": "Options",
         "Activer": "Activer",
         "Visible": "Visible",
+        "Auto-actualisation (cron)": "Auto-actualisation (cron)",
+        "Paramètres de géolocalisation": "Paramètres de géolocalisation",
         "Départ": "Départ",
-        "Géolocalisation": "Géolocalisation",
         "Manuel": "Manuel",
         "Latitude": "Latitude",
         "48.856614": "48.856614",
         "Longitude": "Longitude",
         "2.3522219000000177": "2.3522219000000177",
         "Arrivée": "Arrivée",
-        "Amérique du Nord :": "Amérique du Nord :",
-        "Affichage": "Affichage",
-        "Masquer trajet :": "Masquer trajet :",
+        "Amérique du Nord": "Amérique du Nord",
+        "Paramètres d'affichage": "Paramètres d'affichage",
+        "Masquer trajet": "Masquer trajet",
+        "Informations": "Informations",
+        "Id": "Id",
         "Nom": "Nom",
-        "Options": "Options",
         "Action": "Action"
     },
     "plugins\/wazeintime\/desktop\/js\/wazeintime.js": {
-        "Historiser": "Historiser",
-        "Tester": "Tester"
+        "Nom de la commande": "Nom de la commande",
+        "Historiser": "Historiser"
     },
     "plugins\/wazeintime\/core\/class\/wazeintime.class.php": {
+        "Expression cron non valide: ": "Expression cron non valide: ",
+        "Refresh routes pour: ": "Refresh routes pour: ",
+        "Configuration Jeedom invalide": "Configuration Jeedom invalide",
         "Position de départ invalide": "Position de départ invalide",
         "La latitude de départ ne peut être vide et doit être un nombre valide": "La latitude de départ ne peut être vide et doit être un nombre valide",
         "La latitude d\\'arrivée ne peut être vide et doit être un nombre valide": "La latitude d\\'arrivée ne peut être vide et doit être un nombre valide",
@@ -56,5 +64,8 @@
         "Durée retour 3": "Durée retour 3",
         "Dernier refresh": "Dernier refresh",
         "Rafraichir": "Rafraichir"
+    },
+    "info.json": {
+        "Plugin pour avoir la durée de trajet entre deux points": "Plugin pour avoir la durée de trajet entre deux points"
     }
 }
