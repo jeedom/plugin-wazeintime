@@ -15,19 +15,30 @@
  * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
  */
 $('.eqLogicAttr[data-l1key=configuration][data-l2key=geolocend]').on('change', function () {
-  if ($(this).value() != '' && $(this).value() != null && $(this).value() != 'none') {
-    $('.hideend').hide();
-  } else {
-    $('.hideend').show();
+  $('.manualEnd').hide();
+  $('.customCmdEnd').hide();
+  if ($(this).value() === 'none') {
+    $('.manualEnd').show();
+  } else if ($(this).value() === 'cmd') {
+    $('.customCmdEnd').show();
   }
 });
 
 $('.eqLogicAttr[data-l1key=configuration][data-l2key=geolocstart]').on('change', function () {
-  if ($(this).value() != '' && $(this).value() != null && $(this).value() != 'none') {
-    $('.hidestart').hide();
-  } else {
-    $('.hidestart').show();
+  $('.manualStart').hide();
+  $('.customCmdStart').hide();
+  if ($(this).value() === 'none') {
+    $('.manualStart').show();
+  } else if ($(this).value() === 'cmd') {
+    $('.customCmdStart').show();
   }
+});
+
+$(".listCmdInfo").on('click', function () {
+  var el = $(this).closest('div').find('.eqLogicAttr[data-l1key=configuration]');
+  jeedom.cmd.getSelectModal({ cmd: { type: 'info' } }, function (result) {
+    el.val(result.human);
+  });
 });
 
 $("#table_cmd").sortable({ axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true });
