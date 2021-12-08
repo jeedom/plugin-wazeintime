@@ -50,8 +50,11 @@ class wazeintime extends eqLogic {
 			$end = $this->getPosition('end');
 
 			$row = ($this->getConfiguration('NOA')) ? '' : 'row-';
+			$subConfig = $this->getConfiguration('subscription');
+			$subscription = ($subConfig == '') ? '' : "&subscription={$subConfig}";
 
-			$wazeRouteurl = 'https://www.waze.com/' . $row . 'RoutingManager/routingRequest?from=x%3A' . $start['lon'] . '+y%3A' . $start['lat'] . '&to=x%3A' . $end['lon'] . '+y%3A' . $end['lat'] . '&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At';
+			$wazeRouteurl = 'https://www.waze.com/' . $row . 'RoutingManager/routingRequest?from=x%3A' . $start['lon'] . '+y%3A' . $start['lat'] . '&to=x%3A' . $end['lon'] . '+y%3A' . $end['lat'] . '&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At' . $subscription;
+			log::add(__CLASS__, 'debug', "routeURL: {$wazeRouteurl}");
 			$request_http = new com_http($wazeRouteurl);
 			$request_http->setUserAgent('User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0' . hex2bin('0A') . 'referer: https://www.waze.com ');
 			$json = json_decode($request_http->exec(60, 2), true);
@@ -60,7 +63,8 @@ class wazeintime extends eqLogic {
 			}
 			$data = self::extractInfo($json);
 
-			$wazeRoutereturl = 'https://www.waze.com/' . $row . 'RoutingManager/routingRequest?from=x%3A' . $end['lon'] . '+y%3A' . $end['lat'] . '&to=x%3A' . $start['lon'] . '+y%3A' . $start['lat'] . '&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At';
+			$wazeRoutereturl = 'https://www.waze.com/' . $row . 'RoutingManager/routingRequest?from=x%3A' . $end['lon'] . '+y%3A' . $end['lat'] . '&to=x%3A' . $start['lon'] . '+y%3A' . $start['lat'] . '&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At' . $subscription;
+			log::add(__CLASS__, 'debug', "routeURL: {$wazeRouteurl}");
 			$request_http = new com_http($wazeRoutereturl);
 			$request_http->setUserAgent('User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0' . hex2bin('0A') . 'referer: https://www.waze.com ');
 			$json = json_decode($request_http->exec(60, 2), true);
@@ -69,7 +73,7 @@ class wazeintime extends eqLogic {
 			}
 			$data = array_merge($data, self::extractInfo($json, 'ret'));
 
-			log::add(__CLASS__, 'debug', 'Data : ' . print_r($data, true));
+			log::add(__CLASS__, 'debug', 'Data: ' . print_r($data, true));
 
 			foreach ($this->getCmd('info') as $cmd) {
 				if ($cmd->getLogicalId() == 'lastrefresh') {
@@ -93,16 +97,16 @@ class wazeintime extends eqLogic {
 	public static function extractInfo($_data, $_prefix = '') {
 		$return = array();
 		log::add(__CLASS__, 'debug', 'raw data:' . json_encode($_data));
-		$return['route' . $_prefix . 'name1'] = (isset($_data['response'][0]['route_name'])) ? trim($_data['response'][0]['route_name']) : "NA";
-		$return['route' . $_prefix . 'name2'] = (isset($_data['response'][1]['route_name'])) ? trim($_data['response'][1]['route_name']) : "NA";
-		$return['route' . $_prefix . 'name3'] = (isset($_data['response'][2]['route_name'])) ? trim($_data['response'][2]['route_name']) : "NA";
+		$return['route' . $_prefix . 'name1'] = (isset($_data['alternatives'][0]['response']['shortRouteName'])) ? trim($_data['alternatives'][0]['response']['shortRouteName']) : "NA";
+		$return['route' . $_prefix . 'name2'] = (isset($_data['alternatives'][1]['response']['shortRouteName'])) ? trim($_data['alternatives'][1]['response']['shortRouteName']) : "NA";
+		$return['route' . $_prefix . 'name3'] = (isset($_data['alternatives'][2]['response']['shortRouteName'])) ? trim($_data['alternatives'][2]['response']['shortRouteName']) : "NA";
 		$return['time' . $_prefix . '1'] = 0;
 		$return['time' . $_prefix . '2'] = 0;
 		$return['time' . $_prefix . '3'] = 0;
 
-		$return['time' . $_prefix . '1'] = round($_data['response'][0]['total_route_time'] / 60);
-		$return['time' . $_prefix . '2'] = round($_data['response'][1]['total_route_time'] / 60);
-		$return['time' . $_prefix . '3'] = round($_data['response'][2]['total_route_time'] / 60);
+		$return['time' . $_prefix . '1'] = round($_data['alternatives'][0]['response']['totalRouteTime'] / 60);
+		$return['time' . $_prefix . '2'] = round($_data['alternatives'][1]['response']['totalRouteTime'] / 60);
+		$return['time' . $_prefix . '3'] = round($_data['alternatives'][2]['response']['totalRouteTime'] / 60);
 		return $return;
 	}
 
@@ -122,6 +126,14 @@ class wazeintime extends eqLogic {
 				} else {
 					throw new Exception(__('Configuration Jeedom invalide', __FILE__));
 				}
+			} elseif ($typeId[0] == 'cmd') {
+				log::add(__CLASS__, 'debug', 'geoloc:' . 'cmdGeoLoc' . $_point);
+				$localisation = $this->extractLocalisation($this->getConfiguration('cmdGeoLoc' . $_point));
+				if ($localisation === false) {
+					throw new Exception(__('La commande donnant la localisation ne contient pas une localisation valide (latitude,longitude)', __FILE__));
+				}
+				$return['lat'] = $localisation[0];
+				$return['lon'] = $localisation[1];
 			} else {
 				if ($typeId[0] == 'ios') {
 					$geolocCmd = geoloc_iosCmd::byId($typeId[1]);
@@ -133,7 +145,7 @@ class wazeintime extends eqLogic {
 					$return['lat'] = $geoloctab[0];
 					$return['lon'] = $geoloctab[1];
 				} else {
-					throw new Exception(__('Position de départ invalide', __FILE__));
+					throw new Exception(__('Position invalide', __FILE__));
 				}
 			}
 		}
@@ -148,6 +160,22 @@ class wazeintime extends eqLogic {
 		$this->setConfiguration('autorefresh', '*/30 * * * *');
 	}
 
+	private function extractLocalisation($cmdId) {
+		$cmdId = trim(str_replace('#', '', $cmdId));
+		if ($cmdId == '') return false;
+
+		$cmd = cmd::byId($cmdId);
+		if (!is_object($cmd)) return false;
+
+		$value = $cmd->execCmd();
+		log::add(__CLASS__, 'debug', "localisation?: {$value}");
+		$localisation = explode(',', $value, 3);
+		if ($localisation === false || count($localisation) < 2) {
+			return false;
+		}
+		return $localisation;
+	}
+
 	public function preUpdate() {
 		if (($this->getConfiguration('latdepart') == '' || !is_numeric($this->getConfiguration('latdepart'))) && $this->getConfiguration('geolocstart') == 'none') {
 			throw new Exception(__('La latitude de départ ne peut être vide et doit être un nombre valide', __FILE__));
@@ -160,6 +188,25 @@ class wazeintime extends eqLogic {
 		}
 		if (($this->getConfiguration('lonarrive') == '' || !is_numeric($this->getConfiguration('lonarrive'))) && $this->getConfiguration('geolocend') == 'none') {
 			throw new Exception(__('La longitude d\'arrivée ne peut être vide et doit être un nombre valide', __FILE__));
+		}
+
+		if ($this->getConfiguration('geolocstart') == 'cmd') {
+			if ($this->getConfiguration('cmdGeoLocStart') == '') {
+				throw new Exception(__('Vous devez sélectionner une commande donnant la localisation de départ', __FILE__));
+			}
+			$localisation = $this->extractLocalisation($this->getConfiguration('cmdGeoLocStart'));
+			if ($localisation === false) {
+				throw new Exception(__('La commande donnant la localisation de départ ne contient pas une localisation valide (latitude,longitude)', __FILE__));
+			}
+		}
+		if ($this->getConfiguration('geolocend') == 'cmd') {
+			if ($this->getConfiguration('cmdGeoLocEnd') == '') {
+				throw new Exception(__('Vous devez sélectionner une commande donnant la localisation d\'arrivée', __FILE__));
+			}
+			$localisation = $this->extractLocalisation($this->getConfiguration('cmdGeoLocEnd'));
+			if ($localisation === false) {
+				throw new Exception(__('La commande donnant la localisation de départ ne contient pas une localisation valide (latitude,longitude)', __FILE__));
+			}
 		}
 	}
 
