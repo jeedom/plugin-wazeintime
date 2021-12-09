@@ -112,6 +112,13 @@ class wazeintime extends eqLogic {
 			$return['time' . $_prefix . '1'] = (isset($_data['response']['totalRouteTime'])) ? round($_data['response']['totalRouteTime'] / 60) : 0;
 			$return['time' . $_prefix . '2'] = 0;
 			$return['time' . $_prefix . '3'] = 0;
+		} else {
+			$return['route' . $_prefix . 'name1'] = "NA";
+			$return['route' . $_prefix . 'name2'] = "NA";
+			$return['route' . $_prefix . 'name3'] = "NA";
+			$return['time' . $_prefix . '1'] = 0;
+			$return['time' . $_prefix . '2'] = 0;
+			$return['time' . $_prefix . '3'] = 0;
 		}
 
 		return $return;
