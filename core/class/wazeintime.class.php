@@ -191,19 +191,19 @@ class wazeintime extends eqLogic {
 		}
 
 		if ($this->getConfiguration('geolocstart') == 'cmd') {
-			if ($this->getConfiguration('cmdGeoLocStart') == '') {
+			if ($this->getConfiguration('cmdGeoLocstart') == '') {
 				throw new Exception(__('Vous devez sélectionner une commande donnant la localisation de départ', __FILE__));
 			}
-			$localisation = $this->extractLocalisation($this->getConfiguration('cmdGeoLocStart'));
+			$localisation = $this->extractLocalisation($this->getConfiguration('cmdGeoLocstart'));
 			if ($localisation === false) {
 				throw new Exception(__('La commande donnant la localisation de départ ne contient pas une localisation valide (latitude,longitude)', __FILE__));
 			}
 		}
 		if ($this->getConfiguration('geolocend') == 'cmd') {
-			if ($this->getConfiguration('cmdGeoLocEnd') == '') {
+			if ($this->getConfiguration('cmdGeoLocend') == '') {
 				throw new Exception(__('Vous devez sélectionner une commande donnant la localisation d\'arrivée', __FILE__));
 			}
-			$localisation = $this->extractLocalisation($this->getConfiguration('cmdGeoLocEnd'));
+			$localisation = $this->extractLocalisation($this->getConfiguration('cmdGeoLocend'));
 			if ($localisation === false) {
 				throw new Exception(__('La commande donnant la localisation de départ ne contient pas une localisation valide (latitude,longitude)', __FILE__));
 			}
