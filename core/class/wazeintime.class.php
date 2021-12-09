@@ -97,16 +97,30 @@ class wazeintime extends eqLogic {
 	public static function extractInfo($_data, $_prefix = '') {
 		$return = array();
 		log::add(__CLASS__, 'debug', 'raw data:' . json_encode($_data));
-		$return['route' . $_prefix . 'name1'] = (isset($_data['alternatives'][0]['response']['shortRouteName'])) ? trim($_data['alternatives'][0]['response']['shortRouteName']) : "NA";
-		$return['route' . $_prefix . 'name2'] = (isset($_data['alternatives'][1]['response']['shortRouteName'])) ? trim($_data['alternatives'][1]['response']['shortRouteName']) : "NA";
-		$return['route' . $_prefix . 'name3'] = (isset($_data['alternatives'][2]['response']['shortRouteName'])) ? trim($_data['alternatives'][2]['response']['shortRouteName']) : "NA";
-		$return['time' . $_prefix . '1'] = 0;
-		$return['time' . $_prefix . '2'] = 0;
-		$return['time' . $_prefix . '3'] = 0;
+		if (isset($_data['alternatives'])) {
+			$return['route' . $_prefix . 'name1'] = (isset($_data['alternatives'][0]['response']['shortRouteName'])) ? trim($_data['alternatives'][0]['response']['shortRouteName']) : "NA";
+			$return['route' . $_prefix . 'name2'] = (isset($_data['alternatives'][1]['response']['shortRouteName'])) ? trim($_data['alternatives'][1]['response']['shortRouteName']) : "NA";
+			$return['route' . $_prefix . 'name3'] = (isset($_data['alternatives'][2]['response']['shortRouteName'])) ? trim($_data['alternatives'][2]['response']['shortRouteName']) : "NA";
+			$return['time' . $_prefix . '1'] = (isset($_data['alternatives'][0]['response']['totalRouteTime'])) ? round($_data['alternatives'][0]['response']['totalRouteTime'] / 60) : 0;
+			$return['time' . $_prefix . '2'] = (isset($_data['alternatives'][1]['response']['totalRouteTime'])) ? round($_data['alternatives'][1]['response']['totalRouteTime'] / 60) : 0;
+			$return['time' . $_prefix . '3'] = (isset($_data['alternatives'][2]['response']['totalRouteTime'])) ? round($_data['alternatives'][2]['response']['totalRouteTime'] / 60) : 0;
+		} elseif (isset($_data['response'])) {
+			// sometime waze do not return several alternatives but only one
+			$return['route' . $_prefix . 'name1'] = (isset($_data['response']['shortRouteName'])) ? trim($_data['response']['shortRouteName']) : "NA";
+			$return['route' . $_prefix . 'name2'] = "NA";
+			$return['route' . $_prefix . 'name3'] = "NA";
+			$return['time' . $_prefix . '1'] = (isset($_data['response']['totalRouteTime'])) ? round($_data['response']['totalRouteTime'] / 60) : 0;
+			$return['time' . $_prefix . '2'] = 0;
+			$return['time' . $_prefix . '3'] = 0;
+		} else {
+			$return['route' . $_prefix . 'name1'] = "NA";
+			$return['route' . $_prefix . 'name2'] = "NA";
+			$return['route' . $_prefix . 'name3'] = "NA";
+			$return['time' . $_prefix . '1'] = 0;
+			$return['time' . $_prefix . '2'] = 0;
+			$return['time' . $_prefix . '3'] = 0;
+		}
 
-		$return['time' . $_prefix . '1'] = round($_data['alternatives'][0]['response']['totalRouteTime'] / 60);
-		$return['time' . $_prefix . '2'] = round($_data['alternatives'][1]['response']['totalRouteTime'] / 60);
-		$return['time' . $_prefix . '3'] = round($_data['alternatives'][2]['response']['totalRouteTime'] / 60);
 		return $return;
 	}
 
@@ -191,19 +205,19 @@ class wazeintime extends eqLogic {
 		}
 
 		if ($this->getConfiguration('geolocstart') == 'cmd') {
-			if ($this->getConfiguration('cmdGeoLocStart') == '') {
+			if ($this->getConfiguration('cmdGeoLocstart') == '') {
 				throw new Exception(__('Vous devez sélectionner une commande donnant la localisation de départ', __FILE__));
 			}
-			$localisation = $this->extractLocalisation($this->getConfiguration('cmdGeoLocStart'));
+			$localisation = $this->extractLocalisation($this->getConfiguration('cmdGeoLocstart'));
 			if ($localisation === false) {
 				throw new Exception(__('La commande donnant la localisation de départ ne contient pas une localisation valide (latitude,longitude)', __FILE__));
 			}
 		}
 		if ($this->getConfiguration('geolocend') == 'cmd') {
-			if ($this->getConfiguration('cmdGeoLocEnd') == '') {
+			if ($this->getConfiguration('cmdGeoLocend') == '') {
 				throw new Exception(__('Vous devez sélectionner une commande donnant la localisation d\'arrivée', __FILE__));
 			}
-			$localisation = $this->extractLocalisation($this->getConfiguration('cmdGeoLocEnd'));
+			$localisation = $this->extractLocalisation($this->getConfiguration('cmdGeoLocend'));
 			if ($localisation === false) {
 				throw new Exception(__('La commande donnant la localisation de départ ne contient pas une localisation valide (latitude,longitude)', __FILE__));
 			}
