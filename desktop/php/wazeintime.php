@@ -62,7 +62,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
       <div role="tabpanel" class="tab-pane active" id="eqlogictab">
         <form class="form-horizontal">
           <fieldset>
-            <div class="col-lg-6">
+            <div class="col-lg-7">
               <legend><i class="fas fa-wrench"></i> {{Paramètres généraux}}</legend>
               <div class="form-group">
                 <label class="col-sm-3 control-label">{{Nom de l'équipement}}</label>
@@ -119,12 +119,13 @@ $eqLogics = eqLogic::byType($plugin->getId());
                   </div>
                 </div>
               </div>
-              <legend><i class="fas fa-cogs"></i> {{Paramètres de géolocalisation}}</legend>
+              <legend><i class="fas fa-cogs"></i> {{Paramètres du trajet}}</legend>
               <div class="form-group">
                 <label class="col-sm-3 control-label"><i class="icon maison-house109"></i> {{Départ}}</label>
                 <div class="col-sm-3">
                   <select class="form-control eqLogicAttr configuration geolocstart" id="geoloc" data-l1key="configuration" data-l2key="geolocstart">
                     <option value="none">{{Manuel}}</option>
+                    <option value="cmd">{{Commande}}</option>
                     <?php
                     if ((config::byKey('info::latitude') != '') && (config::byKey('info::longitude') != '')) {
                       echo '<option value="jeedom|">Configuration Jeedom</option>';
@@ -146,13 +147,26 @@ $eqLogics = eqLogic::byType($plugin->getId());
                     ?>
                   </select>
                 </div>
-                <label class="col-sm-1 control-label hidestart">{{Latitude}}</label>
-                <div class="col-sm-2">
-                  <input type="text" class="eqLogicAttr form-control hidestart" data-l1key="configuration" data-l2key="latdepart" placeholder="{{48.856614}}" />
+                <div class="manualStart">
+                  <label class="col-sm-1 control-label">{{Latitude}}</label>
+                  <div class="col-sm-2">
+                    <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="latdepart" placeholder="{{48.856614}}" />
+                  </div>
+                  <label class="col-sm-1 control-label">{{Longitude}}</label>
+                  <div class="col-sm-2">
+                    <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="londepart" placeholder="{{2.3522219000000177}}" />
+                  </div>
                 </div>
-                <label class="col-sm-1 control-label hidestart">{{Longitude}}</label>
-                <div class="col-sm-2">
-                  <input type="text" class="eqLogicAttr form-control hidestart" data-l1key="configuration" data-l2key="londepart" placeholder="{{2.3522219000000177}}" />
+                <div class="customCmdStart">
+                  <label class="col-sm-2 control-label help" data-help="{{Sélectionnez une commande info retournant la localisation au format 'latitude,longitude'}}">{{Localisation}}</label>
+                  <div class="col-sm-4">
+                    <div class="input-group">
+                      <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="cmdGeoLocstart" />
+                      <span class="input-group-btn">
+                        <a class="btn btn-default cursor listCmdInfo" title="Rechercher une commande"><i class="fas fa-list-alt"></i></a>
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="form-group">
@@ -160,6 +174,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
                 <div class="col-sm-3">
                   <select class="form-control eqLogicAttr configuration geolocend" id="geoloc" data-l1key="configuration" data-l2key="geolocend">
                     <option value="none">{{Manuel}}</option>
+                    <option value="cmd">{{Commande}}</option>
                     <?php
                     if ((config::byKey('info::latitude') != '') && (config::byKey('info::longitude') != '')) {
                       echo '<option value="jeedom|">Configuration Jeedom</option>';
@@ -182,13 +197,26 @@ $eqLogics = eqLogic::byType($plugin->getId());
                     ?>
                   </select>
                 </div>
-                <label class="col-sm-1 control-label hideend">{{Latitude}}</label>
-                <div class="col-sm-2">
-                  <input type="text" class="eqLogicAttr form-control hideend" data-l1key="configuration" data-l2key="latarrive" placeholder="{{48.856614}}" />
+                <div class="manualEnd">
+                  <label class="col-sm-1 control-label">{{Latitude}}</label>
+                  <div class="col-sm-2">
+                    <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="latarrive" placeholder="{{48.856614}}" />
+                  </div>
+                  <label class="col-sm-1 control-label">{{Longitude}}</label>
+                  <div class="col-sm-2">
+                    <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="lonarrive" placeholder="{{2.3522219000000177}}" />
+                  </div>
                 </div>
-                <label class="col-sm-1 control-label hideend">{{Longitude}}</label>
-                <div class="col-sm-2">
-                  <input type="text" class="eqLogicAttr form-control hideend" data-l1key="configuration" data-l2key="lonarrive" placeholder="{{2.3522219000000177}}" />
+                <div class="customCmdEnd">
+                  <label class="col-sm-2 control-label help" data-help="{{Sélectionnez une commande info retournant la localisation au format 'latitude,longitude'}}">{{Localisation}}</label>
+                  <div class="col-sm-4">
+                    <div class="input-group">
+                      <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="cmdGeoLocend" />
+                      <span class="input-group-btn">
+                        <a class="btn btn-default cursor listCmdInfo" title="Rechercher une commande"><i class="fas fa-list-alt"></i></a>
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="form-group">
@@ -197,7 +225,12 @@ $eqLogics = eqLogic::byType($plugin->getId());
                   <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="NOA" checked />
                 </div>
               </div>
-
+              <div class="form-group">
+                <label class="col-sm-3 control-label help" data-help="Indiquez les abonnements que vous voulez activer, liste d'élements séparés par une virgule (* pour tout activer)">{{Abonnements}}</label>
+                <div class="col-sm-3">
+                  <input type="text" class="eqLogicAttr form-control help" data-l1key="configuration" data-l2key="subscription" />
+                </div>
+              </div>
               <legend><i class="fa fa-wrench"></i> {{Paramètres d'affichage}}</legend>
               <div class="form-group">
                 <label class="col-sm-3 control-label">{{Masquer trajet}}</label>
@@ -207,11 +240,11 @@ $eqLogics = eqLogic::byType($plugin->getId());
               </div>
             </div>
 
-            <div class="col-lg-6">
+            <div class="col-lg-5">
               <legend><i class="fas fa-info"></i> {{Informations}}</legend>
               <div class="form-group">
-                <div class="text-center">
-                  <a class="col-lg-4 control-label" href="http://www.coordonnees-gps.fr/" target="_blank"><i class="icon nature-planet5"></i> Cliquez-ici pour retrouver vos coordonnées</a>
+                <div class="pull-left">
+                  <a class="col-lg-12 control-label" href="http://www.coordonnees-gps.fr/" target="_blank"><i class="icon nature-planet5"></i> Cliquez-ici pour retrouver vos coordonnées</a>
                 </div>
               </div>
             </div>
