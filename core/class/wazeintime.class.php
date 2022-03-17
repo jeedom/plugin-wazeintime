@@ -234,7 +234,6 @@ class wazeintime extends eqLogic {
 		}
 		$routename1->setType('info');
 		$routename1->setSubType('string');
-		$routename1->setEventOnly(1);
 		$routename1->setEqLogic_id($this->getId());
 		$routename1->save();
 
@@ -248,7 +247,6 @@ class wazeintime extends eqLogic {
 		}
 		$time1->setType('info');
 		$time1->setSubType('numeric');
-		$time1->setEventOnly(1);
 		$time1->setEqLogic_id($this->getId());
 		$time1->save();
 
@@ -261,7 +259,6 @@ class wazeintime extends eqLogic {
 		}
 		$routename2->setType('info');
 		$routename2->setSubType('string');
-		$routename2->setEventOnly(1);
 		$routename2->setEqLogic_id($this->getId());
 		$routename2->save();
 
@@ -275,7 +272,6 @@ class wazeintime extends eqLogic {
 		$time2->setType('info');
 		$time2->setSubType('numeric');
 		$time2->setUnite('min');
-		$time2->setEventOnly(1);
 		$time2->setEqLogic_id($this->getId());
 		$time2->save();
 
@@ -288,7 +284,6 @@ class wazeintime extends eqLogic {
 		}
 		$routename3->setType('info');
 		$routename3->setSubType('string');
-		$routename3->setEventOnly(1);
 		$routename3->setEqLogic_id($this->getId());
 		$routename3->save();
 
@@ -302,7 +297,6 @@ class wazeintime extends eqLogic {
 		$time3->setType('info');
 		$time3->setSubType('numeric');
 		$time3->setUnite('min');
-		$time3->setEventOnly(1);
 		$time3->setEqLogic_id($this->getId());
 		$time3->save();
 
@@ -315,7 +309,6 @@ class wazeintime extends eqLogic {
 		}
 		$routeretname1->setType('info');
 		$routeretname1->setSubType('string');
-		$routeretname1->setEventOnly(1);
 		$routeretname1->setEqLogic_id($this->getId());
 		$routeretname1->save();
 
@@ -329,7 +322,6 @@ class wazeintime extends eqLogic {
 		}
 		$timeret1->setType('info');
 		$timeret1->setSubType('numeric');
-		$timeret1->setEventOnly(1);
 		$timeret1->setEqLogic_id($this->getId());
 		$timeret1->save();
 
@@ -342,7 +334,6 @@ class wazeintime extends eqLogic {
 		}
 		$routeretname2->setType('info');
 		$routeretname2->setSubType('string');
-		$routeretname2->setEventOnly(1);
 		$routeretname2->setEqLogic_id($this->getId());
 		$routeretname2->save();
 
@@ -356,7 +347,6 @@ class wazeintime extends eqLogic {
 		$timeret2->setType('info');
 		$timeret2->setSubType('numeric');
 		$timeret2->setUnite('min');
-		$timeret2->setEventOnly(1);
 		$timeret2->setEqLogic_id($this->getId());
 		$timeret2->save();
 
@@ -369,7 +359,6 @@ class wazeintime extends eqLogic {
 		}
 		$routeretname3->setType('info');
 		$routeretname3->setSubType('string');
-		$routeretname3->setEventOnly(1);
 		$routeretname3->setEqLogic_id($this->getId());
 		$routeretname3->save();
 
@@ -383,7 +372,6 @@ class wazeintime extends eqLogic {
 		$timeret3->setType('info');
 		$timeret3->setSubType('numeric');
 		$timeret3->setUnite('min');
-		$timeret3->setEventOnly(1);
 		$timeret3->setEqLogic_id($this->getId());
 		$timeret3->save();
 
@@ -396,7 +384,6 @@ class wazeintime extends eqLogic {
 		}
 		$lastrefresh->setType('info');
 		$lastrefresh->setSubType('string');
-		$lastrefresh->setEventOnly(1);
 		$lastrefresh->setEqLogic_id($this->getId());
 		$lastrefresh->save();
 
