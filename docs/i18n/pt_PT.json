@@ -2,6 +2,8 @@
     "changelog.md": {
         "Changelog Waze in Time": "Registro de alterações Waze in Time",
         "Pour rappel s'il n'y a pas d'information sur la mise à jour, c'est que celle-ci concerne uniquement de la mise à jour de documentation, de traduction ou de texte": "Como lembrete, se não houver informações sobre a atualização, isso significa que se trata apenas da atualização da documentação, tradução ou texto",
+        "17\/03\/2022": "17\/03\/2022",
+        "Compatibilité jeedom v4.2": "Compatibilidade com Jeedom v4.2",
         "08\/12\/2021": "12\/08\/2021",
         "Ajout d'une option pour configurer les abonnements à activer lors du calcul des itinéraires (voir documentation": "Acréscimo de uma opção para configurar as assinaturas a serem ativadas no cálculo das rotas (ver documentação",
         "Ajout d'une option pour utiliser n'importe quelle commande de n'importe quel plugin comme position de départ ou d'arrivée": "Adicionada opção para usar qualquer comando de qualquer plugin como posição inicial ou final",
