@@ -22,25 +22,32 @@ $eqLogics = eqLogic::byType($plugin->getId());
       </div>
     </div>
     <legend><i class="fa fa-car"></i> {{Mes Trajets}}</legend>
-    <div class="input-group" style="margin:5px;">
-      <input class="form-control roundedLeft" placeholder="{{Rechercher}}" id="in_searchEqlogic" />
-      <div class="input-group-btn">
-        <a id="bt_resetSearch" class="btn" style="width:30px"><i class="fas fa-times"></i>
-        </a><a class="btn roundedRight hidden" id="bt_pluginDisplayAsTable" data-coreSupport="1" data-state="0"><i class="fas fa-grip-lines"></i></a>
-      </div>
-    </div>
-    <div class="eqLogicThumbnailContainer">
-      <?php
+    <?php
+    if (count($eqLogics) == 0) {
+      echo '<br><div class="text-center" style="font-size:1.2em;font-weight:bold;">{{Aucun équipement Template trouvé, cliquer sur "Ajouter" pour commencer}}</div>';
+    } else {
+      echo '<div class="input-group" style="margin:5px;">';
+      echo '<input class="form-control roundedLeft" placeholder="{{Rechercher}}" id="in_searchEqlogic">';
+      echo '<div class="input-group-btn">';
+      echo '<a id="bt_resetSearch" class="btn" style="width:30px"><i class="fas fa-times"></i></a>';
+      echo '<a class="btn roundedRight hidden" id="bt_pluginDisplayAsTable" data-coreSupport="1" data-state="0"><i class="fas fa-grip-lines"></i></a>';
+      echo '</div>';
+      echo '</div>';
+      echo '<div class="eqLogicThumbnailContainer">';
       foreach ($eqLogics as $eqLogic) {
         $opacity = ($eqLogic->getIsEnable()) ? '' : 'disableCard';
         echo '<div class="eqLogicDisplayCard cursor ' . $opacity . '" data-eqLogic_id="' . $eqLogic->getId() . '">';
-        echo '<img src="' . $plugin->getPathImgIcon() . '"/>';
-        echo '<br/>';
+        echo '<img src="' . $plugin->getPathImgIcon() . '">';
+        echo '<br>';
         echo '<span class="name">' . $eqLogic->getHumanName(true, true) . '</span>';
+        echo '<span class="hiddenAsCard displayTableRight hidden">';
+        echo ($eqLogic->getIsVisible() == 1) ? '<i class="fas fa-eye" title="{{Equipement visible}}"></i>' : '<i class="fas fa-eye-slash" title="{{Equipement non visible}}"></i>';
+        echo '</span>';
         echo '</div>';
       }
-      ?>
-    </div>
+      echo '</div>';
+    }
+    ?>
   </div>
 
   <div class="col-xs-12 eqLogic" style="display: none;">
@@ -56,7 +63,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation"><a href="#" class="eqLogicAction" aria-controls="home" role="tab" data-toggle="tab" data-action="returnToThumbnailDisplay"><i class="fa fa-arrow-circle-left"></i></a></li>
       <li role="presentation" class="active"><a href="#eqlogictab" aria-controls="home" role="tab" data-toggle="tab"><i class="fas fa-tachometer-alt"></i> {{Equipement}}</a></li>
-      <li role="presentation"><a href="#commandtab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> {{Commandes}}</a></li>
+      <li role="presentation"><a href="#commandtab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list"></i> {{Commandes}}</a></li>
     </ul>
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active" id="eqlogictab">
@@ -259,10 +266,12 @@ $eqLogics = eqLogic::byType($plugin->getId());
           <table id="table_cmd" class="table table-bordered table-condensed">
             <thead>
               <tr>
-                <th>{{Id}}</th>
-                <th>{{Nom}}</th>
-                <th>{{Options}}</th>
-                <th>{{Action}}</th>
+                <th class="hidden-xs" style="min-width:50px;width:70px;">ID</th>
+                <th style="min-width:200px;width:350px;">{{Nom}}</th>
+                <th style="min-width:140px;width:200px;">{{Type}}</th>
+                <th style="min-width:260px;">{{Options}}</th>
+                <th>{{Etat}}</th>
+                <th style="min-width:80px;width:140px;">{{Actions}}</th>
               </tr>
             </thead>
             <tbody>
