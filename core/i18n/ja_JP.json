@@ -5,7 +5,10 @@
         "Ajouter": "加えます",
         "Configuration": "コンフィギュレーション",
         "Mes Trajets": "私のルート",
+        "Aucun équipement trouvé, cliquer sur \"Ajouter\" pour commencer": "Aucun équipement trouvé, cliquer sur \"Ajouter\" pour commencer",
         "Rechercher": "Rechercher",
+        "Equipement visible": "Equipement visible",
+        "Equipement non visible": "Equipement non visible",
         "Configuration avancée": "高度な構成",
         "Dupliquer": "重複",
         "Sauvegarder": "セーブ",
@@ -20,7 +23,9 @@
         "Options": "オプション",
         "Activer": "アクティブ",
         "Visible": "目に見えます",
-        "Auto-actualisation (cron)": "Auto-actualisation (cron)",
+        "Auto-actualisation": "Auto-actualisation",
+        "Fréquence de rafraîchissement des commandes infos de l'équipement": "Fréquence de rafraîchissement des commandes infos de l'équipement",
+        "Cliquer sur ? pour afficher l'assistant cron": "Cliquer sur ? pour afficher l'assistant cron",
         "Paramètres du trajet": "Paramètres du trajet",
         "Départ": "出発",
         "Manuel": "マニュアル",
@@ -37,13 +42,23 @@
         "Paramètres d'affichage": "Paramètres d'affichage",
         "Masquer trajet": "Masquer trajet",
         "Informations": "Informations",
-        "Id": "Id",
         "Nom": "表題",
-        "Action": "アクション"
+        "Type": "Type",
+        "Etat": "Etat",
+        "Actions": "Actions"
     },
     "plugins\/wazeintime\/desktop\/js\/wazeintime.js": {
         "Nom de la commande": "Nom de la commande",
-        "Historiser": "Historicize"
+        "Choisir une icône": "Choisir une icône",
+        "Commande info liée": "Commande info liée",
+        "Aucune": "Aucune",
+        "Afficher": "Afficher",
+        "Historiser": "Historicize",
+        "Inverser": "Inverser",
+        "Min": "Min",
+        "Max": "Max",
+        "Unité": "Unité",
+        "Supprimer la commande": "Supprimer la commande"
     },
     "plugins\/wazeintime\/core\/class\/wazeintime.class.php": {
         "Expression cron non valide: ": "Expression cron non valide:",

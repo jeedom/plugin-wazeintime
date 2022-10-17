@@ -5,7 +5,10 @@
         "Ajouter": "Hinzufügen",
         "Configuration": "Konfiguration",
         "Mes Trajets": "Meine Route",
+        "Aucun équipement trouvé, cliquer sur \"Ajouter\" pour commencer": "Keine Ausrüstung gefunden, klicken Sie zum Starten auf \"Hinzufügen\"",
         "Rechercher": "Forschen",
+        "Equipement visible": "Sichtbare Ausrüstung",
+        "Equipement non visible": "Ausrüstung nicht sichtbar",
         "Configuration avancée": "Erweiterte Konfiguration",
         "Dupliquer": "Duplikat",
         "Sauvegarder": "Speichern",
@@ -20,7 +23,9 @@
         "Options": "Optionen",
         "Activer": "Aktivieren",
         "Visible": "Sichtbar",
-        "Auto-actualisation (cron)": "Automatische Aktualisierung (cron)",
+        "Auto-actualisation": "Selbstauffrischung",
+        "Fréquence de rafraîchissement des commandes infos de l'équipement": "Befehlsaktualisierungsrate für Ausrüstungsinformationen",
+        "Cliquer sur ? pour afficher l'assistant cron": "Klicke auf ? um den Cron-Helfer anzuzeigen",
         "Paramètres du trajet": "Reiseparameter",
         "Départ": "Start",
         "Manuel": "Handbuch",
@@ -37,13 +42,23 @@
         "Paramètres d'affichage": "Bildschirmeinstellungen",
         "Masquer trajet": "Route ausblenden",
         "Informations": "Information",
-        "Id": "Ausweis",
         "Nom": "Name",
-        "Action": "Aktion"
+        "Type": "Nett",
+        "Etat": "Bundesland",
+        "Actions": "Anteile"
     },
     "plugins\/wazeintime\/desktop\/js\/wazeintime.js": {
         "Nom de la commande": "Bestellname",
-        "Historiser": "Chronik"
+        "Choisir une icône": "Wählen Sie ein Symbol aus",
+        "Commande info liée": "Verknüpfter Info-Befehl",
+        "Aucune": "Keiner",
+        "Afficher": "Zum Anzeigen",
+        "Historiser": "Chronik",
+        "Inverser": "Umkehren",
+        "Min": "Minimum",
+        "Max": "Max",
+        "Unité": "Einheit",
+        "Supprimer la commande": "Auftrag löschen"
     },
     "plugins\/wazeintime\/core\/class\/wazeintime.class.php": {
         "Expression cron non valide: ": "Ungültiger Cron-Ausdruck:",

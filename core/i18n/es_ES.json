@@ -5,7 +5,10 @@
         "Ajouter": "Añadir",
         "Configuration": "Configuración",
         "Mes Trajets": "Mis Trayectos",
+        "Aucun équipement trouvé, cliquer sur \"Ajouter\" pour commencer": "No se encontró ningún equipo, haga clic en \"Agregar\" para comenzar",
         "Rechercher": "Buscar",
+        "Equipement visible": "Equipos visibles",
+        "Equipement non visible": "Equipo no visible",
         "Configuration avancée": "Configuración avanzada",
         "Dupliquer": "Duplicar",
         "Sauvegarder": "Guardar",
@@ -20,7 +23,9 @@
         "Options": "Opciones",
         "Activer": "Activar",
         "Visible": "Visible",
-        "Auto-actualisation (cron)": "Actualización automática (cron)",
+        "Auto-actualisation": "Actualización automática",
+        "Fréquence de rafraîchissement des commandes infos de l'équipement": "Frecuencia de actualización del comando de información del equipo",
+        "Cliquer sur ? pour afficher l'assistant cron": "Haga clic en ? para mostrar el ayudante de cron",
         "Paramètres du trajet": "Parámetros de viaje",
         "Départ": "Comienzo",
         "Manuel": "Manual",
@@ -37,13 +42,23 @@
         "Paramètres d'affichage": "Configuraciones de pantalla",
         "Masquer trajet": "Ocultar ruta",
         "Informations": "Información",
-        "Id": "Identificación",
         "Nom": "Nombre",
-        "Action": "Acción"
+        "Type": "Tipo",
+        "Etat": "Estado",
+        "Actions": "Comparte"
     },
     "plugins\/wazeintime\/desktop\/js\/wazeintime.js": {
         "Nom de la commande": "Nombre de la orden",
-        "Historiser": "Guardar historial"
+        "Choisir une icône": "Elige un icono",
+        "Commande info liée": "Comando de información vinculada",
+        "Aucune": "Ninguna",
+        "Afficher": "Para mostrar",
+        "Historiser": "Guardar historial",
+        "Inverser": "Reverso",
+        "Min": "Mínimo",
+        "Max": "Máx.",
+        "Unité": "Unidad",
+        "Supprimer la commande": "Eliminar orden"
     },
     "plugins\/wazeintime\/core\/class\/wazeintime.class.php": {
         "Expression cron non valide: ": "Expresión cron no válida:",
