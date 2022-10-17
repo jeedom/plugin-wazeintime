@@ -117,10 +117,10 @@ $eqLogics = eqLogic::byType($plugin->getId());
               </div>
               <br />
               <div class="form-group">
-                <label class="col-sm-4 control-label">{{Auto-actualisation}}
+                <label class="col-sm-3 control-label">{{Auto-actualisation}}
                   <sup><i class="fas fa-question-circle tooltips" title="{{Fréquence de rafraîchissement des commandes infos de l'équipement}}"></i></sup>
                 </label>
-                <div class="col-sm-6">
+                <div class="col-sm-3">
                   <div class="input-group">
                     <input type="text" class="eqLogicAttr form-control roundedLeft" data-l1key="configuration" data-l2key="autorefresh" placeholder="{{Cliquer sur ? pour afficher l'assistant cron}}">
                     <span class="input-group-btn">
