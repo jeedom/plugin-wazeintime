@@ -24,7 +24,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
     <legend><i class="fa fa-car"></i> {{Mes Trajets}}</legend>
     <?php
     if (count($eqLogics) == 0) {
-      echo '<br><div class="text-center" style="font-size:1.2em;font-weight:bold;">{{Aucun équipement Template trouvé, cliquer sur "Ajouter" pour commencer}}</div>';
+      echo '<br><div class="text-center" style="font-size:1.2em;font-weight:bold;">{{Aucun équipement trouvé, cliquer sur "Ajouter" pour commencer}}</div>';
     } else {
       echo '<div class="input-group" style="margin:5px;">';
       echo '<input class="form-control roundedLeft" placeholder="{{Rechercher}}" id="in_searchEqlogic">';
@@ -41,6 +41,9 @@ $eqLogics = eqLogic::byType($plugin->getId());
         echo '<br>';
         echo '<span class="name">' . $eqLogic->getHumanName(true, true) . '</span>';
         echo '<span class="hiddenAsCard displayTableRight hidden">';
+        if ($eqLogic->getConfiguration('autorefresh', '') != '') {
+          echo '<span class="label label-info">' . $eqLogic->getConfiguration('autorefresh') . '</span>';
+        }
         echo ($eqLogic->getIsVisible() == 1) ? '<i class="fas fa-eye" title="{{Equipement visible}}"></i>' : '<i class="fas fa-eye-slash" title="{{Equipement non visible}}"></i>';
         echo '</span>';
         echo '</div>';
