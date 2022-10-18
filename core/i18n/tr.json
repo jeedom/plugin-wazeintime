@@ -5,7 +5,10 @@
         "Ajouter": "Ekle",
         "Configuration": "Ayar",
         "Mes Trajets": "Yollarım",
+        "Aucun équipement trouvé, cliquer sur \"Ajouter\" pour commencer": "Aucun équipement trouvé, cliquer sur \"Ajouter\" pour commencer",
         "Rechercher": "Rechercher",
+        "Equipement visible": "Equipement visible",
+        "Equipement non visible": "Equipement non visible",
         "Configuration avancée": "Gelişmiş ayarlar",
         "Dupliquer": "Kopyala",
         "Sauvegarder": "Kaydet",
@@ -20,7 +23,9 @@
         "Options": "Opsiyonlar",
         "Activer": "Etkinleştir",
         "Visible": "Görülebilir",
-        "Auto-actualisation (cron)": "Auto-actualisation (cron)",
+        "Auto-actualisation": "Auto-actualisation",
+        "Fréquence de rafraîchissement des commandes infos de l'équipement": "Fréquence de rafraîchissement des commandes infos de l'équipement",
+        "Cliquer sur ? pour afficher l'assistant cron": "Cliquer sur ? pour afficher l'assistant cron",
         "Paramètres du trajet": "Paramètres du trajet",
         "Départ": "Başlangıç",
         "Manuel": "Manüel",
@@ -37,13 +42,23 @@
         "Paramètres d'affichage": "Paramètres d'affichage",
         "Masquer trajet": "Masquer trajet",
         "Informations": "Informations",
-        "Id": "Id",
         "Nom": "İsim",
-        "Action": "Eylem"
+        "Type": "Type",
+        "Etat": "Etat",
+        "Actions": "Actions"
     },
     "plugins\/wazeintime\/desktop\/js\/wazeintime.js": {
         "Nom de la commande": "Nom de la commande",
-        "Historiser": "Tarihe göre sırala"
+        "Choisir une icône": "Choisir une icône",
+        "Commande info liée": "Commande info liée",
+        "Aucune": "Aucune",
+        "Afficher": "Afficher",
+        "Historiser": "Tarihe göre sırala",
+        "Inverser": "Inverser",
+        "Min": "Min",
+        "Max": "Max",
+        "Unité": "Unité",
+        "Supprimer la commande": "Supprimer la commande"
     },
     "plugins\/wazeintime\/core\/class\/wazeintime.class.php": {
         "Expression cron non valide: ": "Expression cron non valide:",
