@@ -23,5 +23,3 @@ function wazeintime_update() {
         $wazeintime->save();
     }
 }
-
-?>
