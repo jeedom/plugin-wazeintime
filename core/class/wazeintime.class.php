@@ -25,6 +25,7 @@ class wazeintime extends eqLogic {
 	public static $_widgetPossibility = array('custom' => true);
 
 	public static function cron() {
+		/** @var wazeintime */
 		foreach (eqLogic::byType(__CLASS__, true) as $eqLogic) {
 			$autorefresh = $eqLogic->getConfiguration('autorefresh', '');
 			$cronIsDue = false;
@@ -49,32 +50,38 @@ class wazeintime extends eqLogic {
 			$start = $this->getPosition('start');
 			$end = $this->getPosition('end');
 
-			$row = ($this->getConfiguration('NOA')) ? '' : 'row-';
+			$row = ($this->getConfiguration('NOA')) ? '' : 'row-'; // FIXME: don't know which url to use for North America so deactivate for now, not sure anyone uses it
 			$subConfig = $this->getConfiguration('subscription');
 			$subscription = ($subConfig == '') ? '' : "&subscription={$subConfig}";
 
-			$wazeRouteurl = 'https://www.waze.com/' . $row . 'RoutingManager/routingRequest?from=x%3A' . $start['lon'] . '+y%3A' . $start['lat'] . '&to=x%3A' . $end['lon'] . '+y%3A' . $end['lat'] . '&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At' . $subscription;
-			log::add(__CLASS__, 'debug', "routeURL: {$wazeRouteurl}");
-			$request_http = new com_http($wazeRouteurl);
-			$request_http->setUserAgent('User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0' . hex2bin('0A') . 'referer: https://www.waze.com ');
+			$baseUrl = 'https://routing-livemap-row.waze.com/RoutingManager/routingRequest';
+			$userAgent = 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:120.0) Gecko/20100101 Firefox/120.0' . hex2bin('0A') . 'referer: https://www.waze.com ';
+
+			$from = str_replace(':', '%3A', "x:{$start['lon']}+y:{$start['lat']}");
+			$to = str_replace(':', '%3A', "x:{$end['lon']}+y:{$end['lat']}");
+			$options = urlencode('AVOID_TRAILS:t');
+
+			$wazeRouteUrl = "{$baseUrl}?from={$from}&to={$to}&at=0&returnJSON=true&timeout=60000&nPaths=3&options={$options}{$subscription}";
+			log::add(__CLASS__, 'debug', "routeURL: {$wazeRouteUrl}");
+			$request_http = new com_http($wazeRouteUrl);
+			$request_http->setUserAgent($userAgent);
 			$json = json_decode($request_http->exec(60, 2), true);
 			if (isset($json['error'])) {
 				throw new Exception($json['error']);
 			}
 			$data = self::extractInfo($json);
 
-			$wazeRoutereturl = 'https://www.waze.com/' . $row . 'RoutingManager/routingRequest?from=x%3A' . $end['lon'] . '+y%3A' . $end['lat'] . '&to=x%3A' . $start['lon'] . '+y%3A' . $start['lat'] . '&at=0&returnJSON=true&returnGeometries=true&returnInstructions=true&timeout=60000&nPaths=3&options=AVOID_TRAILS%3At' . $subscription;
-			log::add(__CLASS__, 'debug', "routeURL: {$wazeRouteurl}");
-			$request_http = new com_http($wazeRoutereturl);
-			$request_http->setUserAgent('User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0' . hex2bin('0A') . 'referer: https://www.waze.com ');
+			$wazeRouteRetUrl = "{$baseUrl}?from={$to}&to={$from}&at=0&returnJSON=true&timeout=60000&nPaths=3&options={$options}{$subscription}";
+			log::add(__CLASS__, 'debug', "return routeURL: {$wazeRouteUrl}");
+			$request_http = new com_http($wazeRouteRetUrl);
+			$request_http->setUserAgent($userAgent);
 			$json = json_decode($request_http->exec(60, 2), true);
 			if (isset($json['error'])) {
 				throw new Exception($json['error']);
 			}
 			$data = array_merge($data, self::extractInfo($json, 'ret'));
 
-			log::add(__CLASS__, 'debug', 'Data: ' . print_r($data, true));
-
+			log::add(__CLASS__, 'debug', 'Result data: ' . print_r($data, true));
 			foreach ($this->getCmd('info') as $cmd) {
 				if ($cmd->getLogicalId() == 'lastrefresh') {
 					$cmd->event(date('H:i'));
@@ -94,7 +101,7 @@ class wazeintime extends eqLogic {
 		}
 	}
 
-	public static function extractInfo($_data, $_prefix = '') {
+	public static function extractInfo(array $_data, string $_prefix = '') {
 		$return = array();
 		log::add(__CLASS__, 'debug', 'raw data:' . json_encode($_data));
 		if (isset($_data['alternatives'])) {
@@ -435,6 +442,7 @@ class wazeintime extends eqLogic {
 class wazeintimeCmd extends cmd {
 	public function execute($_options = null) {
 		if ($this->getLogicalId() == 'refresh') {
+			/** @var wazeintime */
 			$eqlogic = $this->getEqLogic();
 			$eqlogic->refreshRoutes();
 		}
