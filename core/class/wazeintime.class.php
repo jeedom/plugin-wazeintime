@@ -50,11 +50,11 @@ class wazeintime extends eqLogic {
 			$start = $this->getPosition('start');
 			$end = $this->getPosition('end');
 
-			$row = ($this->getConfiguration('NOA')) ? '' : 'row-'; // FIXME: don't know which url to use for North America so deactivate for now, not sure anyone uses it
+			$region = ($this->getConfiguration('NOA', 0)) ? 'am' : 'row';
 			$subConfig = $this->getConfiguration('subscription');
 			$subscription = ($subConfig == '') ? '' : "&subscription={$subConfig}";
 
-			$baseUrl = 'https://routing-livemap-row.waze.com/RoutingManager/routingRequest';
+			$baseUrl = "https://routing-livemap-{$region}.waze.com/RoutingManager/routingRequest";
 			$userAgent = 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:120.0) Gecko/20100101 Firefox/120.0' . hex2bin('0A') . 'referer: https://www.waze.com ';
 
 			$from = str_replace(':', '%3A', "x:{$start['lon']}+y:{$start['lat']}");
