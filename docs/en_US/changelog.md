@@ -6,13 +6,13 @@
 
 # 29/11/2025
 
-- Fixed the URL used following a change by Waze
-- Jeedom version 4.4 or higher required
-- Debian version 11 or higher required
+- Correction de l'URL utilisée suite à un changement de Waze
+- Version Jeedom 4.4 ou plus requis
+- Version Debian 11 ou plus requis
 
 # 29/06/2025
 
-- Optimized requests to Waze to reduce latency
+- Optimisation des requêtes vers Waze afin de réduire la latence
 
 # 10/17/2022
 
