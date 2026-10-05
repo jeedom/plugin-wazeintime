@@ -181,7 +181,7 @@ class wazeintime extends eqLogic {
 		$this->setConfiguration('autorefresh', '*/30 * * * *');
 	}
 
-	private function extractLocalisation($cmdId) {
+	private function extractLocalisation(string $cmdId) {
 		$cmdId = trim(str_replace('#', '', $cmdId));
 		if ($cmdId == '') return false;
 
