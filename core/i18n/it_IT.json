@@ -9,6 +9,8 @@
         "Durée retour 2": "Durata 2 indietro",
         "Durée retour 3": "Rientro Periodo 3",
         "Expression cron non valide: ": "Expression cron non valide:",
+        "Impossible d'obtenir la route": "Impossibile ottenere il percorso",
+        "Impossible de lancer le démon": "Impossibile avviare il demone",
         "La commande donnant la localisation de départ ne contient pas une localisation valide (latitude,longitude)": "La commande donnant la localisation de départ ne contient pas une localisation valide (latitude,longitude)",
         "La commande donnant la localisation ne contient pas une localisation valide (latitude,longitude)": "La commande donnant la localisation ne contient pas une localisation valide (latitude,longitude)",
         "La latitude d\\'arrivée ne peut être vide et doit être un nombre valide": "La latitude d\\'arrivée ne peut être vide et doit être un nombre valide",
@@ -24,8 +26,12 @@
         "Trajet retour 1": "Viaggio di ritorno 1",
         "Trajet retour 2": "Viaggio di ritorno 2",
         "Trajet retour 3": "Viaggio di ritorno 3",
+        "Veuillez vérifier la configuration": "Si prega di verificare la configurazione",
         "Vous devez sélectionner une commande donnant la localisation d\\'arrivée": "Vous devez sélectionner une commande donnant la localisation d\\'arrivée",
         "Vous devez sélectionner une commande donnant la localisation de départ": "Vous devez sélectionner une commande donnant la localisation de départ"
+    },
+    "plugins\/wazeintime\/core\/php\/jeewaze.php": {
+        "Vous n\\'etes pas autorisé à effectuer cette action": "Non sei autorizzato a eseguire questa azione"
     },
     "plugins\/wazeintime\/desktop\/js\/wazeintime.js": {
         "Afficher": "Afficher",
@@ -48,7 +54,6 @@
         "Actions": "Actions",
         "Activer": "Attivare",
         "Ajouter": "Aggiungi",
-        "Amérique du Nord": "Amérique du Nord",
         "Arrivée": "Arrivo",
         "Aucun": "Nessuno",
         "Aucun équipement trouvé, cliquer sur \"Ajouter\" pour commencer": "Aucun équipement trouvé, cliquer sur \"Ajouter\" pour commencer",
