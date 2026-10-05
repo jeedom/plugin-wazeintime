@@ -6,16 +6,17 @@
 		"en_US": "Plugin to have the journey time between two points",
 		"es_ES": "Complemento para tener el tiempo de viaje entre dos puntos",
 		"de_DE": "Plugin für die Reisezeit zwischen zwei Punkten",
-		"pt_PT": "Plugin para ter o tempo de viagem entre dois pontos",
-		"it_IT": "Plugin pour avoir la durée de trajet entre deux points"
+		"pt_PT": "Plugin para ter o tempo de viagem entre dois pontos"
 	},
 	"licence": "AGPL",
 	"author": "Jeedom SAS",
-	"require": "4.4",
+	"require": "4.5",
 	"os": {
 		"min": 11
 	},
 	"category": "travel",
+	"hasDependency": true,
+	"hasOwnDeamon": true,
 	"changelog": "https://doc.jeedom.com/#language#/plugins/travel/wazeintime/changelog",
 	"documentation": "https://doc.jeedom.com/#language#/plugins/travel/wazeintime/",
 	"language": [

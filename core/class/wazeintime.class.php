@@ -43,6 +43,86 @@ class wazeintime extends eqLogic {
 		}
 	}
 
+	protected static function getSocketPort() {
+		return config::byKey('socketport', __CLASS__, 42043);;
+	}
+
+	private static function sendToDaemon(array $params) {
+		$deamon_info = self::deamon_info();
+		if ($deamon_info['state'] != 'ok') {
+			throw new RuntimeException("Le démon n'est pas démarré");
+		}
+		log::add(__CLASS__, 'debug', 'params to send to daemon:' . json_encode($params));
+		$params['apikey'] = jeedom::getApiKey(__CLASS__);
+		$payLoad = json_encode($params);
+		$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+		socket_connect($socket, '127.0.0.1', self::getSocketPort());
+		socket_write($socket, $payLoad, strlen($payLoad));
+		socket_close($socket);
+	}
+
+	public static function deamon_info() {
+		$return = array();
+		$return['log'] = '';
+		$return['launchable'] = 'ok';
+		$return['state'] = 'nok';
+		$pid_file = jeedom::getTmpFolder(__CLASS__) . '/daemon.pid';
+		if (file_exists($pid_file)) {
+			if (@posix_getsid(trim(file_get_contents($pid_file)))) {
+				$return['state'] = 'ok';
+			} else {
+				shell_exec(system::getCmdSudo() . 'rm -rf ' . $pid_file . ' 2>&1 > /dev/null');
+			}
+		}
+		return $return;
+	}
+
+	public static function deamon_start() {
+		self::deamon_stop();
+		$deamon_info = self::deamon_info();
+		if ($deamon_info['launchable'] != 'ok') {
+			throw new Exception(__('Veuillez vérifier la configuration', __FILE__));
+		}
+
+		$path = realpath(__DIR__ . '/../../resources');
+		$cmd = system::getCmdPython3(__CLASS__) . " {$path}/wazed.py";
+		$cmd .= ' --loglevel ' . log::convertLogLevel(log::getLogLevel(__CLASS__));
+		$cmd .= ' --socketport ' . self::getSocketPort();
+		$cmd .= ' --callback ' . network::getNetworkAccess('internal', 'proto:127.0.0.1:port:comp') . '/plugins/wazeintime/core/php/jeewaze.php';
+		$cmd .= ' --apikey ' . jeedom::getApiKey(__CLASS__, 'localhost');
+		$cmd .= ' --pid ' . jeedom::getTmpFolder(__CLASS__) . '/daemon.pid';
+		log::add(__CLASS__, 'info', 'Lancement démon');
+		$result = exec($cmd . ' >> ' . log::getPathToLog(__CLASS__ . '_daemon') . ' 2>&1 &');
+		$i = 0;
+		while ($i < 10) {
+			$deamon_info = self::deamon_info();
+			if ($deamon_info['state'] == 'ok') {
+				break;
+			}
+			sleep(1);
+			$i++;
+		}
+		if ($i >= 10) {
+			log::add(__CLASS__, 'error', __('Impossible de lancer le démon', __FILE__), 'unableStartDeamon');
+			return false;
+		}
+		message::removeAll(__CLASS__, 'unableStartDeamon');
+
+		return true;
+	}
+
+	public static function deamon_stop() {
+		$pid_file = jeedom::getTmpFolder(__CLASS__) . '/daemon.pid';
+		if (file_exists($pid_file)) {
+			log::add(__CLASS__, 'info', 'Arrêt démon');
+			$pid = intval(trim(file_get_contents($pid_file)));
+			system::kill($pid);
+		}
+		sleep(1);
+		system::kill('wazed.py');
+		// system::fuserk(config::byKey('socketport', __CLASS__));
+	}
+
 	public function refreshRoutes() {
 		if (!$this->getIsEnable() == 1) return;
 		try {
@@ -50,55 +130,77 @@ class wazeintime extends eqLogic {
 			$start = $this->getPosition('start');
 			$end = $this->getPosition('end');
 
-			$region = ($this->getConfiguration('NOA', 0)) ? 'am' : 'row';
-			$subConfig = $this->getConfiguration('subscription');
-			$subscription = ($subConfig == '') ? '' : "&subscription={$subConfig}";
+			self::sendToDaemon([
+				'id' => $this->getId(),
+				'start' => "{$start['lat']},{$start['lon']}",
+				'end' => "{$end['lat']},{$end['lon']}"
+			]);
 
-			$baseUrl = "https://routing-livemap-{$region}.waze.com/RoutingManager/routingRequest";
-			$userAgent = 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:120.0) Gecko/20100101 Firefox/120.0' . hex2bin('0A') . 'referer: https://www.waze.com ';
+			// $region = ($this->getConfiguration('NOA', 0)) ? 'am' : 'row';
+			// $subConfig = $this->getConfiguration('subscription');
+			// $subscription = ($subConfig == '') ? '' : "&subscription={$subConfig}";
 
-			$from = str_replace(':', '%3A', "x:{$start['lon']}+y:{$start['lat']}");
-			$to = str_replace(':', '%3A', "x:{$end['lon']}+y:{$end['lat']}");
-			$options = urlencode('AVOID_TRAILS:t');
+			// $baseUrl = "https://routing-livemap-{$region}.waze.com/RoutingManager/routingRequest";
+			// $userAgent = 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:120.0) Gecko/20100101 Firefox/120.0' . hex2bin('0A') . 'referer: https://www.waze.com ';
 
-			$wazeRouteUrl = "{$baseUrl}?from={$from}&to={$to}&at=0&returnJSON=true&timeout=60000&nPaths=3&options={$options}{$subscription}";
-			log::add(__CLASS__, 'debug', "routeURL: {$wazeRouteUrl}");
-			$request_http = new com_http($wazeRouteUrl);
-			$request_http->setUserAgent($userAgent);
-			$json = json_decode($request_http->exec(60, 2), true);
-			if (isset($json['error'])) {
-				throw new Exception($json['error']);
-			}
-			$data = self::extractInfo($json);
+			// $from = str_replace(':', '%3A', "x:{$start['lon']}+y:{$start['lat']}");
+			// $to = str_replace(':', '%3A', "x:{$end['lon']}+y:{$end['lat']}");
+			// $options = urlencode('AVOID_TRAILS:t');
 
-			$wazeRouteRetUrl = "{$baseUrl}?from={$to}&to={$from}&at=0&returnJSON=true&timeout=60000&nPaths=3&options={$options}{$subscription}";
-			log::add(__CLASS__, 'debug', "return routeURL: {$wazeRouteUrl}");
-			$request_http = new com_http($wazeRouteRetUrl);
-			$request_http->setUserAgent($userAgent);
-			$json = json_decode($request_http->exec(60, 2), true);
-			if (isset($json['error'])) {
-				throw new Exception($json['error']);
-			}
-			$data = array_merge($data, self::extractInfo($json, 'ret'));
+			// $wazeRouteUrl = "{$baseUrl}?from={$from}&to={$to}&at=0&returnJSON=true&timeout=60000&nPaths=3&options={$options}{$subscription}";
+			// log::add(__CLASS__, 'debug', "routeURL: {$wazeRouteUrl}");
+			// $request_http = new com_http($wazeRouteUrl);
+			// $request_http->setUserAgent($userAgent);
+			// $json = json_decode($request_http->exec(60, 2), true);
+			// if (!is_array($json)) {
+			// 	throw new RuntimeException(__("Impossible d'obtenir la route", __FILE__));
+			// }
+			// if (isset($json['error'])) {
+			// 	throw new Exception($json['error']);
+			// }
+			// $data = self::extractInfo($json);
 
-			log::add(__CLASS__, 'debug', 'Result data: ' . print_r($data, true));
-			foreach ($this->getCmd('info') as $cmd) {
-				if ($cmd->getLogicalId() == 'lastrefresh') {
-					$cmd->event(date('H:i'));
-					continue;
-				}
-				if (!isset($data[$cmd->getLogicalId()])) {
-					continue;
-				}
-				if ($cmd->formatValue($data[$cmd->getLogicalId()]) != $cmd->execCmd()) {
-					$cmd->setCollectDate('');
-					$cmd->event($data[$cmd->getLogicalId()]);
-				}
-			}
+			// $wazeRouteRetUrl = "{$baseUrl}?from={$to}&to={$from}&at=0&returnJSON=true&timeout=60000&nPaths=3&options={$options}{$subscription}";
+			// log::add(__CLASS__, 'debug', "return routeURL: {$wazeRouteUrl}");
+			// $request_http = new com_http($wazeRouteRetUrl);
+			// $request_http->setUserAgent($userAgent);
+			// $json = json_decode($request_http->exec(60, 2), true);
+			// if (!is_array($json)) {
+			// 	throw new RuntimeException(__("Impossible d'obtenir la route", __FILE__));
+			// }
+			// if (isset($json['error'])) {
+			// 	throw new Exception($json['error']);
+			// }
+			// $data = array_merge($data, self::extractInfo($json, 'ret'));
+
+			// log::add(__CLASS__, 'debug', 'Result data: ' . print_r($data, true));
+			// foreach ($this->getCmd('info') as $cmd) {
+			// 	if ($cmd->getLogicalId() == 'lastrefresh') {
+			// 		$cmd->event(date('H:i'));
+			// 		continue;
+			// 	}
+			// 	if (!isset($data[$cmd->getLogicalId()])) {
+			// 		continue;
+			// 	}
+			// 	if ($cmd->formatValue($data[$cmd->getLogicalId()]) != $cmd->execCmd()) {
+			// 		$cmd->setCollectDate('');
+			// 		$cmd->event($data[$cmd->getLogicalId()]);
+			// 	}
+			// }
 			$this->refreshWidget();
 		} catch (Exception $e) {
 			log::add(__CLASS__, 'error', $e->getMessage());
 		}
+	}
+
+	public function updateInfo(array $alternatives) {
+		log::add(__CLASS__, 'debug', 'Updating info with data: ' . json_encode($alternatives));
+		foreach ($alternatives as $id => $data) {
+			foreach ($data as $key => $value) {
+				$this->checkAndUpdateCmd($key, $value);
+			}
+		}
+		$this->checkAndUpdateCmd('lastrefresh', date('H:i'));
 	}
 
 	public static function extractInfo(array $_data, string $_prefix = '') {
@@ -131,7 +233,7 @@ class wazeintime extends eqLogic {
 		return $return;
 	}
 
-	public function getPosition($_point = 'start') {
+	private function getPosition($_point = 'start'): array {
 		$return = array();
 		$point = ($_point == 'start') ? 'depart' : 'arrive';
 		if ($this->getConfiguration('geoloc' . $_point, '') == 'none') {
@@ -174,7 +276,6 @@ class wazeintime extends eqLogic {
 	}
 
 	public function preInsert() {
-		$this->setConfiguration('NOA', 0);
 		$this->setConfiguration('hide1', 0);
 		$this->setConfiguration('hide2', 0);
 		$this->setConfiguration('hide3', 0);
@@ -231,18 +332,18 @@ class wazeintime extends eqLogic {
 		}
 	}
 
-	public function postUpdate() {
+	public function postSave() {
 		$routename1 = $this->getCmd(null, 'routename1');
 		if (!is_object($routename1)) {
 			$routename1 = new wazeintimeCmd();
 			$routename1->setLogicalId('routename1');
 			$routename1->setIsVisible(1);
 			$routename1->setName(__('Trajet 1', __FILE__));
+			$routename1->setType('info');
+			$routename1->setSubType('string');
+			$routename1->setEqLogic_id($this->getId());
+			$routename1->save();
 		}
-		$routename1->setType('info');
-		$routename1->setSubType('string');
-		$routename1->setEqLogic_id($this->getId());
-		$routename1->save();
 
 		$time1 = $this->getCmd(null, 'time1');
 		if (!is_object($time1)) {
@@ -251,11 +352,11 @@ class wazeintime extends eqLogic {
 			$time1->setUnite('min');
 			$time1->setIsVisible(1);
 			$time1->setName(__('Durée 1', __FILE__));
+			$time1->setType('info');
+			$time1->setSubType('numeric');
+			$time1->setEqLogic_id($this->getId());
+			$time1->save();
 		}
-		$time1->setType('info');
-		$time1->setSubType('numeric');
-		$time1->setEqLogic_id($this->getId());
-		$time1->save();
 
 		$routename2 = $this->getCmd(null, 'routename2');
 		if (!is_object($routename2)) {
@@ -263,11 +364,11 @@ class wazeintime extends eqLogic {
 			$routename2->setLogicalId('routename2');
 			$routename2->setIsVisible(1);
 			$routename2->setName(__('Trajet 2', __FILE__));
+			$routename2->setType('info');
+			$routename2->setSubType('string');
+			$routename2->setEqLogic_id($this->getId());
+			$routename2->save();
 		}
-		$routename2->setType('info');
-		$routename2->setSubType('string');
-		$routename2->setEqLogic_id($this->getId());
-		$routename2->save();
 
 		$time2 = $this->getCmd(null, 'time2');
 		if (!is_object($time2)) {
@@ -275,12 +376,12 @@ class wazeintime extends eqLogic {
 			$time2->setLogicalId('time2');
 			$time2->setIsVisible(1);
 			$time2->setName(__('Durée 2', __FILE__));
+			$time2->setType('info');
+			$time2->setSubType('numeric');
+			$time2->setUnite('min');
+			$time2->setEqLogic_id($this->getId());
+			$time2->save();
 		}
-		$time2->setType('info');
-		$time2->setSubType('numeric');
-		$time2->setUnite('min');
-		$time2->setEqLogic_id($this->getId());
-		$time2->save();
 
 		$routename3 = $this->getCmd(null, 'routename3');
 		if (!is_object($routename3)) {
@@ -288,11 +389,11 @@ class wazeintime extends eqLogic {
 			$routename3->setLogicalId('routename3');
 			$routename3->setIsVisible(1);
 			$routename3->setName(__('Trajet 3', __FILE__));
+			$routename3->setType('info');
+			$routename3->setSubType('string');
+			$routename3->setEqLogic_id($this->getId());
+			$routename3->save();
 		}
-		$routename3->setType('info');
-		$routename3->setSubType('string');
-		$routename3->setEqLogic_id($this->getId());
-		$routename3->save();
 
 		$time3 = $this->getCmd(null, 'time3');
 		if (!is_object($time3)) {
@@ -300,12 +401,12 @@ class wazeintime extends eqLogic {
 			$time3->setLogicalId('time3');
 			$time3->setIsVisible(1);
 			$time3->setName(__('Durée 3', __FILE__));
+			$time3->setType('info');
+			$time3->setSubType('numeric');
+			$time3->setUnite('min');
+			$time3->setEqLogic_id($this->getId());
+			$time3->save();
 		}
-		$time3->setType('info');
-		$time3->setSubType('numeric');
-		$time3->setUnite('min');
-		$time3->setEqLogic_id($this->getId());
-		$time3->save();
 
 		$routeretname1 = $this->getCmd(null, 'routeretname1');
 		if (!is_object($routeretname1)) {
@@ -313,11 +414,11 @@ class wazeintime extends eqLogic {
 			$routeretname1->setLogicalId('routeretname1');
 			$routeretname1->setIsVisible(1);
 			$routeretname1->setName(__('Trajet retour 1', __FILE__));
+			$routeretname1->setType('info');
+			$routeretname1->setSubType('string');
+			$routeretname1->setEqLogic_id($this->getId());
+			$routeretname1->save();
 		}
-		$routeretname1->setType('info');
-		$routeretname1->setSubType('string');
-		$routeretname1->setEqLogic_id($this->getId());
-		$routeretname1->save();
 
 		$timeret1 = $this->getCmd(null, 'timeret1');
 		if (!is_object($timeret1)) {
@@ -326,11 +427,11 @@ class wazeintime extends eqLogic {
 			$timeret1->setUnite('min');
 			$timeret1->setIsVisible(1);
 			$timeret1->setName(__('Durée retour 1', __FILE__));
+			$timeret1->setType('info');
+			$timeret1->setSubType('numeric');
+			$timeret1->setEqLogic_id($this->getId());
+			$timeret1->save();
 		}
-		$timeret1->setType('info');
-		$timeret1->setSubType('numeric');
-		$timeret1->setEqLogic_id($this->getId());
-		$timeret1->save();
 
 		$routeretname2 = $this->getCmd(null, 'routeretname2');
 		if (!is_object($routeretname2)) {
@@ -338,11 +439,11 @@ class wazeintime extends eqLogic {
 			$routeretname2->setLogicalId('routeretname2');
 			$routeretname2->setIsVisible(1);
 			$routeretname2->setName(__('Trajet retour 2', __FILE__));
+			$routeretname2->setType('info');
+			$routeretname2->setSubType('string');
+			$routeretname2->setEqLogic_id($this->getId());
+			$routeretname2->save();
 		}
-		$routeretname2->setType('info');
-		$routeretname2->setSubType('string');
-		$routeretname2->setEqLogic_id($this->getId());
-		$routeretname2->save();
 
 		$timeret2 = $this->getCmd(null, 'timeret2');
 		if (!is_object($timeret2)) {
@@ -350,12 +451,12 @@ class wazeintime extends eqLogic {
 			$timeret2->setLogicalId('timeret2');
 			$timeret2->setIsVisible(1);
 			$timeret2->setName(__('Durée retour 2', __FILE__));
+			$timeret2->setType('info');
+			$timeret2->setSubType('numeric');
+			$timeret2->setUnite('min');
+			$timeret2->setEqLogic_id($this->getId());
+			$timeret2->save();
 		}
-		$timeret2->setType('info');
-		$timeret2->setSubType('numeric');
-		$timeret2->setUnite('min');
-		$timeret2->setEqLogic_id($this->getId());
-		$timeret2->save();
 
 		$routeretname3 = $this->getCmd(null, 'routeretname3');
 		if (!is_object($routeretname3)) {
@@ -363,11 +464,11 @@ class wazeintime extends eqLogic {
 			$routeretname3->setLogicalId('routeretname3');
 			$routeretname3->setIsVisible(1);
 			$routeretname3->setName(__('Trajet retour 3', __FILE__));
+			$routeretname3->setType('info');
+			$routeretname3->setSubType('string');
+			$routeretname3->setEqLogic_id($this->getId());
+			$routeretname3->save();
 		}
-		$routeretname3->setType('info');
-		$routeretname3->setSubType('string');
-		$routeretname3->setEqLogic_id($this->getId());
-		$routeretname3->save();
 
 		$timeret3 = $this->getCmd(null, 'timeret3');
 		if (!is_object($timeret3)) {
@@ -375,12 +476,13 @@ class wazeintime extends eqLogic {
 			$timeret3->setLogicalId('timeret3');
 			$timeret3->setIsVisible(1);
 			$timeret3->setName(__('Durée retour 3', __FILE__));
+			$timeret3->setType('info');
+			$timeret3->setSubType('numeric');
+			$timeret3->setUnite('min');
+			$timeret3->setEqLogic_id($this->getId());
+			$timeret3->save();
 		}
-		$timeret3->setType('info');
-		$timeret3->setSubType('numeric');
-		$timeret3->setUnite('min');
-		$timeret3->setEqLogic_id($this->getId());
-		$timeret3->save();
+
 
 		$lastrefresh = $this->getCmd(null, 'lastrefresh');
 		if (!is_object($lastrefresh)) {
@@ -388,11 +490,11 @@ class wazeintime extends eqLogic {
 			$lastrefresh->setLogicalId('lastrefresh');
 			$lastrefresh->setIsVisible(1);
 			$lastrefresh->setName(__('Dernier refresh', __FILE__));
+			$lastrefresh->setType('info');
+			$lastrefresh->setSubType('string');
+			$lastrefresh->setEqLogic_id($this->getId());
+			$lastrefresh->save();
 		}
-		$lastrefresh->setType('info');
-		$lastrefresh->setSubType('string');
-		$lastrefresh->setEqLogic_id($this->getId());
-		$lastrefresh->save();
 
 		$refresh = $this->getCmd(null, 'refresh');
 		if (!is_object($refresh)) {
@@ -400,11 +502,11 @@ class wazeintime extends eqLogic {
 			$refresh->setLogicalId('refresh');
 			$refresh->setIsVisible(1);
 			$refresh->setName(__('Rafraichir', __FILE__));
+			$refresh->setType('action');
+			$refresh->setSubType('other');
+			$refresh->setEqLogic_id($this->getId());
+			$refresh->save();
 		}
-		$refresh->setType('action');
-		$refresh->setSubType('other');
-		$refresh->setEqLogic_id($this->getId());
-		$refresh->save();
 
 		$this->refreshRoutes();
 	}

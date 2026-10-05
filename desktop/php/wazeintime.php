@@ -232,12 +232,6 @@ $eqLogics = eqLogic::byType($plugin->getId());
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-3 control-label">{{Amérique du Nord}}</label>
-                <div class="col-sm-2">
-                  <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="NOA" checked />
-                </div>
-              </div>
-              <div class="form-group">
                 <label class="col-sm-3 control-label help" data-help="Indiquez les abonnements que vous voulez activer, liste d'élements séparés par une virgule (* pour tout activer)">{{Abonnements}}</label>
                 <div class="col-sm-3">
                   <input type="text" class="eqLogicAttr form-control help" data-l1key="configuration" data-l2key="subscription" />

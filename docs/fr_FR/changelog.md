@@ -4,6 +4,14 @@
 >
 >Pour rappel s'il n'y a pas d'information sur la mise à jour, c'est que celle-ci concerne uniquement de la mise à jour de documentation, de traduction ou de texte
 
+# 06/10/2026
+
+- Mise à jour majeure pour contourner le blocage de Waze (erreur 403)
+- Nouvelles dépendances requises, elles seront installées lors de la mise à jour
+- Le plugin dispose d'un démon qui doit être démarré pour pouvoir rafrachir les trajets
+- Suppression de la compatibilité "Amérique du Nord"
+- Jeedom v4.5 requis
+
 # 20/12/2025
 
 - Correction pour les trajets "Amérique du Nord"
