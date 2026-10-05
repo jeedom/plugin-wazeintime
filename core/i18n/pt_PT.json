@@ -9,6 +9,8 @@
         "Durée retour 2": "Duração 2 back",
         "Durée retour 3": "Voltar Período 3",
         "Expression cron non valide: ": "Expressão cron inválida:",
+        "Impossible d'obtenir la route": "Não é possível obter o percurso",
+        "Impossible de lancer le démon": "Não é possível iniciar o daemon",
         "La commande donnant la localisation de départ ne contient pas une localisation valide (latitude,longitude)": "O comando que fornece a localização inicial não contém uma localização válida (latitude, longitude)",
         "La commande donnant la localisation ne contient pas une localisation valide (latitude,longitude)": "O comando que fornece a localização não contém uma localização válida (latitude, longitude)",
         "La latitude d\\'arrivée ne peut être vide et doit être un nombre valide": "A latitude de chegada não pode estar vazia e deve ser um número válido",
@@ -24,8 +26,12 @@
         "Trajet retour 1": "Viagem de regresso 1",
         "Trajet retour 2": "Viagem de regresso 2",
         "Trajet retour 3": "Viagem de regresso 3",
+        "Veuillez vérifier la configuration": "Por favor, verifique a configuração",
         "Vous devez sélectionner une commande donnant la localisation d\\'arrivée": "Você deve selecionar um pedido informando o local de chegada",
         "Vous devez sélectionner une commande donnant la localisation de départ": "Você deve selecionar um pedido fornecendo a localização inicial"
+    },
+    "plugins\/wazeintime\/core\/php\/jeewaze.php": {
+        "Vous n\\'etes pas autorisé à effectuer cette action": "Não tem autorização para realizar esta ação"
     },
     "plugins\/wazeintime\/desktop\/js\/wazeintime.js": {
         "Afficher": "Mostrar",
@@ -48,7 +54,6 @@
         "Actions": "Ações",
         "Activer": "Ativar",
         "Ajouter": "Adicionar",
-        "Amérique du Nord": "América do Norte",
         "Arrivée": "Chegada",
         "Aucun": "Nemhum",
         "Aucun équipement trouvé, cliquer sur \"Ajouter\" pour commencer": "Nenhum equipamento encontrado, clique em \"Adicionar\" para iniciar",
