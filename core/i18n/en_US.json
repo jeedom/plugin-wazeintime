@@ -27,6 +27,7 @@
         "Vous n\\'etes pas autorisé à effectuer cette action": "You are not authorized to perform this action"
     },
     "plugins\/wazeintime\/desktop\/js\/wazeintime.js": {
+        "Afficher": "Show",
         "Aucune": "None",
         "Choisir une icône": "Choose an icon",
         "Commande info liée": "Linked info command",
