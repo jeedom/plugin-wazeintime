@@ -27,14 +27,10 @@
         "Vous n\\'etes pas autorisé à effectuer cette action": "Sie sind nicht berechtigt, diese Aktion auszuführen"
     },
     "plugins\/wazeintime\/desktop\/js\/wazeintime.js": {
-        "Afficher": "Zum Anzeigen",
         "Aucune": "Keiner",
         "Choisir une icône": "Wählen Sie ein Symbol aus",
         "Commande info liée": "Verknüpfter Info-Befehl",
         "Historiser": "Chronik",
-        "Inverser": "Umkehren",
-        "Max": "Max",
-        "Min": "Minimum",
         "Nom de la commande": "Bestellname",
         "Supprimer la commande": "Auftrag löschen",
         "Unité": "Einheit"
