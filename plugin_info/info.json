@@ -15,11 +15,13 @@
 	"os": {
 		"min": 12
 	},
-	"category": "travel",
+	"category": "organization",
 	"hasDependency": true,
 	"hasOwnDeamon": true,
-	"changelog": "https://doc.jeedom.com/#language#/plugins/travel/wazeintime/changelog",
-	"documentation": "https://doc.jeedom.com/#language#/plugins/travel/wazeintime/",
+	"changelog_beta": "https://doc.jeedom.com/#language#/plugins/organization/wazeintime/beta/changelog",
+	"documentation_beta": "https://doc.jeedom.com/#language#/plugins/organization/wazeintime/beta",
+	"changelog": "https://doc.jeedom.com/#language#/plugins/organization/wazeintime/changelog",
+	"documentation": "https://doc.jeedom.com/#language#/plugins/organization/wazeintime/",
 	"language": [
 		"de_DE",
 		"en_US",
@@ -35,7 +37,5 @@
 		"diy",
 		"mobile",
 		"v4"
-	],
-	"changelog_beta": "https://doc.jeedom.com/#language#/plugins/travel/wazeintime/beta/changelog",
-	"documentation_beta": "https://doc.jeedom.com/#language#/plugins/travel/wazeintime/beta"
+	]
 }
