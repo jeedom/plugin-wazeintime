@@ -9,6 +9,8 @@
         "Durée retour 2": "Duración trayecto de vuelta 2",
         "Durée retour 3": "Duración trayecto de vuelta 3",
         "Expression cron non valide: ": "Expresión cron no válida:",
+        "Impossible d'obtenir la route": "No se puede obtener la ruta",
+        "Impossible de lancer le démon": "No se puede iniciar el demonio",
         "La commande donnant la localisation de départ ne contient pas une localisation valide (latitude,longitude)": "El comando que proporciona la ubicación inicial no contiene una ubicación válida (latitud, longitud)",
         "La commande donnant la localisation ne contient pas une localisation valide (latitude,longitude)": "El comando que proporciona la ubicación no contiene una ubicación válida (latitud, longitud)",
         "La latitude d\\'arrivée ne peut être vide et doit être un nombre valide": "La latitud de llegada no puede estar vacía y debe ser un número válido",
@@ -24,8 +26,12 @@
         "Trajet retour 1": "Trayecto de vuelta 1",
         "Trajet retour 2": "Trayecto de vuelta 2",
         "Trajet retour 3": "Trayecto de vuelta 3",
+        "Veuillez vérifier la configuration": "Comprueba la configuración",
         "Vous devez sélectionner une commande donnant la localisation d\\'arrivée": "Debes seleccionar un pedido que indique el lugar de llegada",
         "Vous devez sélectionner une commande donnant la localisation de départ": "Debes seleccionar un pedido que indique la ubicación de inicio"
+    },
+    "plugins\/wazeintime\/core\/php\/jeewaze.php": {
+        "Vous n\\'etes pas autorisé à effectuer cette action": "No tienes permiso para realizar esta acción"
     },
     "plugins\/wazeintime\/desktop\/js\/wazeintime.js": {
         "Afficher": "Para mostrar",
@@ -48,7 +54,6 @@
         "Actions": "Comparte",
         "Activer": "Activar",
         "Ajouter": "Añadir",
-        "Amérique du Nord": "América del norte",
         "Arrivée": "Llegada",
         "Aucun": "Ninguna",
         "Aucun équipement trouvé, cliquer sur \"Ajouter\" pour commencer": "No se encontró ningún equipo, haga clic en \"Agregar\" para comenzar",

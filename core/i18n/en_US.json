@@ -9,6 +9,8 @@
         "Durée retour 2": "Return Period 2",
         "Durée retour 3": "Return Period 3",
         "Expression cron non valide: ": "Invalid cron expression:",
+        "Impossible d'obtenir la route": "Unable to obtain the route",
+        "Impossible de lancer le démon": "Unable to start the daemon",
         "La commande donnant la localisation de départ ne contient pas une localisation valide (latitude,longitude)": "The command giving the starting location does not contain a valid location (latitude, longitude)",
         "La commande donnant la localisation ne contient pas une localisation valide (latitude,longitude)": "The command giving the location does not contain a valid location (latitude, longitude)",
         "La latitude d\\'arrivée ne peut être vide et doit être un nombre valide": "Arrival latitude cannot be empty and must be a valid number",
@@ -24,8 +26,12 @@
         "Trajet retour 1": "Return trip 1",
         "Trajet retour 2": "Return trip 2",
         "Trajet retour 3": "Return trip 3",
+        "Veuillez vérifier la configuration": "Please check the configuration",
         "Vous devez sélectionner une commande donnant la localisation d\\'arrivée": "You must select an order giving the arrival location",
         "Vous devez sélectionner une commande donnant la localisation de départ": "You must select an order giving the starting location"
+    },
+    "plugins\/wazeintime\/core\/php\/jeewaze.php": {
+        "Vous n\\'etes pas autorisé à effectuer cette action": "You are not authorized to perform this action"
     },
     "plugins\/wazeintime\/desktop\/js\/wazeintime.js": {
         "Afficher": "To display",
@@ -48,7 +54,6 @@
         "Actions": "Shares",
         "Activer": "Activate",
         "Ajouter": "Add",
-        "Amérique du Nord": "North America",
         "Arrivée": "Arrival",
         "Aucun": "None",
         "Aucun équipement trouvé, cliquer sur \"Ajouter\" pour commencer": "No equipment found, click \"Add\" to start",

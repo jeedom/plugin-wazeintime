@@ -6,7 +6,8 @@
 		"en_US": "Plugin to have the journey time between two points",
 		"es_ES": "Complemento para tener el tiempo de viaje entre dos puntos",
 		"de_DE": "Plugin für die Reisezeit zwischen zwei Punkten",
-		"pt_PT": "Plugin para ter o tempo de viagem entre dois pontos"
+		"pt_PT": "Plugin para ter o tempo de viagem entre dois pontos",
+		"it_IT": "Plugin per calcolare la durata del tragitto tra due punti"
 	},
 	"licence": "AGPL",
 	"author": "Jeedom SAS",
