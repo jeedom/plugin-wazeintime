@@ -27,14 +27,10 @@
         "Vous n\\'etes pas autorisé à effectuer cette action": "Non sei autorizzato a eseguire questa azione"
     },
     "plugins\/wazeintime\/desktop\/js\/wazeintime.js": {
-        "Afficher": "Afficher",
         "Aucune": "Aucune",
         "Choisir une icône": "Choisir une icône",
         "Commande info liée": "Commande info liée",
         "Historiser": "Storicizza",
-        "Inverser": "Inverser",
-        "Max": "Max",
-        "Min": "Min",
         "Nom de la commande": "Nom de la commande",
         "Supprimer la commande": "Supprimer la commande",
         "Unité": "Unité"
