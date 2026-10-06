@@ -23,7 +23,7 @@ class WazeDaemon(BaseDaemon):
 
         self._logger.info(f"Calculating outbound and return routes from {start} to {end} with options: {options}")
         await self.send_to_jeedom({message['id']: await self.__get_routes(start, end, options)})
-        await self.send_to_jeedom({message['id']: await self.__get_routes(end, start, options, 'ret')})
+        await self.send_to_jeedom({message['id']: await self.__get_routes(end, start, options, 'return_')})
 
     async def __get_routes(self, start: str, end: str, options: dict, prefix: str = ''):
 
@@ -47,9 +47,9 @@ class WazeDaemon(BaseDaemon):
                 for i, route in enumerate(results):
                     self._logger.debug(f"Route {i+1} name: {route.name}, duration: {route.duration}, distance: {route.distance} ")
                     routes.append({
-                        f'route{prefix}name{i+1}': route.name,
-                        f'time{prefix}{i+1}': round(route.duration),
-                        f'distance{prefix}{i+1}': route.distance
+                        f'{prefix}name{i+1}': route.name,
+                        f'{prefix}duration{i+1}': round(route.duration),
+                        f'{prefix}distance{i+1}': route.distance
                     })
 
         return routes

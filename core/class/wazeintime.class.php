@@ -256,157 +256,64 @@ class wazeintime extends eqLogic {
 		}
 	}
 
+	public function migrate() {
+		for ($i = 1; $i <= 3; $i++) {
+			$name = $this->getCmd(null, "routename{$i}");
+			if (is_object($name)) {
+				$name->setLogicalId("name{$i}");
+				$name->save(true);
+			}
+			$duration = $this->getCmd(null, "time{$i}");
+			if (is_object($duration)) {
+				$duration->setLogicalId("duration{$i}");
+				$duration->save(true);
+			}
+			$returnName = $this->getCmd(null, "routeretname{$i}");
+			if (is_object($returnName)) {
+				$returnName->setLogicalId("return_name{$i}");
+				$returnName->save(true);
+			}
+			$returnDuration = $this->getCmd(null, "timeret{$i}");
+			if (is_object($returnDuration)) {
+				$returnDuration->setLogicalId("return_duration{$i}");
+				$returnDuration->save(true);
+			}
+		}
+	}
+
 	public function postSave() {
-		$routename1 = $this->getCmd(null, 'routename1');
-		if (!is_object($routename1)) {
-			$routename1 = new wazeintimeCmd();
-			$routename1->setLogicalId('routename1');
-			$routename1->setIsVisible(1);
-			$routename1->setName(__('Trajet 1', __FILE__));
-			$routename1->setType('info');
-			$routename1->setSubType('string');
-			$routename1->setEqLogic_id($this->getId());
-			$routename1->save();
-		}
+		$this->migrate();
 
-		$time1 = $this->getCmd(null, 'time1');
-		if (!is_object($time1)) {
-			$time1 = new wazeintimeCmd();
-			$time1->setLogicalId('time1');
-			$time1->setUnite('min');
-			$time1->setIsVisible(1);
-			$time1->setName(__('Durée 1', __FILE__));
-			$time1->setType('info');
-			$time1->setSubType('numeric');
-			$time1->setEqLogic_id($this->getId());
-			$time1->save();
+		$commandTypes = [
+			'name' => ['label' => 'Trajet', 'subType' => 'string', 'unit' => ''],
+			'duration' => ['label' => 'Durée', 'subType' => 'numeric', 'unit' => 'min'],
+			'distance' => ['label' => 'Distance', 'subType' => 'numeric', 'unit' => 'km']
+		];
+		$directions = [
+			'' => '',
+			'return_' => ' retour'
+		];
+		foreach ($directions as $prefix => $labelSuffix) {
+			for ($i = 1; $i <= 3; $i++) {
+				foreach ($commandTypes as $type => $definition) {
+					$logicalId = "{$prefix}{$type}{$i}";
+					$command = $this->getCmd(null, $logicalId);
+					if (!is_object($command)) {
+						$command = new wazeintimeCmd();
+						$command->setLogicalId($logicalId);
+						$command->setIsVisible(1);
+						$command->setName(__($definition['label'] . $labelSuffix . " {$i}", __FILE__));
+						$command->setType('info');
+						$command->setSubType($definition['subType']);
+						if ($definition['unit'] !== '') {
+							$command->setUnite($definition['unit']);
+						}
+						$command->setEqLogic_id($this->getId());
+						$command->save();
+					}
+				}
+			}
 		}
-
-		$routename2 = $this->getCmd(null, 'routename2');
-		if (!is_object($routename2)) {
-			$routename2 = new wazeintimeCmd();
-			$routename2->setLogicalId('routename2');
-			$routename2->setIsVisible(1);
-			$routename2->setName(__('Trajet 2', __FILE__));
-			$routename2->setType('info');
-			$routename2->setSubType('string');
-			$routename2->setEqLogic_id($this->getId());
-			$routename2->save();
-		}
-
-		$time2 = $this->getCmd(null, 'time2');
-		if (!is_object($time2)) {
-			$time2 = new wazeintimeCmd();
-			$time2->setLogicalId('time2');
-			$time2->setIsVisible(1);
-			$time2->setName(__('Durée 2', __FILE__));
-			$time2->setType('info');
-			$time2->setSubType('numeric');
-			$time2->setUnite('min');
-			$time2->setEqLogic_id($this->getId());
-			$time2->save();
-		}
-
-		$routename3 = $this->getCmd(null, 'routename3');
-		if (!is_object($routename3)) {
-			$routename3 = new wazeintimeCmd();
-			$routename3->setLogicalId('routename3');
-			$routename3->setIsVisible(1);
-			$routename3->setName(__('Trajet 3', __FILE__));
-			$routename3->setType('info');
-			$routename3->setSubType('string');
-			$routename3->setEqLogic_id($this->getId());
-			$routename3->save();
-		}
-
-		$time3 = $this->getCmd(null, 'time3');
-		if (!is_object($time3)) {
-			$time3 = new wazeintimeCmd();
-			$time3->setLogicalId('time3');
-			$time3->setIsVisible(1);
-			$time3->setName(__('Durée 3', __FILE__));
-			$time3->setType('info');
-			$time3->setSubType('numeric');
-			$time3->setUnite('min');
-			$time3->setEqLogic_id($this->getId());
-			$time3->save();
-		}
-
-		$routeretname1 = $this->getCmd(null, 'routeretname1');
-		if (!is_object($routeretname1)) {
-			$routeretname1 = new wazeintimeCmd();
-			$routeretname1->setLogicalId('routeretname1');
-			$routeretname1->setIsVisible(1);
-			$routeretname1->setName(__('Trajet retour 1', __FILE__));
-			$routeretname1->setType('info');
-			$routeretname1->setSubType('string');
-			$routeretname1->setEqLogic_id($this->getId());
-			$routeretname1->save();
-		}
-
-		$timeret1 = $this->getCmd(null, 'timeret1');
-		if (!is_object($timeret1)) {
-			$timeret1 = new wazeintimeCmd();
-			$timeret1->setLogicalId('timeret1');
-			$timeret1->setUnite('min');
-			$timeret1->setIsVisible(1);
-			$timeret1->setName(__('Durée retour 1', __FILE__));
-			$timeret1->setType('info');
-			$timeret1->setSubType('numeric');
-			$timeret1->setEqLogic_id($this->getId());
-			$timeret1->save();
-		}
-
-		$routeretname2 = $this->getCmd(null, 'routeretname2');
-		if (!is_object($routeretname2)) {
-			$routeretname2 = new wazeintimeCmd();
-			$routeretname2->setLogicalId('routeretname2');
-			$routeretname2->setIsVisible(1);
-			$routeretname2->setName(__('Trajet retour 2', __FILE__));
-			$routeretname2->setType('info');
-			$routeretname2->setSubType('string');
-			$routeretname2->setEqLogic_id($this->getId());
-			$routeretname2->save();
-		}
-
-		$timeret2 = $this->getCmd(null, 'timeret2');
-		if (!is_object($timeret2)) {
-			$timeret2 = new wazeintimeCmd();
-			$timeret2->setLogicalId('timeret2');
-			$timeret2->setIsVisible(1);
-			$timeret2->setName(__('Durée retour 2', __FILE__));
-			$timeret2->setType('info');
-			$timeret2->setSubType('numeric');
-			$timeret2->setUnite('min');
-			$timeret2->setEqLogic_id($this->getId());
-			$timeret2->save();
-		}
-
-		$routeretname3 = $this->getCmd(null, 'routeretname3');
-		if (!is_object($routeretname3)) {
-			$routeretname3 = new wazeintimeCmd();
-			$routeretname3->setLogicalId('routeretname3');
-			$routeretname3->setIsVisible(1);
-			$routeretname3->setName(__('Trajet retour 3', __FILE__));
-			$routeretname3->setType('info');
-			$routeretname3->setSubType('string');
-			$routeretname3->setEqLogic_id($this->getId());
-			$routeretname3->save();
-		}
-
-		$timeret3 = $this->getCmd(null, 'timeret3');
-		if (!is_object($timeret3)) {
-			$timeret3 = new wazeintimeCmd();
-			$timeret3->setLogicalId('timeret3');
-			$timeret3->setIsVisible(1);
-			$timeret3->setName(__('Durée retour 3', __FILE__));
-			$timeret3->setType('info');
-			$timeret3->setSubType('numeric');
-			$timeret3->setUnite('min');
-			$timeret3->setEqLogic_id($this->getId());
-			$timeret3->save();
-		}
-
 
 		$lastrefresh = $this->getCmd(null, 'lastrefresh');
 		if (!is_object($lastrefresh)) {
