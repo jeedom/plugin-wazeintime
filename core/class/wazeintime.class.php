@@ -285,32 +285,50 @@ class wazeintime extends eqLogic {
 		$this->migrate();
 
 		$commandTypes = [
-			'name' => ['label' => 'Trajet', 'subType' => 'string', 'unit' => ''],
-			'duration' => ['label' => 'Durée', 'subType' => 'numeric', 'unit' => 'min'],
-			'distance' => ['label' => 'Distance', 'subType' => 'numeric', 'unit' => 'km']
+			'name' => [
+				'subType' => 'string',
+				'unit' => '',
+				'names' => [
+					'' => __('Trajet %s', __FILE__),
+					'return_' => __('Trajet retour %s', __FILE__)
+				]
+			],
+			'duration' => [
+				'subType' => 'numeric',
+				'unit' => 'min',
+				'names' => [
+					'' => __('Durée %s', __FILE__),
+					'return_' => __('Durée retour %s', __FILE__)
+				]
+			],
+			'distance' => [
+				'subType' => 'numeric',
+				'unit' => 'km',
+				'names' => [
+					'' => __('Distance %s', __FILE__),
+					'return_' => __('Distance retour %s', __FILE__)
+				]
+			]
 		];
-		$directions = [
-			'' => '',
-			'return_' => ' retour'
-		];
-		foreach ($directions as $prefix => $labelSuffix) {
+		$directions = ['', 'return_'];
+		foreach ($directions as $prefix) {
 			for ($i = 1; $i <= 3; $i++) {
 				foreach ($commandTypes as $type => $definition) {
 					$logicalId = "{$prefix}{$type}{$i}";
 					$command = $this->getCmd(null, $logicalId);
 					if (!is_object($command)) {
 						$command = new wazeintimeCmd();
-						$command->setLogicalId($logicalId);
-						$command->setIsVisible(1);
-						$command->setName(__($definition['label'] . $labelSuffix . " {$i}", __FILE__));
-						$command->setType('info');
-						$command->setSubType($definition['subType']);
-						if ($definition['unit'] !== '') {
-							$command->setUnite($definition['unit']);
-						}
-						$command->setEqLogic_id($this->getId());
-						$command->save();
 					}
+					$command->setLogicalId($logicalId);
+					$command->setIsVisible(1);
+					$command->setName(sprintf($definition['names'][$prefix], $i));
+					$command->setType('info');
+					$command->setSubType($definition['subType']);
+					if ($definition['unit'] !== '') {
+						$command->setUnite($definition['unit']);
+					}
+					$command->setEqLogic_id($this->getId());
+					$command->save();
 				}
 			}
 		}
