@@ -1,7 +1,11 @@
 from __future__ import annotations
 
+from typing import Literal
+
 from jeedomdaemon import BaseDaemon
 from pywaze import route_calculator
+
+VehicleType = Literal[None, "TAXI", "MOTORCYCLE"]
 
 
 class WazeDaemon(BaseDaemon):
@@ -17,6 +21,7 @@ class WazeDaemon(BaseDaemon):
 
         options = await self.__build_options(message)
 
+        self._logger.info(f"Calculating outbound and return routes from {start} to {end} with options: {options}")
         await self.send_to_jeedom({message['id']: await self.__get_routes(start, end, options)})
         await self.send_to_jeedom({message['id']: await self.__get_routes(end, start, options, 'ret')})
 
@@ -38,9 +43,9 @@ class WazeDaemon(BaseDaemon):
             except Exception as e:
                 self._logger.error(f"Error calculating routes: {e}")
             else:
-                self._logger.debug("Received %i results", len(results))
+                self._logger.info("Received %i results", len(results))
                 for i, route in enumerate(results):
-                    self._logger.info(f"Route {i+1} name: {route.name}, duration: {route.duration}, distance: {route.distance} ")
+                    self._logger.debug(f"Route {i+1} name: {route.name}, duration: {route.duration}, distance: {route.distance} ")
                     routes.append({
                         f'route{prefix}name{i+1}': route.name,
                         f'time{prefix}{i+1}': round(route.duration),
@@ -50,15 +55,29 @@ class WazeDaemon(BaseDaemon):
         return routes
 
     async def __build_options(self, message: dict) -> dict:
+
+        # accepted values for region: 'EU', 'NA', 'IL', 'AU'; not necessary in our case
+
         return {
             'region': message.get('region', 'EU'),
-            'vehicle_type': message.get('vehicle_type', None),
-            'avoid_toll_roads': await self.to_bool(message.get('avoid_toll_roads', False)),
-            'avoid_subscription_roads': await self.to_bool(message.get('avoid_subscription_roads', False)),
-            'avoid_ferries': await self.to_bool(message.get('avoid_ferries', False))
+            'vehicle_type': self.__to_vehicle_type(message.get('vehicle_type', None)),
+            'avoid_toll_roads': await self.__to_bool(message.get('avoid_toll_roads', False)),
+            'avoid_subscription_roads': await self.__to_bool(message.get('avoid_subscription_roads', False)),
+            'avoid_ferries': await self.__to_bool(message.get('avoid_ferries', False))
         }
 
-    async def to_bool(self, value) -> bool:
+    def __to_vehicle_type(self, value: str | None = None) -> VehicleType:
+        if value is None:
+            return None
+
+        value = value.upper()
+        if value == 'TAXI':
+            return 'TAXI'
+        if value == 'MOTORCYCLE':
+            return 'MOTORCYCLE'
+        return None
+
+    async def __to_bool(self, value) -> bool:
         if isinstance(value, bool):
             return value
         if isinstance(value, str):

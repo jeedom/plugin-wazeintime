@@ -10,6 +10,7 @@
 - Nouvelles dépendances requises, elles seront installées lors de la mise à jour
 - Le plugin dispose d'un démon qui doit être démarré pour pouvoir rafrachir les trajets
 - Suppression de la compatibilité "Amérique du Nord"
+- Ajout de nouveaux paramètres de trajet: *Type de véhicule*, *Eviter les routes à péage*, *Eviter les routes nécessitant une vignettes*, *Eviter ferries*
 - Debian 12 & Python 3.11 requis
 - Jeedom v4.5 requis
 

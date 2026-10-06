@@ -43,7 +43,7 @@ class wazeintime extends eqLogic {
 		}
 	}
 
-	protected static function getSocketPort() {
+	private static function getSocketPort() {
 		return config::byKey('socketport', __CLASS__, 42043);;
 	}
 
@@ -125,69 +125,22 @@ class wazeintime extends eqLogic {
 
 	public function refreshRoutes() {
 		if (!$this->getIsEnable() == 1) return;
+
 		try {
 			log::add(__CLASS__, 'info', __('Refresh routes pour: ', __FILE__) . $this->getName());
+
 			$start = $this->getPosition('start');
 			$end = $this->getPosition('end');
 
 			self::sendToDaemon([
 				'id' => $this->getId(),
 				'start' => "{$start['lat']},{$start['lon']}",
-				'end' => "{$end['lat']},{$end['lon']}"
+				'end' => "{$end['lat']},{$end['lon']}",
+				'vehicle_type' => $this->getConfiguration('vehicle_type'),
+				'avoid_toll_roads' => (bool)$this->getConfiguration('avoid_toll_roads', false),
+				'avoid_subscription_roads' => (bool)$this->getConfiguration('avoid_subscription_roads', false),
+				'avoid_ferries' => (bool)$this->getConfiguration('avoid_ferries', false)
 			]);
-
-			// $region = ($this->getConfiguration('NOA', 0)) ? 'am' : 'row';
-			// $subConfig = $this->getConfiguration('subscription');
-			// $subscription = ($subConfig == '') ? '' : "&subscription={$subConfig}";
-
-			// $baseUrl = "https://routing-livemap-{$region}.waze.com/RoutingManager/routingRequest";
-			// $userAgent = 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:120.0) Gecko/20100101 Firefox/120.0' . hex2bin('0A') . 'referer: https://www.waze.com ';
-
-			// $from = str_replace(':', '%3A', "x:{$start['lon']}+y:{$start['lat']}");
-			// $to = str_replace(':', '%3A', "x:{$end['lon']}+y:{$end['lat']}");
-			// $options = urlencode('AVOID_TRAILS:t');
-
-			// $wazeRouteUrl = "{$baseUrl}?from={$from}&to={$to}&at=0&returnJSON=true&timeout=60000&nPaths=3&options={$options}{$subscription}";
-			// log::add(__CLASS__, 'debug', "routeURL: {$wazeRouteUrl}");
-			// $request_http = new com_http($wazeRouteUrl);
-			// $request_http->setUserAgent($userAgent);
-			// $json = json_decode($request_http->exec(60, 2), true);
-			// if (!is_array($json)) {
-			// 	throw new RuntimeException(__("Impossible d'obtenir la route", __FILE__));
-			// }
-			// if (isset($json['error'])) {
-			// 	throw new Exception($json['error']);
-			// }
-			// $data = self::extractInfo($json);
-
-			// $wazeRouteRetUrl = "{$baseUrl}?from={$to}&to={$from}&at=0&returnJSON=true&timeout=60000&nPaths=3&options={$options}{$subscription}";
-			// log::add(__CLASS__, 'debug', "return routeURL: {$wazeRouteUrl}");
-			// $request_http = new com_http($wazeRouteRetUrl);
-			// $request_http->setUserAgent($userAgent);
-			// $json = json_decode($request_http->exec(60, 2), true);
-			// if (!is_array($json)) {
-			// 	throw new RuntimeException(__("Impossible d'obtenir la route", __FILE__));
-			// }
-			// if (isset($json['error'])) {
-			// 	throw new Exception($json['error']);
-			// }
-			// $data = array_merge($data, self::extractInfo($json, 'ret'));
-
-			// log::add(__CLASS__, 'debug', 'Result data: ' . print_r($data, true));
-			// foreach ($this->getCmd('info') as $cmd) {
-			// 	if ($cmd->getLogicalId() == 'lastrefresh') {
-			// 		$cmd->event(date('H:i'));
-			// 		continue;
-			// 	}
-			// 	if (!isset($data[$cmd->getLogicalId()])) {
-			// 		continue;
-			// 	}
-			// 	if ($cmd->formatValue($data[$cmd->getLogicalId()]) != $cmd->execCmd()) {
-			// 		$cmd->setCollectDate('');
-			// 		$cmd->event($data[$cmd->getLogicalId()]);
-			// 	}
-			// }
-			$this->refreshWidget();
 		} catch (Exception $e) {
 			log::add(__CLASS__, 'error', $e->getMessage());
 		}
@@ -201,36 +154,7 @@ class wazeintime extends eqLogic {
 			}
 		}
 		$this->checkAndUpdateCmd('lastrefresh', date('H:i'));
-	}
-
-	public static function extractInfo(array $_data, string $_prefix = '') {
-		$return = array();
-		log::add(__CLASS__, 'debug', 'raw data:' . json_encode($_data));
-		if (isset($_data['alternatives'])) {
-			$return['route' . $_prefix . 'name1'] = (isset($_data['alternatives'][0]['response']['shortRouteName'])) ? trim($_data['alternatives'][0]['response']['shortRouteName']) : "NA";
-			$return['route' . $_prefix . 'name2'] = (isset($_data['alternatives'][1]['response']['shortRouteName'])) ? trim($_data['alternatives'][1]['response']['shortRouteName']) : "NA";
-			$return['route' . $_prefix . 'name3'] = (isset($_data['alternatives'][2]['response']['shortRouteName'])) ? trim($_data['alternatives'][2]['response']['shortRouteName']) : "NA";
-			$return['time' . $_prefix . '1'] = (isset($_data['alternatives'][0]['response']['totalRouteTime'])) ? round($_data['alternatives'][0]['response']['totalRouteTime'] / 60) : 0;
-			$return['time' . $_prefix . '2'] = (isset($_data['alternatives'][1]['response']['totalRouteTime'])) ? round($_data['alternatives'][1]['response']['totalRouteTime'] / 60) : 0;
-			$return['time' . $_prefix . '3'] = (isset($_data['alternatives'][2]['response']['totalRouteTime'])) ? round($_data['alternatives'][2]['response']['totalRouteTime'] / 60) : 0;
-		} elseif (isset($_data['response'])) {
-			// sometime waze do not return several alternatives but only one
-			$return['route' . $_prefix . 'name1'] = (isset($_data['response']['shortRouteName'])) ? trim($_data['response']['shortRouteName']) : "NA";
-			$return['route' . $_prefix . 'name2'] = "NA";
-			$return['route' . $_prefix . 'name3'] = "NA";
-			$return['time' . $_prefix . '1'] = (isset($_data['response']['totalRouteTime'])) ? round($_data['response']['totalRouteTime'] / 60) : 0;
-			$return['time' . $_prefix . '2'] = 0;
-			$return['time' . $_prefix . '3'] = 0;
-		} else {
-			$return['route' . $_prefix . 'name1'] = "NA";
-			$return['route' . $_prefix . 'name2'] = "NA";
-			$return['route' . $_prefix . 'name3'] = "NA";
-			$return['time' . $_prefix . '1'] = 0;
-			$return['time' . $_prefix . '2'] = 0;
-			$return['time' . $_prefix . '3'] = 0;
-		}
-
-		return $return;
+		$this->refreshWidget();
 	}
 
 	private function getPosition($_point = 'start'): array {
