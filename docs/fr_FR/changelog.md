@@ -10,6 +10,7 @@
 - Nouvelles dépendances requises, elles seront installées lors de la mise à jour
 - Le plugin dispose d'un démon qui doit être démarré pour pouvoir rafrachir les trajets
 - Suppression de la compatibilité "Amérique du Nord"
+- Debian 12 & Python 3.11 requis
 - Jeedom v4.5 requis
 
 # 20/12/2025
