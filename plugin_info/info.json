@@ -1,47 +1,41 @@
 {
-    "id": "wazeintime",
-    "name": "Waze in Time",
-    "description": {
-        "fr_FR": "Plugin pour avoir la durée de trajet entre deux points",
-        "en_US": "Plugin to have the journey time between two points",
-        "es_ES": "Complemento para tener el tiempo de viaje entre dos puntos",
-        "de_DE": "Plugin für die Reisezeit zwischen zwei Punkten",
-        "pt_PT": "Plugin para ter o tempo de viagem entre dois pontos",
-        "ru_RU": "Plugin pour avoir la durée de trajet entre deux points",
-        "id_ID": "Plugin pour avoir la durée de trajet entre deux points",
-        "it_IT": "Plugin pour avoir la durée de trajet entre deux points",
-        "ja_JP": "Plugin pour avoir la durée de trajet entre deux points",
-        "tr": "Plugin pour avoir la durée de trajet entre deux points"
-    },
-    "licence": "AGPL",
-    "author": "Jeedom SAS",
-    "require": "4.4",
-    "os": {
-        "min": 11
-    },
-    "category": "travel",
-    "changelog": "https:\/\/doc.jeedom.com\/#language#\/plugins\/travel\/wazeintime\/changelog",
-    "documentation": "https:\/\/doc.jeedom.com\/#language#\/plugins\/travel\/wazeintime\/",
-    "language": [
-        "fr_FR",
-        "en_US",
-        "es_ES",
-        "de_DE",
-        "ru_RU",
-        "id_ID",
-        "it_IT",
-        "ja_JP",
-        "pt_PT",
-        "tr"
-    ],
-    "compatibility": [
-        "smart",
-        "rpi",
-        "docker",
-        "diy",
-        "mobile",
-        "v4"
-    ],
-    "changelog_beta": "https:\/\/doc.jeedom.com\/#language#\/plugins\/travel\/wazeintime\/beta\/changelog",
-    "documentation_beta": "https:\/\/doc.jeedom.com\/#language#\/plugins\/travel\/wazeintime\/beta"
+	"id": "wazeintime",
+	"name": "Waze in Time",
+	"description": {
+		"fr_FR": "Plugin pour avoir la durée de trajet entre deux points",
+		"en_US": "Plugin to have the journey time between two points",
+		"es_ES": "Complemento para tener el tiempo de viaje entre dos puntos",
+		"de_DE": "Plugin für die Reisezeit zwischen zwei Punkten",
+		"pt_PT": "Plugin para ter o tempo de viagem entre dois pontos",
+		"it_IT": "Plugin per calcolare la durata del tragitto tra due punti"
+	},
+	"licence": "AGPL",
+	"author": "Jeedom SAS",
+	"require": "4.5",
+	"os": {
+		"min": 12
+	},
+	"category": "organization",
+	"hasDependency": true,
+	"hasOwnDeamon": true,
+	"changelog_beta": "https://doc.jeedom.com/plugins/organization/wazeintime/beta/#language#/changelog",
+	"documentation_beta": "https://doc.jeedom.com/plugins/organization/wazeintime/beta/#language#/",
+	"changelog": "https://doc.jeedom.com/plugins/organization/wazeintime/#language#/changelog",
+	"documentation": "https://doc.jeedom.com/plugins/organization/wazeintime/#language#/",
+	"language": [
+		"de_DE",
+		"en_US",
+		"es_ES",
+		"fr_FR",
+		"it_IT",
+		"pt_PT"
+	],
+	"compatibility": [
+		"smart",
+		"rpi",
+		"docker",
+		"diy",
+		"mobile",
+		"v4"
+	]
 }

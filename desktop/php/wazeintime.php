@@ -76,14 +76,14 @@ $eqLogics = eqLogic::byType($plugin->getId());
               <legend><i class="fas fa-wrench"></i> {{Paramètres généraux}}</legend>
               <div class="form-group">
                 <label class="col-sm-3 control-label">{{Nom de l'équipement}}</label>
-                <div class="col-sm-7">
+                <div class="col-sm-3">
                   <input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" />
                   <input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de l'équipement}}" />
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-3 control-label">{{Objet parent}}</label>
-                <div class="col-sm-7">
+                <div class="col-sm-3">
                   <select id="sel_object" class="eqLogicAttr form-control" data-l1key="object_id">
                     <option value="">{{Aucun}}</option>
                     <?php
@@ -232,23 +232,41 @@ $eqLogics = eqLogic::byType($plugin->getId());
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-3 control-label">{{Amérique du Nord}}</label>
-                <div class="col-sm-2">
-                  <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="NOA" checked />
+                <label class="col-sm-3 control-label">{{Type de véhicule}}</label>
+                <div class="col-sm-3">
+                  <select class="form-control eqLogicAttr" id="geoloc" data-l1key="configuration" data-l2key="vehicle_type">
+                    <option value="">{{Particulier}}</option>
+                    <option value="TAXI">{{Taxi}}</option>
+                    <option value="MOTORCYCLE">{{Moto}}</option>
+                  </select>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-3 control-label help" data-help="Indiquez les abonnements que vous voulez activer, liste d'élements séparés par une virgule (* pour tout activer)">{{Abonnements}}</label>
-                <div class="col-sm-3">
-                  <input type="text" class="eqLogicAttr form-control help" data-l1key="configuration" data-l2key="subscription" />
+                <label class="col-sm-3 control-label">{{Options}}</label>
+                <div class="col-sm-5">
+                  <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="avoid_toll_roads" /> {{Eviter les routes à péage}}</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label"></label>
+                <div class="col-sm-5">
+                  <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="avoid_subscription_roads" /> {{Eviter les routes nécessitant une vignettes}}</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label"></label>
+                <div class="col-sm-5">
+                  <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="avoid_ferries" /> {{Eviter ferries}}</label>
                 </div>
               </div>
               <legend><i class="fa fa-wrench"></i> {{Paramètres d'affichage}}</legend>
               <div class="form-group">
                 <label class="col-sm-3 control-label">{{Masquer trajet}}</label>
-                <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="hide1" checked />1</label>
-                <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="hide2" checked />2</label>
-                <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="hide3" checked />3</label>
+                <div class="col-sm-5">
+                  <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="hide1" checked />1</label>
+                  <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="hide2" checked />2</label>
+                  <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="hide3" checked />3</label>
+                </div>
               </div>
             </div>
 
