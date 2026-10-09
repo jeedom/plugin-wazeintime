@@ -19,7 +19,7 @@ class WazeDaemon(BaseDaemon):
         start = message['start']
         end = message['end']
 
-        options = await self.__build_options(message)
+        options = self.__build_options(message)
 
         self._logger.info(f"Calculating outbound and return routes from {start} to {end} with options: {options}")
         await self.send_to_jeedom({message['id']: await self.__get_routes(start, end, options)})
@@ -54,16 +54,16 @@ class WazeDaemon(BaseDaemon):
 
         return routes
 
-    async def __build_options(self, message: dict) -> dict:
+    def __build_options(self, message: dict) -> dict:
 
         # accepted values for region: 'EU', 'NA', 'IL', 'AU'; not necessary in our case
 
         return {
             'region': message.get('region', 'EU'),
             'vehicle_type': self.__to_vehicle_type(message.get('vehicle_type', None)),
-            'avoid_toll_roads': await self.__to_bool(message.get('avoid_toll_roads', False)),
-            'avoid_subscription_roads': await self.__to_bool(message.get('avoid_subscription_roads', False)),
-            'avoid_ferries': await self.__to_bool(message.get('avoid_ferries', False))
+            'avoid_toll_roads': self.__to_bool(message.get('avoid_toll_roads', False)),
+            'avoid_subscription_roads': self.__to_bool(message.get('avoid_subscription_roads', False)),
+            'avoid_ferries': self.__to_bool(message.get('avoid_ferries', False))
         }
 
     def __to_vehicle_type(self, value: str | None = None) -> VehicleType:
@@ -77,7 +77,7 @@ class WazeDaemon(BaseDaemon):
             return 'MOTORCYCLE'
         return None
 
-    async def __to_bool(self, value) -> bool:
+    def __to_bool(self, value) -> bool:
         if isinstance(value, bool):
             return value
         if isinstance(value, str):
