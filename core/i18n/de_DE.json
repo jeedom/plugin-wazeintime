@@ -27,6 +27,7 @@
         "Vous n\\'etes pas autorisé à effectuer cette action": "Sie sind nicht berechtigt, diese Aktion auszuführen"
     },
     "plugins\/wazeintime\/desktop\/js\/wazeintime.js": {
+        "Afficher": "Anzeige",
         "Aucune": "Keiner",
         "Choisir une icône": "Wählen Sie ein Symbol aus",
         "Commande info liée": "Verknüpfter Info-Befehl",
