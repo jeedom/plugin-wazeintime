@@ -1,0 +1,2 @@
+jeedomdaemon~=2.0.0
+pywaze==1.2.4
